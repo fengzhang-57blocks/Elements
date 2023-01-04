@@ -16,6 +16,8 @@
 		7E331257296560B2003A5DE3 /* ElementsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331256296560B2003A5DE3 /* ElementsTests.swift */; };
 		7E331261296560B2003A5DE3 /* ElementsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331260296560B2003A5DE3 /* ElementsUITests.swift */; };
 		7E331263296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331262296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift */; };
+		7E331273296561A1003A5DE3 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331272296561A1003A5DE3 /* SegmentControl.swift */; };
+		7E331276296561BF003A5DE3 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331275296561BF003A5DE3 /* Segment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +51,8 @@
 		7E33125C296560B2003A5DE3 /* ElementsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ElementsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E331260296560B2003A5DE3 /* ElementsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsUITests.swift; sourceTree = "<group>"; };
 		7E331262296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7E331272296561A1003A5DE3 /* SegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
+		7E331275296561BF003A5DE3 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,9 +106,8 @@
 				7E33123F296560AF003A5DE3 /* AppDelegate.swift */,
 				7E331241296560AF003A5DE3 /* SceneDelegate.swift */,
 				7E331243296560AF003A5DE3 /* ViewController.swift */,
-				7E331245296560B0003A5DE3 /* Main.storyboard */,
-				7E331248296560B2003A5DE3 /* Assets.xcassets */,
-				7E33124A296560B2003A5DE3 /* LaunchScreen.storyboard */,
+				7E33126F2965610C003A5DE3 /* Components */,
+				7E33127029656129003A5DE3 /* Resource */,
 				7E33124D296560B2003A5DE3 /* Info.plist */,
 			);
 			path = Elements;
@@ -125,6 +128,41 @@
 				7E331262296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift */,
 			);
 			path = ElementsUITests;
+			sourceTree = "<group>";
+		};
+		7E33126F2965610C003A5DE3 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				7E3312712965616F003A5DE3 /* SegmentControl */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		7E33127029656129003A5DE3 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				7E331245296560B0003A5DE3 /* Main.storyboard */,
+				7E331248296560B2003A5DE3 /* Assets.xcassets */,
+				7E33124A296560B2003A5DE3 /* LaunchScreen.storyboard */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		7E3312712965616F003A5DE3 /* SegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				7E331275296561BF003A5DE3 /* Segment.swift */,
+				7E331272296561A1003A5DE3 /* SegmentControl.swift */,
+				7E331274296561A9003A5DE3 /* Cell */,
+			);
+			path = SegmentControl;
+			sourceTree = "<group>";
+		};
+		7E331274296561A9003A5DE3 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -259,8 +297,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E331244296560AF003A5DE3 /* ViewController.swift in Sources */,
+				7E331276296561BF003A5DE3 /* Segment.swift in Sources */,
 				7E331240296560AF003A5DE3 /* AppDelegate.swift in Sources */,
 				7E331242296560AF003A5DE3 /* SceneDelegate.swift in Sources */,
+				7E331273296561A1003A5DE3 /* SegmentControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

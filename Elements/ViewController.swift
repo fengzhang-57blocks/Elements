@@ -13,22 +13,23 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
 		
-		let segments = ["1", "2", "3", "4"].map {
+		let segments = ["Swift", "Objective-c", "Javascript", "Goland", "PHP"].map {
 			Segment(title: $0)
 		}
 		let segmentControl = SegmentControl(segments: segments)
 		segmentControl.translatesAutoresizingMaskIntoConstraints = false
-		
+//    segmentControl.alignment = .centered
 		segmentControl.backgroundColor = .orange
+    
+    segmentControl.style = .oval
 		
 		view.addSubview(segmentControl)
 		
 		NSLayoutConstraint.activate([
-			segmentControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
 			segmentControl.centerYAnchor.constraint(equalTo: view.centerYAnchor),
 			segmentControl.leadingAnchor.constraint(equalTo: view.leadingAnchor),
 			segmentControl.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-			segmentControl.heightAnchor.constraint(equalToConstant: 60),
+			segmentControl.heightAnchor.constraint(equalToConstant: 50),
 		])
 	}
 

@@ -11,11 +11,14 @@ class SegmentControl: UIView {
 	
 	lazy var collectionView: UICollectionView = {
 		let layout = UICollectionViewFlowLayout()
+    layout.minimumInteritemSpacing = 0
+    layout.minimumLineSpacing = 0
+    layout.scrollDirection = .horizontal
 		let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-		
+    layout.estimatedItemSize = UICollectionViewFlowLayout.automaticSize
 		collectionView.showsHorizontalScrollIndicator = false
 		collectionView.showsVerticalScrollIndicator = false
-		
+    collectionView.bounces = true
 		return collectionView
 	}()
 	
@@ -52,13 +55,15 @@ class SegmentControl: UIView {
 	
 	private func setupSubviews() {
 		addSubview(collectionView)
+    
+    ("" as NSString).boundingRect(with: bounds.size, context: nil)
 		
 		collectionView.register(SegmentControlOvalCell.self, forCellWithReuseIdentifier: "oval")
 		collectionView.register(SegmentControlIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
 		
 		collectionView.dataSource = self
 		collectionView.delegate = self
-		
+    
 		addSubview(collectionView)
 	}
 	
@@ -66,13 +71,21 @@ class SegmentControl: UIView {
 		super.layoutSubviews()
 		switch alignment {
 		case .tiled:
-			break
+      collectionView.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+      collectionView.frame.size = bounds.size
 		case .centered:
-			collectionView.center = CGPoint(x: center.x, y: bounds.height / 2)
-			collectionView.frame.size = CGSize(width: 200, height: 100)
+      collectionView.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+      let contentWidth = segments.reduce(0) { $0 + titleSize($1.title).width + layout.itemSpacing } + layout.horizontalSpacing * 2
+      let width = CGFloat.minimum(contentWidth, bounds.width)
+      if width.isEqual(to: bounds.width) {
+        collectionView.contentOffset.x = (contentWidth - width) / 2
+      }
+      
+      collectionView.frame.size = CGSize(width: width, height: bounds.height)
 			break
-		case .dynamic:
-			break
+		case .equalization:
+      collectionView.center = CGPoint(x: bounds.width / 2, y: bounds.height / 2)
+      collectionView.frame.size = bounds.size
 		}
 	}
 	
@@ -115,10 +128,34 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
-		return CGSize(width: 90, height: 50)
+    let segment = segments[indexPath.row]
+    switch alignment {
+    case .tiled:
+      return CGSize(width: titleSize(segment.title).width + layout.itemSpacing, height: bounds.height)
+    case .centered:
+      return CGSize(width: titleSize(segment.title).width + layout.itemSpacing, height: bounds.height)
+    case .equalization:
+      return CGSize(width: (bounds.width - layout.horizontalSpacing * 2) / CGFloat(segments.count), height: bounds.height)
+    }
 	}
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    return UIEdgeInsets(horizontal: layout.horizontalSpacing)
+  }
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 		
 	}
+}
+
+private extension SegmentControl {
+  func titleSize(_ string: String) -> CGSize {
+    return (string as NSString).boundingRect(
+      with: bounds.size,
+      attributes: [
+        .font: layout.font,
+      ],
+      context: nil)
+    .size
+  }
 }

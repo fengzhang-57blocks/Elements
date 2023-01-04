@@ -47,5 +47,9 @@ class SegmentControlIndicatorCell: SegmentControlCell {
 		super.configure(segment)
 		label.text = segment.title
 	}
+  
+  override var intrinsicContentSize: CGSize {
+    return CGSize(width: 200, height: 50)
+  }
 }
 

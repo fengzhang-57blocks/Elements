@@ -27,18 +27,25 @@ class SegmentControlOvalCell: SegmentControlCell {
 		}
 
 		button.addTarget(self, action: #selector(onTouchButton(_:)), for: .touchDown)
+    
+    button.translatesAutoresizingMaskIntoConstraints = false
 		
-		addSubview(button)
-		
+    addSubview(button)
+
 		NSLayoutConstraint.activate([
-			button.centerXAnchor.constraint(equalTo: centerXAnchor),
-			button.centerYAnchor.constraint(equalTo: centerYAnchor)
+      button.centerXAnchor.constraint(equalTo: centerXAnchor),
+      button.centerYAnchor.constraint(equalTo: centerYAnchor),
 		])
 	}
 	
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+  
+  override func configure(_ segment: Segment) {
+    super.configure(segment)
+    button.setTitle(segment.title, for: [])
+  }
 	
 	@objc private func onTouchButton(_ sender: UIButton) {
 		

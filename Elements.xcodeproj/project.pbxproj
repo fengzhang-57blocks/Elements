@@ -24,6 +24,7 @@
 		7E33127E296564AE003A5DE3 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33127D296564AE003A5DE3 /* Alignment.swift */; };
 		7E33128029656549003A5DE3 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33127F29656549003A5DE3 /* Layout.swift */; };
 		7E33128229656DAF003A5DE3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33128129656DAF003A5DE3 /* Style.swift */; };
+		B299B2522965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		7E33127D296564AE003A5DE3 /* Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
 		7E33127F29656549003A5DE3 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		7E33128129656DAF003A5DE3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				7E33123F296560AF003A5DE3 /* AppDelegate.swift */,
 				7E331241296560AF003A5DE3 /* SceneDelegate.swift */,
 				7E331243296560AF003A5DE3 /* ViewController.swift */,
+				B299B2502965BD12006AA7C7 /* Extensions */,
 				7E33126F2965610C003A5DE3 /* Components */,
 				7E33127029656129003A5DE3 /* Resource */,
 				7E33124D296560B2003A5DE3 /* Info.plist */,
@@ -181,6 +184,14 @@
 				7E33127B29656444003A5DE3 /* SegmentControlIndicatorCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		B299B2502965BD12006AA7C7 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -315,6 +326,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E331244296560AF003A5DE3 /* ViewController.swift in Sources */,
+				B299B2522965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift in Sources */,
 				7E3312782965640D003A5DE3 /* SegmentControlCell.swift in Sources */,
 				7E33127A2965643C003A5DE3 /* SegmentControlOvalCell.swift in Sources */,
 				7E331276296561BF003A5DE3 /* Segment.swift in Sources */,

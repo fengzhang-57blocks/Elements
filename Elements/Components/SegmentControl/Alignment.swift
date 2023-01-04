@@ -9,6 +9,6 @@ extension SegmentControl {
 	enum Alignment {
 		case tiled
 		case centered
-		case dynamic
+		case equalization
 	}
 }

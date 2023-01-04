@@ -18,6 +18,12 @@
 		7E331263296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331262296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift */; };
 		7E331273296561A1003A5DE3 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331272296561A1003A5DE3 /* SegmentControl.swift */; };
 		7E331276296561BF003A5DE3 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E331275296561BF003A5DE3 /* Segment.swift */; };
+		7E3312782965640D003A5DE3 /* SegmentControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3312772965640D003A5DE3 /* SegmentControlCell.swift */; };
+		7E33127A2965643C003A5DE3 /* SegmentControlOvalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E3312792965643C003A5DE3 /* SegmentControlOvalCell.swift */; };
+		7E33127C29656444003A5DE3 /* SegmentControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33127B29656444003A5DE3 /* SegmentControlIndicatorCell.swift */; };
+		7E33127E296564AE003A5DE3 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33127D296564AE003A5DE3 /* Alignment.swift */; };
+		7E33128029656549003A5DE3 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33127F29656549003A5DE3 /* Layout.swift */; };
+		7E33128229656DAF003A5DE3 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E33128129656DAF003A5DE3 /* Style.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +59,12 @@
 		7E331262296560B2003A5DE3 /* ElementsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElementsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7E331272296561A1003A5DE3 /* SegmentControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		7E331275296561BF003A5DE3 /* Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
+		7E3312772965640D003A5DE3 /* SegmentControlCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlCell.swift; sourceTree = "<group>"; };
+		7E3312792965643C003A5DE3 /* SegmentControlOvalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlOvalCell.swift; sourceTree = "<group>"; };
+		7E33127B29656444003A5DE3 /* SegmentControlIndicatorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlIndicatorCell.swift; sourceTree = "<group>"; };
+		7E33127D296564AE003A5DE3 /* Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
+		7E33127F29656549003A5DE3 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		7E33128129656DAF003A5DE3 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +163,10 @@
 		7E3312712965616F003A5DE3 /* SegmentControl */ = {
 			isa = PBXGroup;
 			children = (
+				7E33127F29656549003A5DE3 /* Layout.swift */,
 				7E331275296561BF003A5DE3 /* Segment.swift */,
+				7E33128129656DAF003A5DE3 /* Style.swift */,
+				7E33127D296564AE003A5DE3 /* Alignment.swift */,
 				7E331272296561A1003A5DE3 /* SegmentControl.swift */,
 				7E331274296561A9003A5DE3 /* Cell */,
 			);
@@ -161,6 +176,9 @@
 		7E331274296561A9003A5DE3 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				7E3312772965640D003A5DE3 /* SegmentControlCell.swift */,
+				7E3312792965643C003A5DE3 /* SegmentControlOvalCell.swift */,
+				7E33127B29656444003A5DE3 /* SegmentControlIndicatorCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -297,10 +315,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E331244296560AF003A5DE3 /* ViewController.swift in Sources */,
+				7E3312782965640D003A5DE3 /* SegmentControlCell.swift in Sources */,
+				7E33127A2965643C003A5DE3 /* SegmentControlOvalCell.swift in Sources */,
 				7E331276296561BF003A5DE3 /* Segment.swift in Sources */,
 				7E331240296560AF003A5DE3 /* AppDelegate.swift in Sources */,
 				7E331242296560AF003A5DE3 /* SceneDelegate.swift in Sources */,
 				7E331273296561A1003A5DE3 /* SegmentControl.swift in Sources */,
+				7E33128029656549003A5DE3 /* Layout.swift in Sources */,
+				7E33127C29656444003A5DE3 /* SegmentControlIndicatorCell.swift in Sources */,
+				7E33127E296564AE003A5DE3 /* Alignment.swift in Sources */,
+				7E33128229656DAF003A5DE3 /* Style.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

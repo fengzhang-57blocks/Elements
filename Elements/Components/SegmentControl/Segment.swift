@@ -5,13 +5,15 @@
 //  Created by 57block on 2023/1/4.
 //
 
+import Foundation
+
 struct Segment {
-	let title: String
+	let title: NSAttributedString
 	var selected: Bool
 	var disabled: Bool
 	
 	init(
-		title: String,
+		title: NSAttributedString,
 		selected: Bool = false,
 		disabled: Bool = false
 	) {

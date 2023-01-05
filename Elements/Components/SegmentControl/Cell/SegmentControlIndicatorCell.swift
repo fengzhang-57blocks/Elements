@@ -16,9 +16,7 @@ class SegmentControlIndicatorCell: SegmentControlCell {
 		
 		addSubview(label)
 		
-		label.textColor = .black
 		label.textAlignment = .center
-		label.font = .systemFont(ofSize: 15, weight: .medium)
 		label.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
@@ -43,9 +41,9 @@ class SegmentControlIndicatorCell: SegmentControlCell {
 		fatalError("init(coder:) has not been implemented")
 	}
 	
-	override func configure(_ segment: Segment) {
-		super.configure(segment)
-		label.text = segment.title
+	override func configure(_ segment: Segment, layout: SegmentControl.Layout) {
+		super.configure(segment, layout: layout)
+		label.attributedText = segment.title
 	}
   
   override var intrinsicContentSize: CGSize {

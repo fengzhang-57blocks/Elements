@@ -13,15 +13,19 @@ class ViewController: UIViewController {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
 		
-		let segments = ["Swift", "Objective-c", "Javascript", "Goland", "PHP"].map {
-			Segment(title: $0)
+		let segments = ["Swift", "Objective-c", "Javascript", "Goland", "PHP", "HTML"].map {
+			Segment(title: NSAttributedString(string: $0, attributes: [
+				.font: UIFont.systemFont(ofSize: 15, weight: .medium),
+				.foregroundColor: UIColor.white
+			]))
 		}
 		let segmentControl = SegmentControl(segments: segments)
 		segmentControl.translatesAutoresizingMaskIntoConstraints = false
-//    segmentControl.alignment = .centered
 		segmentControl.backgroundColor = .orange
+		
+		segmentControl.alignment = .tiled
     
-    segmentControl.style = .oval
+//    segmentControl.style = .oval
 		
 		view.addSubview(segmentControl)
 		

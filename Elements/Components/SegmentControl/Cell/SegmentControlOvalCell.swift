@@ -22,14 +22,15 @@ class SegmentControlOvalCell: SegmentControlCell {
 		} else {
 			button = UIButton()
 			button.backgroundColor = .white
-			button.setTitleColor(.white, for: .selected)
 			button.setTitleColor(.blue, for: .normal)
+			button.setTitleColor(.white, for: .selected)
+			button.layer.masksToBounds = true
 		}
+		
+		button.translatesAutoresizingMaskIntoConstraints = false
 
 		button.addTarget(self, action: #selector(onTouchButton(_:)), for: .touchDown)
     
-    button.translatesAutoresizingMaskIntoConstraints = false
-		
     addSubview(button)
 
 		NSLayoutConstraint.activate([
@@ -41,11 +42,23 @@ class SegmentControlOvalCell: SegmentControlCell {
 	required init?(coder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
+	override func layoutSubviews() {
+		super.layoutSubviews()
+		guard #available(iOS 15.0, *) else {
+			button.layer.cornerRadius = half(bounds.height)
+		}
+	}
   
-  override func configure(_ segment: Segment) {
-    super.configure(segment)
-    button.setTitle(segment.title, for: [])
-  }
+	override func configure(_ segment: Segment, layout: SegmentControl.Layout) {
+		super.configure(segment, layout: layout)
+		button.setAttributedTitle(segment.title, for: [])
+		if #available(iOS 15.0, *) {
+			button.configuration?.contentInsets = NSDirectionalEdgeInsets(insets: layout.contentInsets)
+		} else {
+			button.contentEdgeInsets = layout.contentInsets
+		}
+	}
 	
 	@objc private func onTouchButton(_ sender: UIButton) {
 		

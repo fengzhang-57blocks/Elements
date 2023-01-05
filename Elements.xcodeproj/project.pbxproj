@@ -27,6 +27,8 @@
 		7EB26A0D2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB26A0C2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift */; };
 		7EB26A0F2966BB41006BAB71 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB26A0E2966BB41006BAB71 /* Tools.swift */; };
 		B299B2522965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */; };
+		B2C22FF829671DF5005EFC26 /* SegmentControl+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C22FF729671DF5005EFC26 /* SegmentControl+Delegate.swift */; };
+		B2C22FFA29671EF7005EFC26 /* SegmentControl+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C22FF929671EF7005EFC26 /* SegmentControl+DataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,8 @@
 		7EB26A0C2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDirectionalEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		7EB26A0E2966BB41006BAB71 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
 		B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
+		B2C22FF729671DF5005EFC26 /* SegmentControl+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Delegate.swift"; sourceTree = "<group>"; };
+		B2C22FF929671EF7005EFC26 /* SegmentControl+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentControl+DataSource.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 				7E33128129656DAF003A5DE3 /* Style.swift */,
 				7E33127D296564AE003A5DE3 /* Alignment.swift */,
 				7E331272296561A1003A5DE3 /* SegmentControl.swift */,
+				B2C22FF929671EF7005EFC26 /* SegmentControl+DataSource.swift */,
+				B2C22FF729671DF5005EFC26 /* SegmentControl+Delegate.swift */,
 				7E331274296561A9003A5DE3 /* Cell */,
 			);
 			path = SegmentControl;
@@ -335,10 +341,12 @@
 				B299B2522965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift in Sources */,
 				7E3312782965640D003A5DE3 /* SegmentControlCell.swift in Sources */,
 				7EB26A0D2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
+				B2C22FFA29671EF7005EFC26 /* SegmentControl+DataSource.swift in Sources */,
 				7E33127A2965643C003A5DE3 /* SegmentControlOvalCell.swift in Sources */,
 				7E331276296561BF003A5DE3 /* Segment.swift in Sources */,
 				7EB26A0F2966BB41006BAB71 /* Tools.swift in Sources */,
 				7E331240296560AF003A5DE3 /* AppDelegate.swift in Sources */,
+				B2C22FF829671DF5005EFC26 /* SegmentControl+Delegate.swift in Sources */,
 				7E331242296560AF003A5DE3 /* SceneDelegate.swift in Sources */,
 				7E331273296561A1003A5DE3 /* SegmentControl.swift in Sources */,
 				7E33128029656549003A5DE3 /* Layout.swift in Sources */,

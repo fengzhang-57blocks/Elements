@@ -16,6 +16,9 @@ class SegmentControl: UIView {
 	var alignment: SegmentControl.Alignment = .centered
 	
 	var style: SegmentControl.Style = .indicator
+  
+  var dataSource: SegmentControlDataSource?
+  var delegate: SegmentControlDelegate?
 	
 	var segments: [Segment]
 	init(segments: [Segment] = []) {
@@ -80,27 +83,29 @@ class SegmentControl: UIView {
 	
 	func reloadSegments(_ segments: [Segment]) {
 		self.segments = segments
-		reloadData()
-	}
-	
-	func reloadData() {
-		collectionView.reloadData()
-		
-		layoutIfNeeded()
+    collectionView.reloadData()
 	}
 }
 
 extension SegmentControl: UICollectionViewDataSource {
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    if let dataSource = dataSource {
+      return dataSource.numberOfItemsInSegmentControl(self)
+    }
+    
 		return segments.count
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    if let dataSource = dataSource {
+      return dataSource.segmentControl(self, cellForItemAt: indexPath.item)
+    }
+    
 		var identifier = "oval"
 		if style == .indicator {
 			identifier = "indicator"
 		}
-		let segment = segments[indexPath.row]
+		let segment = segments[indexPath.item]
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SegmentControlCell
 		cell.configure(segment, layout: layout)
 		cell.backgroundColor = .purple
@@ -113,10 +118,14 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
+    if let size = delegate?.segmentControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item) {
+      return size
+    }
+    
     switch alignment {
 		case .tiled, .centered:
 			return CGSize(
-				width: titleSize(segments[indexPath.row].title).width + layout.contentInsets.horizontal,
+				width: titleSize(segments[indexPath.item].title).width + layout.contentInsets.horizontal,
 				height: bounds.height
 			)
     case .equalization:
@@ -129,16 +138,45 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     }
 	}
   
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-		return layout.itemSpacing
+	func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout) {
+        return spacing
+      }
+      
+      return layout.itemSpacing
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-		return layout.itemSpacing
+	func collectionView(
+    _ collectionView: UICollectionView,
+    layout collectionViewLayout: UICollectionViewLayout,
+    minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout) {
+        return spacing
+      }
+      
+      return layout.itemSpacing
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-		
+    let selectedSegment = segments[indexPath.item]
+    
+    self.segments = segments.map { s in
+      var nexts = s
+      nexts.isSelected = selectedSegment.title.isEqual(to: s.title)
+      return nexts
+    }
+    
+    collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+    collectionView.reloadData()
+    
+    if let actionHandler = selectedSegment.handler {
+      actionHandler(selectedSegment)
+    } else if let delegate = delegate {
+      delegate.segmentControl(self, didSelect: selectedSegment, at: indexPath.item)
+    }
 	}
 }
 

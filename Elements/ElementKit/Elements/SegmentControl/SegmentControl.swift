@@ -67,9 +67,9 @@ class SegmentControl: UIView {
 			}
 			
 			let contentWidth = segments.reduce(0) {
+				layout.contentInsets.horizontal +
 				$0 +
-				titleSize($1.title).width +
-				layout.contentInsets.horizontal
+				$1.title.boundingRectSize(bounds.size).width
 			} + cellSpacings
       let realWidth = CGFloat.minimum(contentWidth, bounds.width)
       if realWidth.isEqual(to: bounds.width) {
@@ -134,7 +134,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     switch alignment {
 		case .tiled, .centered:
 			return CGSize(
-				width: titleSize(segments[indexPath.item].title).width + layout.contentInsets.horizontal,
+				width: segments[indexPath.item].title.boundingRectSize(bounds.size).width + layout.contentInsets.horizontal,
 				height: bounds.height
 			)
     case .equalization:
@@ -189,14 +189,4 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
       delegate.segmentControl(self, didSelect: selectedSegment, at: indexPath.item)
     }
 	}
-}
-
-private extension SegmentControl {
-  func titleSize(_ straing: NSAttributedString) -> CGSize {
-		return straing.boundingRect(
-			with: bounds.size,
-			options: [.usesLineFragmentOrigin, .usesFontLeading],
-			context: nil
-		).size
-  }
 }

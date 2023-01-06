@@ -56,6 +56,7 @@ class SegmentControlIndicatorCell: SegmentControlCell {
     label.attributedText = segment.title
     indicator.isHidden = !segment.isSelected
     indicator.backgroundColor = layout.indicatorColor
+		
     if segment.isSelected {
       label.textColor = layout.selectedTitleColor
       contentView.backgroundColor = layout.backgroundColor

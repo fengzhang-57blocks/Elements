@@ -29,8 +29,8 @@ class SegmentControlViewController: BaseViewController {
 		
 		NSLayoutConstraint.activate([
 			s2.heightAnchor.constraint(equalToConstant: 50),
-			s2.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			s2.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			s2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+			s2.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 			s2.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100)
 		])
 		
@@ -43,8 +43,8 @@ class SegmentControlViewController: BaseViewController {
 		
 		NSLayoutConstraint.activate([
 			s3.heightAnchor.constraint(equalToConstant: 50),
-			s3.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-			s3.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+			s3.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+			s3.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 			s3.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100)
 		])
 	}

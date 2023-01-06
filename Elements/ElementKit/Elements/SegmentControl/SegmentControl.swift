@@ -9,8 +9,6 @@ import UIKit
 
 class SegmentControl: UIView {
 	
-	private(set) var collectionView: UICollectionView!
-	
 	var layout: SegmentControl.Layout = SegmentControl.Layout() {
 		didSet {
 			collectionView.reloadData()
@@ -24,10 +22,18 @@ class SegmentControl: UIView {
   var dataSource: SegmentControlDataSource?
   var delegate: SegmentControlDelegate?
 	
+	private(set) var collectionView: UICollectionView!
+	
+	private var selectedSegment: Segment?
+	
 	var segments: [Segment]
 	init(segments: [Segment] = []) {
 		self.segments = segments
 		super.init(frame: .zero)
+		
+		selectedSegment = segments.filter({
+			$0.isSelected
+		}).first
 	
 		setupSubviews()
 	}
@@ -54,6 +60,19 @@ class SegmentControl: UIView {
 		collectionView.bounces = true
 		
 		addSubview(collectionView)
+	}
+	
+	override func didMoveToSuperview() {
+		super.didMoveToSuperview()
+		if let selectedSegment = selectedSegment, let index = segments.firstIndex(of: selectedSegment) {
+			let indexPath = IndexPath(item: index, section: 0)
+			collectionView.selectItem(
+				at: indexPath,
+				animated: false,
+				scrollPosition: .centeredHorizontally
+			)
+			handleSelectSegment(selectedSegment, at: indexPath)
+		}
 	}
 	
 	override func layoutSubviews() {
@@ -87,6 +106,11 @@ class SegmentControl: UIView {
 	
 	func reloadSegments(_ segments: [Segment]) {
 		self.segments = segments
+		
+		selectedSegment = segments.filter({
+			$0.isSelected
+		}).first
+		
     collectionView.reloadData()
 	}
 	
@@ -172,21 +196,34 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
 	}
 	
 	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let selectedSegment = segments[indexPath.item]
-    
-    self.segments = segments.map { s in
+    let segment = segments[indexPath.item]
+		
+		if let selectedSegment = selectedSegment,
+			 selectedSegment.isEqual(to: segment),
+				!layout.isRepeatTouchEnabled {
+			return
+		}
+		
+		selectedSegment = segment
+		segments = segments.map { s in
       var nexts = s
-      nexts.isSelected = selectedSegment.title.isEqual(to: s.title)
+      nexts.isSelected = segment.title.isEqual(to: s.title)
       return nexts
     }
     
     collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     collectionView.reloadData()
     
-    if let actionHandler = selectedSegment.handler {
-      actionHandler(selectedSegment)
-    } else if let delegate = delegate {
-      delegate.segmentControl(self, didSelect: selectedSegment, at: indexPath.item)
-    }
+    handleSelectSegment(segment, at: indexPath)
+	}
+}
+
+private extension SegmentControl {
+	func handleSelectSegment(_ segment: Segment, at indexPath: IndexPath) {
+		if let actionHandler = segment.handler {
+			actionHandler(segment)
+		} else if let delegate = delegate {
+			delegate.segmentControl(self, didSelect: segment, at: indexPath.item)
+		}
 	}
 }

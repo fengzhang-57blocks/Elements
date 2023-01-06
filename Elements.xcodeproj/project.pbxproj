@@ -28,7 +28,7 @@
 		7E79FAAC2967AD3600920A00 /* SegmentControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E79FAAB2967AD3600920A00 /* SegmentControlViewController.swift */; };
 		7E79FAAF2967B5DE00920A00 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E79FAAE2967B5DE00920A00 /* BaseViewController.swift */; };
 		7EB26A0D2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB26A0C2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift */; };
-		7EB26A0F2966BB41006BAB71 /* Tools.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB26A0E2966BB41006BAB71 /* Tools.swift */; };
+		7EB26A0F2966BB41006BAB71 /* FloatingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB26A0E2966BB41006BAB71 /* FloatingPoint.swift */; };
 		B299B2522965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */; };
 		B2C22FF829671DF5005EFC26 /* SegmentControl+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C22FF729671DF5005EFC26 /* SegmentControl+Delegate.swift */; };
 		B2C22FFA29671EF7005EFC26 /* SegmentControl+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2C22FF929671EF7005EFC26 /* SegmentControl+DataSource.swift */; };
@@ -77,7 +77,7 @@
 		7E79FAAB2967AD3600920A00 /* SegmentControlViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentControlViewController.swift; sourceTree = "<group>"; };
 		7E79FAAE2967B5DE00920A00 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		7EB26A0C2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDirectionalEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
-		7EB26A0E2966BB41006BAB71 /* Tools.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tools.swift; sourceTree = "<group>"; };
+		7EB26A0E2966BB41006BAB71 /* FloatingPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingPoint.swift; sourceTree = "<group>"; };
 		B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		B2C22FF729671DF5005EFC26 /* SegmentControl+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Delegate.swift"; sourceTree = "<group>"; };
 		B2C22FF929671EF7005EFC26 /* SegmentControl+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SegmentControl+DataSource.swift"; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 		B299B2502965BD12006AA7C7 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				7EB26A0E2966BB41006BAB71 /* Tools.swift */,
+				7EB26A0E2966BB41006BAB71 /* FloatingPoint.swift */,
 				B299B2512965BF58006AA7C7 /* UIEdgeInsetsExtensions.swift */,
 				7EB26A0C2966B9BE006BAB71 /* NSDirectionalEdgeInsetsExtensions.swift */,
 				7E452157296802E200657778 /* NSAttributedStringExtensions.swift */,
@@ -379,7 +379,7 @@
 				7E79FAAF2967B5DE00920A00 /* BaseViewController.swift in Sources */,
 				7E33127A2965643C003A5DE3 /* SegmentControlOvalCell.swift in Sources */,
 				7E331276296561BF003A5DE3 /* Segment.swift in Sources */,
-				7EB26A0F2966BB41006BAB71 /* Tools.swift in Sources */,
+				7EB26A0F2966BB41006BAB71 /* FloatingPoint.swift in Sources */,
 				7E331240296560AF003A5DE3 /* AppDelegate.swift in Sources */,
 				7E79FAAC2967AD3600920A00 /* SegmentControlViewController.swift in Sources */,
 				B2C22FF829671DF5005EFC26 /* SegmentControl+Delegate.swift in Sources */,

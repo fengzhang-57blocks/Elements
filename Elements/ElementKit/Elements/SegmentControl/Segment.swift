@@ -30,4 +30,18 @@ struct Segment {
     self.handler = handler
 	}
 	
+	func isEqual(to s: Segment) -> Bool {
+		return value().elementsEqual(s.value())
+	}
+	
+	func value() -> String {
+		return title.string
+	}
+	
+}
+
+extension Segment: Equatable {
+	static func == (lhs: Segment, rhs: Segment) -> Bool {
+		return lhs.title.string.elementsEqual(rhs.title.string)
+	}
 }

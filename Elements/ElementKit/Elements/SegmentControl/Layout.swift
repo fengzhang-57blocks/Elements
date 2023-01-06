@@ -27,6 +27,8 @@ extension SegmentControl {
 		// Only works when style is oval
 		var borderWidth: CGFloat
 		var borderColor: UIColor
+		
+		var isRepeatTouchEnabled: Bool
     
 		init(
 			itemSpacing: CGFloat = 8,
@@ -38,7 +40,8 @@ extension SegmentControl {
       selectedBackgroundColor: UIColor = .white,
       indicatorColor: UIColor = .systemBlue,
       borderWidth: CGFloat = 2,
-      borderColor: UIColor = .systemBlue
+			borderColor: UIColor = .systemBlue,
+			isRepeatTouchEnabled: Bool = false
 		) {
 			self.itemSpacing = itemSpacing
       self.contentInsets = contentInsets
@@ -50,6 +53,7 @@ extension SegmentControl {
       self.indicatorColor = indicatorColor
       self.borderWidth = borderWidth
       self.borderColor = borderColor
+			self.isRepeatTouchEnabled = isRepeatTouchEnabled
 		}
 	}
 }

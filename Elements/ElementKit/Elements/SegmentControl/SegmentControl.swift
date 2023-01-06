@@ -9,9 +9,13 @@ import UIKit
 
 class SegmentControl: UIView {
 	
-	private var collectionView: UICollectionView!
+	private(set) var collectionView: UICollectionView!
 	
-	var layout: SegmentControl.Layout = SegmentControl.Layout()
+	var layout: SegmentControl.Layout = SegmentControl.Layout() {
+		didSet {
+			collectionView.reloadData()
+		}
+	}
 	
 	var alignment: SegmentControl.Alignment = .centered
 	
@@ -85,6 +89,10 @@ class SegmentControl: UIView {
 		self.segments = segments
     collectionView.reloadData()
 	}
+	
+	func reloadData() {
+		collectionView.reloadData()
+	}
 }
 
 extension SegmentControl: UICollectionViewDataSource {
@@ -108,7 +116,7 @@ extension SegmentControl: UICollectionViewDataSource {
 		let segment = segments[indexPath.item]
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SegmentControlCell
 		cell.configure(segment, layout: layout)
-		cell.backgroundColor = .purple
+		
 		return cell
 	}
 }
@@ -118,7 +126,8 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
-    if let size = delegate?.segmentControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item) {
+		if let size = delegate?.segmentControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
+				!size.equalTo(.zero) {
       return size
     }
     
@@ -142,7 +151,8 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout) {
+			if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout),
+					!spacing.isEqual(to: .zero) {
         return spacing
       }
       
@@ -153,7 +163,8 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout) {
+      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout),
+				 !spacing.isEqual(to: .zero) {
         return spacing
       }
       

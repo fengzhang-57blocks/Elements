@@ -8,16 +8,28 @@
 import UIKit
 
 class SegmentControlIndicatorCell: SegmentControlCell {
-	lazy var label = UILabel()
-	lazy var indicator = UIView()
+	lazy var label: UILabel = {
+		let label = UILabel()
+		label.textAlignment = .center
+		label.translatesAutoresizingMaskIntoConstraints = false
+		return label
+	}()
+	
+	lazy var indicator: UIView = {
+		let indicator = UIView()
+		indicator.isHidden = true
+		indicator.backgroundColor = .blue
+		indicator.translatesAutoresizingMaskIntoConstraints = false
+		return indicator
+	}()
+	
+	private var indicatorLeadingConstaint: NSLayoutConstraint!
+	private var indicatorTrailingConstaint: NSLayoutConstraint!
 	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
     contentView.addSubview(label)
-		
-		label.textAlignment = .center
-		label.translatesAutoresizingMaskIntoConstraints = false
 		
 		NSLayoutConstraint.activate([
       label.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -26,14 +38,13 @@ class SegmentControlIndicatorCell: SegmentControlCell {
 		
     contentView.addSubview(indicator)
 		
-    indicator.isHidden = true
-		indicator.backgroundColor = .blue
-		indicator.translatesAutoresizingMaskIntoConstraints = false
+		indicatorLeadingConstaint = indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor)
+		indicatorTrailingConstaint = indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor)
 		
 		NSLayoutConstraint.activate([
+			indicatorLeadingConstaint,
+			indicatorTrailingConstaint,
 			indicator.heightAnchor.constraint(equalToConstant: 3),
-			indicator.widthAnchor.constraint(equalToConstant: 20),
-      indicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
       indicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
 		])
 	}
@@ -52,6 +63,16 @@ class SegmentControlIndicatorCell: SegmentControlCell {
       label.textColor = layout.titleColor
       contentView.backgroundColor = layout.selectedBackgroundColor
     }
+		
+		if layout.titleInsets != .zero {
+			NSLayoutConstraint.deactivate([indicatorLeadingConstaint, indicatorTrailingConstaint])
+			indicatorLeadingConstaint = indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor, constant: layout.titleInsets.left)
+			indicatorTrailingConstaint = indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: -layout.titleInsets.right)
+			NSLayoutConstraint.activate([
+				indicatorLeadingConstaint,
+				indicatorTrailingConstaint,
+			])
+		}
 	}
   
 }

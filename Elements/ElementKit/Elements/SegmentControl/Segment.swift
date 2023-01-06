@@ -7,6 +7,8 @@
 
 import Foundation
 
+typealias SegmentActionHandler = (Segment) -> Void
+
 struct Segment {
   
   let title: NSAttributedString
@@ -14,13 +16,13 @@ struct Segment {
 	var isSelected: Bool
 	var isDisabled: Bool
   
-  let handler: ((_: Segment) -> Void)?
+  let handler: SegmentActionHandler?
 	
 	init(
 		title: NSAttributedString,
     isSelected: Bool = false,
     isDisabled: Bool = false,
-    handler: ((_: Segment) -> Void)? = nil
+    handler: SegmentActionHandler? = nil
 	) {
 		self.title = title
 		self.isSelected = isSelected

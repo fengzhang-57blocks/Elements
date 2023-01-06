@@ -9,33 +9,40 @@ import UIKit
 
 extension SegmentControl {
 	struct Layout {
-		let itemSpacing: CGFloat
-		let contentInsets: UIEdgeInsets
+		var itemSpacing: CGFloat
+		var contentInsets: UIEdgeInsets
+		
+		// Only works when style is indicator
+		var titleInsets: UIEdgeInsets
     
-    let titleColor: UIColor
-    let selectedTitleColor: UIColor
+		var titleColor: UIColor
+		var selectedTitleColor: UIColor
     
-    let backgroundColor: UIColor
-    let selectedBackgroundColor: UIColor
-    
-    let indicatorColor: UIColor
-    
-    let borderWidth: CGFloat
-    let borderColor: UIColor
+		var backgroundColor: UIColor
+		var selectedBackgroundColor: UIColor
+		
+		// Only works when style is indicator
+		var indicatorColor: UIColor
+		
+		// Only works when style is oval
+		var borderWidth: CGFloat
+		var borderColor: UIColor
     
 		init(
-			itemSpacing: CGFloat = 15,
+			itemSpacing: CGFloat = 8,
 			contentInsets: UIEdgeInsets = UIEdgeInsets(top: 7, left: 12, bottom: 7, right: 12),
+			titleInsets: UIEdgeInsets = .zero,
       titleColor: UIColor = .systemBlue,
       selectedTitleColor: UIColor = .systemBlue,
       backgroundColor: UIColor = .white,
-      selectedBackgroundColor: UIColor = .red,
+      selectedBackgroundColor: UIColor = .white,
       indicatorColor: UIColor = .systemBlue,
       borderWidth: CGFloat = 2,
-      borderColor: UIColor = .red
+      borderColor: UIColor = .systemBlue
 		) {
 			self.itemSpacing = itemSpacing
       self.contentInsets = contentInsets
+			self.titleInsets = titleInsets
       self.titleColor = titleColor
       self.selectedTitleColor = selectedTitleColor
       self.backgroundColor = backgroundColor

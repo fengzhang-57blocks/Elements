@@ -111,7 +111,9 @@
 		7E331233296560AF003A5DE3 = {
 			isa = PBXGroup;
 			children = (
-				7E33123E296560AF003A5DE3 /* Elements */,
+				7E79FAA92967ACA400920A00 /* Examples */,
+				7E79FAAD2967B4E700920A00 /* ElementsKit */,
+				7E33127029656129003A5DE3 /* Resource */,
 				7E331255296560B2003A5DE3 /* ElementsTests */,
 				7E33125F296560B2003A5DE3 /* ElementsUITests */,
 				7E33123D296560AF003A5DE3 /* Products */,
@@ -126,16 +128,6 @@
 				7E33125C296560B2003A5DE3 /* ElementsUITests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7E33123E296560AF003A5DE3 /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				7E79FAA92967ACA400920A00 /* Demos */,
-				7E79FAAD2967B4E700920A00 /* ElementKit */,
-				7E33127029656129003A5DE3 /* Resource */,
-			);
-			path = Elements;
 			sourceTree = "<group>";
 		};
 		7E331255296560B2003A5DE3 /* ElementsTests */ = {
@@ -201,14 +193,14 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		7E79FAA92967ACA400920A00 /* Demos */ = {
+		7E79FAA92967ACA400920A00 /* Examples */ = {
 			isa = PBXGroup;
 			children = (
 				7E79FAAE2967B5DE00920A00 /* BaseViewController.swift */,
 				7E331243296560AF003A5DE3 /* DemoListViewController.swift */,
 				7E79FAAA2967ACD600920A00 /* SegmentControl */,
 			);
-			path = Demos;
+			path = Examples;
 			sourceTree = "<group>";
 		};
 		7E79FAAA2967ACD600920A00 /* SegmentControl */ = {
@@ -219,13 +211,13 @@
 			path = SegmentControl;
 			sourceTree = "<group>";
 		};
-		7E79FAAD2967B4E700920A00 /* ElementKit */ = {
+		7E79FAAD2967B4E700920A00 /* ElementsKit */ = {
 			isa = PBXGroup;
 			children = (
 				7E33126F2965610C003A5DE3 /* Elements */,
 				B299B2502965BD12006AA7C7 /* Extensions */,
 			);
-			path = ElementKit;
+			path = ElementsKit;
 			sourceTree = "<group>";
 		};
 		B299B2502965BD12006AA7C7 /* Extensions */ = {

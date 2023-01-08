@@ -10,7 +10,7 @@ Pod::Spec.new do |spec|
 
   spec.ios.deployment_target = "11.0"
 
-  spec.source = { :git => "https://github.com/fengzhang-57blocks/SwiftElements.git", :tag => spec.version }
+  spec.source = { :git => "https://github.com/fengzhang-57blocks/SwiftElements.git", :tag => "0.0.1" }
 
   spec.source_files  = "Source/**/*.swift"
 

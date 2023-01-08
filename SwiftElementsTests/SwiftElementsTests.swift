@@ -1,14 +1,14 @@
 //
-//  ElementsTests.swift
-//  ElementsTests
+//  SwiftElementsTests.swift
+//  SwiftElementsTests
 //
-//  Created by 57block on 2023/1/4.
+//  Created by feng.zhang on 2023/1/8.
 //
 
 import XCTest
-@testable import Elements
+@testable import SwiftElements
 
-class ElementsTests: XCTestCase {
+final class SwiftElementsTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

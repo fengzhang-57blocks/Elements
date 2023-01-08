@@ -1,13 +1,13 @@
 //
-//  ElementsUITests.swift
-//  ElementsUITests
+//  SwiftElementsUITests.swift
+//  SwiftElementsUITests
 //
-//  Created by 57block on 2023/1/4.
+//  Created by feng.zhang on 2023/1/8.
 //
 
 import XCTest
 
-class ElementsUITests: XCTestCase {
+final class SwiftElementsUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -27,7 +27,6 @@ class ElementsUITests: XCTestCase {
         let app = XCUIApplication()
         app.launch()
 
-        // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
 

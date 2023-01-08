@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Elements.iml" filepath="$PROJECT_DIR$/.idea/Elements.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/SwiftElements.iml" filepath="$PROJECT_DIR$/.idea/SwiftElements.iml" />
     </modules>
   </component>
 </project>

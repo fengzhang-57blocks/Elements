@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "SwiftElements"
-  spec.version = "0.0.1"
+  spec.version = "0.0.2"
   spec.license = "MIT"
   spec.summary = "Elements kit for Swift."
 

@@ -16,8 +16,14 @@ struct PhotonActionSheetUX {
 }
 
 class PhotonActionSheet: UIViewController {
-	private var tableHeightConstraint: NSLayoutConstraint?
-	
+  var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
+    didSet {
+      transitioningDelegate = photonActionSheetTransitioningDelegate
+    }
+  }
+  
+  private var tableConstrains: [NSLayoutConstraint]?
+  
 	lazy var tapGesture: UITapGestureRecognizer = {
 		let tapGesture = UITapGestureRecognizer()
 		tapGesture.addTarget(self, action: #selector(dismissViewController))
@@ -54,9 +60,9 @@ class PhotonActionSheet: UIViewController {
 		
 		view.addGestureRecognizer(tapGesture)
 		
-		let width = self.view.bounds.width - PhotonActionSheetUX.Padding * 2
+		let width = view.bounds.width - PhotonActionSheetUX.Padding * 2
 		
-		self.view.addSubview(closeButton)
+		view.addSubview(closeButton)
 		closeButton.translatesAutoresizingMaskIntoConstraints = false
 		NSLayoutConstraint.activate([
 			closeButton.widthAnchor.constraint(equalToConstant: width),
@@ -74,14 +80,9 @@ class PhotonActionSheet: UIViewController {
 		tableView.translatesAutoresizingMaskIntoConstraints = false
 		tableView.layer.cornerRadius = PhotonActionSheetUX.CornerRadius
 		tableView.register(PhotonActionSheetCell.self, forCellReuseIdentifier: NSStringFromClass(PhotonActionSheetCell.self))
-//		tableView.register(PhotonActionSheetSeparator.self, forHeaderFooterViewReuseIdentifier: "Separator")
+		tableView.register(PhotonActionSheetSeparator.self, forHeaderFooterViewReuseIdentifier: "Separator")
 		tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "Header")
 		self.view.addSubview(tableView)
-		NSLayoutConstraint.activate([
-			tableView.widthAnchor.constraint(equalToConstant: width),
-			tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			tableView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: -PhotonActionSheetUX.Padding),
-		])
 		
 		tableView.sectionFooterHeight = 1
 		
@@ -95,19 +96,42 @@ class PhotonActionSheet: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-		if let constraint = tableHeightConstraint {
-			NSLayoutConstraint.deactivate([constraint])
-		}
-		let height = CGFloat.minimum(self.view.safeAreaLayoutGuide.layoutFrame.size.height * 0.9, tableView.contentSize.height)
-		tableHeightConstraint = tableView.heightAnchor.constraint(equalToConstant: height)
-		self.preferredContentSize = tableView.contentSize
-		NSLayoutConstraint.activate([
-			tableHeightConstraint!
-		])
+    if let constraints = tableConstrains {
+      NSLayoutConstraint.deactivate(constraints)
+      tableConstrains!.removeAll()
+    }
+    
+    // TODO: - Detect device orientation so adjust table width
+    
+		let height = CGFloat.minimum(view.safeAreaLayoutGuide.layoutFrame.size.height * 0.9, tableView.contentSize.height)
+    let width = view.bounds.width - PhotonActionSheetUX.Padding * 2
+    preferredContentSize = tableView.contentSize
+    tableConstrains = [
+      tableView.widthAnchor.constraint(equalToConstant: width),
+      tableView.heightAnchor.constraint(equalToConstant: height),
+      tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+      tableView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: -PhotonActionSheetUX.Padding),
+    ]
+    NSLayoutConstraint.activate(tableConstrains!)
 	}
+  
+  override func updateViewConstraints() {
+    super.updateViewConstraints()
+  }
+  
+  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    switch UIDevice.current.orientation {
+    case .portrait, .portraitUpsideDown:
+      break
+    case .landscapeLeft, .landscapeRight:
+      break
+    default:
+      break
+    }
+  }
 	
 	@objc private func dismissViewController() {
-		self.dismiss(animated: true, completion: nil)
+    dismiss(animated: true, completion: nil)
 	}
 	
 }
@@ -134,7 +158,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 		let action = actions[indexPath.section][indexPath.row]
 		let cellIdentifier = NSStringFromClass(PhotonActionSheetCell.self)
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PhotonActionSheetCell
-//		cell.config(with: action)
+    cell.configure(with: action)
 		return cell
 	}
 	
@@ -154,11 +178,11 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 		let cell = tableView.cellForRow(at: indexPath)!
 		let action = actions[indexPath.section][indexPath.row]
 		guard let actionHandler = action.actionHandler else {
-			self.dismiss(animated: true, completion: nil)
+			dismiss(animated: true, completion: nil)
 			return
 		}
 
-		self.dismiss(animated: true, completion: nil)
+		dismiss(animated: true, completion: nil)
 
 		actionHandler(action, cell)
 	}

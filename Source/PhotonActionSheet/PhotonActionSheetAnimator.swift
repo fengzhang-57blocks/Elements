@@ -9,7 +9,11 @@ import UIKit
 
 class PhotonActionSheetAnimator: NSObject {
 	var isPresenting: Bool = false
-	
+  private lazy var shadowView: UIView = {
+    let view = UIView()
+    view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+    return view
+  }()
 }
 
 extension PhotonActionSheetAnimator: UIViewControllerTransitioningDelegate {
@@ -36,11 +40,48 @@ extension PhotonActionSheetAnimator: UIViewControllerAnimatedTransitioning {
 			return
 		}
 		
-		
+    let containerView = transitionContext.containerView
+    let duration = transitionDuration(using: transitionContext)
+    
 		if isPresenting {
-			
+      shadowView.alpha = 0
+      containerView.addSubview(shadowView)
+      shadowView.frame = containerView.bounds
+      
+      sheet.view.frame.origin = CGPoint(x: 0, y: containerView.bounds.height)
+      sheet.view.frame.size = containerView.bounds.size
+      containerView.addSubview(sheet.view)
+      sheet.view.layoutIfNeeded()
+      
+      UIView.animate(
+        withDuration: duration,
+        delay: 0,
+        usingSpringWithDamping: 0.8,
+        initialSpringVelocity: 0.3,
+        options: []
+      ) {
+        self.shadowView.alpha = 1
+        sheet.view.frame = containerView.bounds
+        sheet.view.layoutIfNeeded()
+      } completion: { complete in
+        transitionContext.completeTransition(complete)
+      }
 		} else {
-			
+      UIView.animate(
+        withDuration: duration,
+        delay: 0,
+        usingSpringWithDamping: 1.2,
+        initialSpringVelocity: 0,
+        options: []
+      ) {
+        self.shadowView.alpha = 0
+        sheet.view.frame.origin = CGPoint(x: 0, y: containerView.bounds.height)
+        sheet.view.frame.size = containerView.bounds.size
+        sheet.view.layoutIfNeeded()
+      } completion: { complete in
+        self.shadowView.removeFromSuperview()
+        transitionContext.completeTransition(complete)
+      }
 		}
 	}
 	

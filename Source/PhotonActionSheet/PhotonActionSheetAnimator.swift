@@ -11,6 +11,7 @@ class PhotonActionSheetAnimator: NSObject {
 	var isPresenting: Bool = false
   private lazy var shadowView: UIView = {
     let view = UIView()
+		view.translatesAutoresizingMaskIntoConstraints = false
     view.backgroundColor = UIColor(white: 0, alpha: 0.5)
     return view
   }()
@@ -42,11 +43,17 @@ extension PhotonActionSheetAnimator: UIViewControllerAnimatedTransitioning {
 		
     let containerView = transitionContext.containerView
     let duration = transitionDuration(using: transitionContext)
-    
+
 		if isPresenting {
-      shadowView.alpha = 0
       containerView.addSubview(shadowView)
-      shadowView.frame = containerView.bounds
+			NSLayoutConstraint.activate([
+				shadowView.topAnchor.constraint(equalTo: containerView.topAnchor),
+				shadowView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor),
+				shadowView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+				shadowView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+			])
+			
+			shadowView.alpha = 0
       
       sheet.view.frame.origin = CGPoint(x: 0, y: containerView.bounds.height)
       sheet.view.frame.size = containerView.bounds.size

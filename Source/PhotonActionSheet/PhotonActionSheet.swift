@@ -7,14 +7,6 @@
 
 import UIKit
 
-struct PhotonActionSheetUX {
-	static let Padding: CGFloat = 6
-	static let RowHeight: CGFloat = 48
-	static let CornerRadius: CGFloat = 10
-	static let CloseButtonHeight: CGFloat = 56
-	static let SeparatorRowHeight: CGFloat = 13
-}
-
 class PhotonActionSheet: UIViewController {
   var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
     didSet {
@@ -22,9 +14,9 @@ class PhotonActionSheet: UIViewController {
     }
   }
   
-  private var tableConstrains: [NSLayoutConstraint]?
+	private var constrains = [NSLayoutConstraint]()
   
-	lazy var tapGesture: UITapGestureRecognizer = {
+	private lazy var tapGesture: UITapGestureRecognizer = {
 		let tapGesture = UITapGestureRecognizer()
 		tapGesture.addTarget(self, action: #selector(dismissViewController))
 		tapGesture.numberOfTouchesRequired = 1
@@ -33,23 +25,26 @@ class PhotonActionSheet: UIViewController {
 		return tapGesture
 	}()
 	
-	lazy var closeButton: UIButton = {
+	private lazy var closeButton: UIButton = {
 		let button = UIButton()
 		button.setTitle("关闭", for: .normal)
 		button.setTitleColor(.systemBlue, for: .normal)
 		button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .bold)
 		button.addTarget(self, action: #selector(dismissViewController), for: .touchUpInside)
-		button.layer.cornerRadius = PhotonActionSheetUX.CornerRadius
+		button.layer.cornerRadius = configure.cornerRadius
 		button.backgroundColor = .white
 		return button
 	}()
 	
 	let actions: [[PhotonAction]]
 	
-	let tableView = UITableView(frame: .zero, style: .grouped)
+	let configure: PhotonActionSheet.Configuration
 	
-	required init(actions: [[PhotonAction]]) {
+	private let tableView = UITableView(frame: .zero, style: .grouped)
+	
+	required init(actions: [[PhotonAction]], configure: PhotonActionSheet.Configuration = .default) {
 		self.actions = actions
+		self.configure = configure
 		super.init(nibName: nil, bundle: nil)
 	}
 	
@@ -60,16 +55,8 @@ class PhotonActionSheet: UIViewController {
 		
 		view.addGestureRecognizer(tapGesture)
 		
-		let width = view.bounds.width - PhotonActionSheetUX.Padding * 2
-		
 		view.addSubview(closeButton)
 		closeButton.translatesAutoresizingMaskIntoConstraints = false
-		NSLayoutConstraint.activate([
-			closeButton.widthAnchor.constraint(equalToConstant: width),
-			closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-			closeButton.heightAnchor.constraint(equalToConstant: PhotonActionSheetUX.CloseButtonHeight),
-			closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: PhotonActionSheetUX.Padding),
-		])
 		
 		tableView.delegate = self
 		tableView.dataSource = self
@@ -78,7 +65,7 @@ class PhotonActionSheet: UIViewController {
 		tableView.showsVerticalScrollIndicator = false
 		tableView.showsHorizontalScrollIndicator = false
 		tableView.translatesAutoresizingMaskIntoConstraints = false
-		tableView.layer.cornerRadius = PhotonActionSheetUX.CornerRadius
+		tableView.layer.cornerRadius = configure.cornerRadius
 		tableView.register(PhotonActionSheetCell.self, forCellReuseIdentifier: NSStringFromClass(PhotonActionSheetCell.self))
 		tableView.register(PhotonActionSheetSeparator.self, forHeaderFooterViewReuseIdentifier: "Separator")
 		tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "Header")
@@ -86,7 +73,7 @@ class PhotonActionSheet: UIViewController {
 		
 		tableView.sectionFooterHeight = 1
 		
-		tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: PhotonActionSheetUX.Padding))
+		tableView.tableFooterView = UIView(frame: CGRect(x: 0, y: 0, width: tableView.bounds.width, height: configure.spacing))
 		
 		let blurEffect = UIBlurEffect(style: .extraLight)
 		let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -96,23 +83,38 @@ class PhotonActionSheet: UIViewController {
 	
 	override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
-    if let constraints = tableConstrains {
-      NSLayoutConstraint.deactivate(constraints)
-      tableConstrains!.removeAll()
+		if constrains.count > 0 {
+      NSLayoutConstraint.deactivate(constrains)
+			constrains.removeAll()
     }
-    
-    // TODO: - Detect device orientation so adjust table width
-    
-		let height = CGFloat.minimum(view.safeAreaLayoutGuide.layoutFrame.size.height * 0.9, tableView.contentSize.height)
-    let width = view.bounds.width - PhotonActionSheetUX.Padding * 2
-    preferredContentSize = tableView.contentSize
-    tableConstrains = [
-      tableView.widthAnchor.constraint(equalToConstant: width),
-      tableView.heightAnchor.constraint(equalToConstant: height),
-      tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      tableView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: -PhotonActionSheetUX.Padding),
-    ]
-    NSLayoutConstraint.activate(tableConstrains!)
+		
+		let deviceOrientation = UIDevice.current.orientation
+		let safeSizeHeight = view.safeAreaLayoutGuide.layoutFrame.size.height
+		var height = CGFloat.minimum(safeSizeHeight * 0.9, tableView.contentSize.height)
+		var width = view.bounds.width - configure.spacing * 2
+		
+		if deviceOrientation.isLandscape {
+			height = CGFloat.minimum(safeSizeHeight * 0.7, configure.maxSheetHeight)
+			width = configure.maxSheetWidth
+		}
+		
+		constrains.append(contentsOf: [
+			closeButton.widthAnchor.constraint(equalToConstant: width),
+			closeButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			closeButton.heightAnchor.constraint(equalToConstant: configure.closeButtonHeight),
+			closeButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: configure.spacing),
+		])
+		
+		constrains.append(contentsOf:  [
+			tableView.widthAnchor.constraint(equalToConstant: width),
+			tableView.heightAnchor.constraint(equalToConstant: height),
+			tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+			tableView.bottomAnchor.constraint(equalTo: closeButton.topAnchor, constant: -configure.spacing),
+		])
+		
+    NSLayoutConstraint.activate(constrains)
+		
+		preferredContentSize = tableView.contentSize
 	}
   
   override func updateViewConstraints() {
@@ -151,7 +153,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 				return customHeight(action)
 			}
 		}
-		return PhotonActionSheetUX.RowHeight
+		return configure.actionHeight
 	}
 	
 	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -163,7 +165,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 	}
 	
 	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-		return PhotonActionSheetUX.SeparatorRowHeight
+		return configure.separatorRowHeight
 	}
 
 	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

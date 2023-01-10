@@ -28,8 +28,8 @@ struct PhotonAction {
 	let iconImage: UIImage?
 	let iconURL: URL?
 	
-	let isSelected: Bool
-	let isEnabled: Bool
+	var isSelected: Bool
+	var isEnabled: Bool
 	
 	var customHeight: PhotonActionCustomHeight?
 	var customRender: PhotonActionCustomRender?

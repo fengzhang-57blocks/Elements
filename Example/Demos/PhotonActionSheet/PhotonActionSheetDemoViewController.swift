@@ -8,6 +8,8 @@
 import UIKit
 
 class PhotonActionSheetDemoViewController: BaseViewController {
+	lazy var actions = makeActions()
+	
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -20,30 +22,52 @@ class PhotonActionSheetDemoViewController: BaseViewController {
   }
   
   @objc func showPhotonActionSheet() {
-    let actions = [
-      [
-        PhotonAction(title: NSAttributedString(string: "Title Action", attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .semibold)])),
-        PhotonAction(
-          title: NSAttributedString(string: "Title and Image Action"),
-          iconType: .image,
-          iconImage: UIImage(named: "github")
-        ),
-        PhotonAction(title: NSAttributedString(string: "Disabled Action"), isEnabled: false),
-        PhotonAction(title: NSAttributedString(string: "Default Selected Action"), isSelected: true),
-        PhotonAction(title: NSAttributedString(string: "Height provided Action"), customHeight: { action in
-          return 100
-        }),
-        PhotonAction(title: NSAttributedString(string: "Action Handler"), actionHandler: { action, cell in
-          print("Click cell with action: \(action.title.string)")
-        })
-      ],
-      [
-        PhotonAction(title: NSAttributedString(string: "This Action is on another Section"))
-      ]
-    ]
     let sheet = PhotonActionSheet(actions: actions)
     sheet.photonActionSheetTransitioningDelegate = PhotonActionSheetAnimator()
     sheet.modalPresentationStyle = .overFullScreen
     present(sheet, animated: true)
   }
+	
+	func makeHandlerAction(
+		with title: NSAttributedString,
+		iconType: PhotonAction.IconType = .none,
+		iconImage: UIImage? = nil,
+		isEnabled: Bool = true,
+		isSelected: Bool = false,
+		customHeight: PhotonAction.PhotonActionCustomHeight? = nil
+	) -> PhotonAction {
+		return PhotonAction(
+			title: title,
+			iconType: iconType,
+			iconImage: iconImage,
+			customHeight: customHeight,
+			actionHandler:  { action, _ in
+				print("Click cell with action: \(action.title.string)")
+				self.actions = self.actions.map { actionGroup -> [PhotonAction] in
+					return actionGroup.map { tar in
+						var mutableAction = tar
+						mutableAction.isSelected = tar == action
+						return mutableAction
+					}
+				}
+			})
+	}
+	
+	private func makeActions() -> [[PhotonAction]] {
+		return [
+			[
+				makeHandlerAction(with: NSAttributedString(string: "Title Action", attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .semibold)])),
+				makeHandlerAction(with: NSAttributedString(string: "Title and Image Action"), iconType: .image, iconImage: UIImage(named: "github")),
+				makeHandlerAction(with: NSAttributedString(string: "Disabled Action"), isSelected: true),
+				makeHandlerAction(with: NSAttributedString(string: "Default Selected Action"), isSelected: true),
+				makeHandlerAction(with: NSAttributedString(string: "Height provided Action"), customHeight: { action in
+					return 100
+				}),
+				makeHandlerAction(with: NSAttributedString(string: "Action Handler"))
+			],
+			[
+				makeHandlerAction(with: NSAttributedString(string: "This Action is on another Section"))
+			]
+		]
+	}
 }

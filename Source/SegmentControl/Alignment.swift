@@ -6,7 +6,7 @@
 //
 
 extension SegmentControl {
-	enum Alignment {
+	public enum Alignment {
 		case tiled
 		case centered
 		case equalization

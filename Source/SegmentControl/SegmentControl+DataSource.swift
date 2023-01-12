@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol SegmentControlDataSource {
+public protocol SegmentControlDataSource {
   func numberOfItemsInSegmentControl(_ segmentControl: SegmentControl) -> Int
   func segmentControl(_ segmentControl: SegmentControl, cellForItemAt index: Int) -> UICollectionViewCell
 }

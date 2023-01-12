@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotonActionSheet: UIViewController {
+public class PhotonActionSheet: UIViewController {
   var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
     didSet {
       transitioningDelegate = photonActionSheetTransitioningDelegate
@@ -50,7 +50,7 @@ class PhotonActionSheet: UIViewController {
 	
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 	
-	override func viewDidLoad() {
+	public override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		view.addGestureRecognizer(tapGesture)
@@ -81,7 +81,7 @@ class PhotonActionSheet: UIViewController {
 		tableView.backgroundColor = .clear
 	}
 	
-	override func viewDidLayoutSubviews() {
+	public override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
 		if constrains.count > 0 {
       NSLayoutConstraint.deactivate(constrains)
@@ -117,11 +117,11 @@ class PhotonActionSheet: UIViewController {
 		preferredContentSize = tableView.contentSize
 	}
   
-  override func updateViewConstraints() {
+	public override func updateViewConstraints() {
     super.updateViewConstraints()
   }
   
-  override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+	public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     switch UIDevice.current.orientation {
     case .portrait, .portraitUpsideDown:
       break
@@ -139,15 +139,15 @@ class PhotonActionSheet: UIViewController {
 }
 
 extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
-	func numberOfSections(in tableView: UITableView) -> Int {
+	public func numberOfSections(in tableView: UITableView) -> Int {
 		return actions.count
 	}
 	
-	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 		return actions[section].count
 	}
 	
-	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+	public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		if let section = actions[safe: indexPath.section], let action = section[safe: indexPath.row] {
 			if let customHeight = action.customHeight {
 				return customHeight(action)
@@ -156,7 +156,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 		return configure.actionHeight
 	}
 	
-	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+	public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 		let action = actions[indexPath.section][indexPath.row]
 		let cellIdentifier = NSStringFromClass(PhotonActionSheetCell.self)
 		let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! PhotonActionSheetCell
@@ -164,11 +164,11 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 		return cell
 	}
 	
-	func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+	public func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
 		return configure.separatorRowHeight
 	}
 
-	func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+	public func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
 		if section > 0 {
 			return tableView.dequeueReusableHeaderFooterView(withIdentifier: "Separator")
 		}
@@ -176,7 +176,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 		return tableView.dequeueReusableHeaderFooterView(withIdentifier: "Header")
 	}
 	
-	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)!
 		let action = actions[indexPath.section][indexPath.row]
 		guard let actionHandler = action.actionHandler else {
@@ -191,7 +191,7 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 }
 
 extension PhotonActionSheet: UIGestureRecognizerDelegate {
-	func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+	public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
 		if tableView.frame.contains(touch.location(in: self.view)) {
 			return false
 		}

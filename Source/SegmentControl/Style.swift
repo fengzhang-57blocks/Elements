@@ -6,7 +6,7 @@
 //
 
 extension SegmentControl {
-	enum Style {
+	public enum Style {
 		case indicator
 		case oval
 	}

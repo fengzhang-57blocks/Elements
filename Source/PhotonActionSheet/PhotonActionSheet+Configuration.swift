@@ -8,7 +8,7 @@
 import UIKit
 
 extension PhotonActionSheet {
-	struct Configuration {
+	public struct Configuration {
 		let spacing: CGFloat
 		
 		// Only work for Landscape screen.

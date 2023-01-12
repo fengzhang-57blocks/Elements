@@ -14,14 +14,14 @@ extension PhotonAction {
 }
 
 extension PhotonAction {
-	enum IconType {
+	public enum IconType {
 		case image
 		case url
 		case none
 	}
 }
 
-struct PhotonAction {
+public struct PhotonAction {
 	let title: NSAttributedString
 	
 	let iconType: PhotonAction.IconType
@@ -59,7 +59,7 @@ struct PhotonAction {
 }
 
 extension PhotonAction: Equatable {
-	static func == (lhs: PhotonAction, rhs: PhotonAction) -> Bool {
+	public static func == (lhs: PhotonAction, rhs: PhotonAction) -> Bool {
 		return lhs.title.isEqual(to: rhs.title)
 	}
 }

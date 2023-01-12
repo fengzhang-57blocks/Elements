@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotonActionSheetCell: UITableViewCell {
+public class PhotonActionSheetCell: UITableViewCell {
   struct UX {
     static let iconSize: CGFloat = 24
     static let verticalPadding: CGFloat = 5

@@ -7,6 +7,6 @@
 
 import Foundation
 
-func half<T>(_ value: T) -> T where T: BinaryFloatingPoint {
+public func half<T>(_ value: T) -> T where T: BinaryFloatingPoint {
 	return value * 0.5
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SegmentControlIndicatorCell: SegmentControlCell {
+public class SegmentControlIndicatorCell: SegmentControlCell {
 	lazy var label: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center

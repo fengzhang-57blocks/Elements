@@ -7,8 +7,8 @@
 
 import UIKit
 
-extension PhotonActionSheet {
-	public struct Configuration {
+public extension PhotonActionSheet {
+	struct Configuration {
 		let spacing: CGFloat
 		
 		// Only work for Landscape screen.
@@ -44,6 +44,6 @@ extension PhotonActionSheet {
 	}
 }
 
-extension PhotonActionSheet.Configuration {
+public extension PhotonActionSheet.Configuration {
 	static let `default` = PhotonActionSheet.Configuration()
 }

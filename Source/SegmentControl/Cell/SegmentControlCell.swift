@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SegmentControlCell: UICollectionViewCell {
+public class SegmentControlCell: UICollectionViewCell {
 	func configure(_ segment: Segment, layout: SegmentControl.Layout) {
 		self.layout = layout
 		self.segment = segment

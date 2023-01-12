@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SegmentControlOvalCell: SegmentControlCell {
+public class SegmentControlOvalCell: SegmentControlCell {
 	private var button: UIButton!
 	
 	override init(frame: CGRect) {

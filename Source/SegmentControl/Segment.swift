@@ -11,14 +11,14 @@ public typealias SegmentActionHandler = (Segment) -> Void
 
 public struct Segment {
   
-  let title: NSAttributedString
+	public let title: NSAttributedString
   
-	var isSelected: Bool
-	var isDisabled: Bool
+	public var isSelected: Bool
+	public var isDisabled: Bool
   
-  let handler: SegmentActionHandler?
+	public let handler: SegmentActionHandler?
 	
-	init(
+	public init(
 		title: NSAttributedString,
     isSelected: Bool = false,
     isDisabled: Bool = false,
@@ -30,11 +30,11 @@ public struct Segment {
     self.handler = handler
 	}
 	
-	func isEqual(to s: Segment) -> Bool {
+	public func isEqual(to s: Segment) -> Bool {
 		return value().elementsEqual(s.value())
 	}
 	
-	func value() -> String {
+	public func value() -> String {
 		return title.string
 	}
 	

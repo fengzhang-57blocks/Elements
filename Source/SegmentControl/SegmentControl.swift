@@ -27,7 +27,7 @@ public class SegmentControl: UIView {
 	private var selectedSegment: Segment?
 	
 	var segments: [Segment]
-	init(segments: [Segment] = []) {
+	public init(segments: [Segment] = []) {
 		self.segments = segments
 		super.init(frame: .zero)
 		

@@ -9,28 +9,28 @@ import UIKit
 
 public extension SegmentControl {
 	struct Layout {
-		var itemSpacing: CGFloat
-		var contentInsets: UIEdgeInsets
+		public var itemSpacing: CGFloat
+		public var contentInsets: UIEdgeInsets
 		
 		// Only works when style is indicator
-		var titleInsets: UIEdgeInsets
+		public var titleInsets: UIEdgeInsets
     
-		var titleColor: UIColor
-		var selectedTitleColor: UIColor
+		public var titleColor: UIColor
+		public var selectedTitleColor: UIColor
     
-		var backgroundColor: UIColor
-		var selectedBackgroundColor: UIColor
+		public var backgroundColor: UIColor
+		public var selectedBackgroundColor: UIColor
 		
 		// Only works when style is indicator
-		var indicatorColor: UIColor
+		public var indicatorColor: UIColor
 		
 		// Only works when style is oval
-		var borderWidth: CGFloat
-		var borderColor: UIColor
+		public var borderWidth: CGFloat
+		public var borderColor: UIColor
 		
-		var isRepeatTouchEnabled: Bool
+		public var isRepeatTouchEnabled: Bool
     
-		init(
+		public init(
 			itemSpacing: CGFloat = 8,
 			contentInsets: UIEdgeInsets = UIEdgeInsets(top: 7, left: 12, bottom: 7, right: 12),
 			titleInsets: UIEdgeInsets = .zero,

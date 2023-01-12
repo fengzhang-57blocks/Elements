@@ -7,7 +7,7 @@
 
 import Foundation
 
-typealias SegmentActionHandler = (Segment) -> Void
+public typealias SegmentActionHandler = (Segment) -> Void
 
 public struct Segment {
   

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIEdgeInsets {
+public extension UIEdgeInsets {
 	var horizontal: CGFloat {
 		return self.left + self.right
 	}

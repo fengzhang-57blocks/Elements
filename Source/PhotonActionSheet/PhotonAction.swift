@@ -7,14 +7,14 @@
 
 import UIKit
 
-extension PhotonAction {
+public extension PhotonAction {
 	typealias PhotonActionCustomHeight = (_ action: PhotonAction) -> CGFloat
 	typealias PhotonActionCustomRender = (_ contentView: UIView) -> Void
 	typealias PhotonActionHandler = (_ action: PhotonAction, _ cell: UITableViewCell) -> Void
 }
 
-extension PhotonAction {
-	public enum IconType {
+public extension PhotonAction {
+	enum IconType {
 		case image
 		case url
 		case none

@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension UIImage {
+public extension UIImage {
   static func fromBundle(_ bundleName: String, imageName: String) -> UIImage? {
     if let filePath = Bundle.main.path(forResource: bundleName, ofType: "bundle") {
       return UIImage(

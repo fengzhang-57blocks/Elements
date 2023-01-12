@@ -16,7 +16,7 @@ public protocol SegmentControlDelegate {
   func minimumInteritemSpacingForSegmentControl(_ segmentControl: SegmentControl, layout collectionViewLayout: UICollectionViewLayout) -> CGFloat
 }
 
-extension SegmentControlDelegate {
+public extension SegmentControlDelegate {
   func segmentControl(_ segmentControl: SegmentControl, didSelect segment: Segment, at index: Int) {
     // do nothing
   }

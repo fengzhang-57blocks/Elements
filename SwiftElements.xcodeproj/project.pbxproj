@@ -3,10 +3,23 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD429296BA1D4007C893D /* PhotonAction.swift */; };
+		7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */; };
+		7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */; };
+		7ECFD430296BA436007C893D /* PhotonActionSheetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42F296BA436007C893D /* PhotonActionSheetCell.swift */; };
+		7EDA2BC4296BB77B00589E80 /* PhotonActionSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC3296BB77B00589E80 /* PhotonActionSheet.bundle */; };
+		7EDA2BC6296BBF2A00589E80 /* CollectionExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC5296BBF2A00589E80 /* CollectionExtensions.swift */; };
+		7EDA2BCA296BCC7600589E80 /* SwiftElements.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC7296BCC7500589E80 /* SwiftElements.podspec */; };
+		7EDA2BCB296BCC7600589E80 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC8296BCC7500589E80 /* LICENSE */; };
+		7EDA2BCC296BCC7600589E80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC9296BCC7600589E80 /* README.md */; };
+		7EF01940296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0193F296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift */; };
+		B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */; };
+		B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7C296C4FA30077B697 /* UIImage.swift */; };
+		B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */; };
 		B2924FF1296A80EB00704131 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2924FF0296A80EB00704131 /* AppDelegate.swift */; };
 		B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2924FF2296A80EB00704131 /* SceneDelegate.swift */; };
 		B2924FF8296A80EB00704131 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2924FF6296A80EB00704131 /* Main.storyboard */; };
@@ -31,7 +44,7 @@
 		B2925044296A821400704131 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* Layout.swift */; };
 		B2925049296A822D00704131 /* DemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925045296A822D00704131 /* DemoListViewController.swift */; };
 		B292504A296A822D00704131 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925046296A822D00704131 /* BaseViewController.swift */; };
-		B292504B296A822D00704131 /* SegmentControlViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925048296A822D00704131 /* SegmentControlViewController.swift */; };
+		B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +65,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7ECFD429296BA1D4007C893D /* PhotonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonAction.swift; sourceTree = "<group>"; };
+		7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheet.swift; sourceTree = "<group>"; };
+		7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetAnimator.swift; sourceTree = "<group>"; };
+		7ECFD42F296BA436007C893D /* PhotonActionSheetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetCell.swift; sourceTree = "<group>"; };
+		7EDA2BC3296BB77B00589E80 /* PhotonActionSheet.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PhotonActionSheet.bundle; sourceTree = "<group>"; };
+		7EDA2BC5296BBF2A00589E80 /* CollectionExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionExtensions.swift; sourceTree = "<group>"; };
+		7EDA2BC7296BCC7500589E80 /* SwiftElements.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SwiftElements.podspec; sourceTree = "<group>"; };
+		7EDA2BC8296BCC7500589E80 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		7EDA2BC9296BCC7600589E80 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		7EF0193F296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotonActionSheet+Configuration.swift"; sourceTree = "<group>"; };
+		B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetSeparator.swift; sourceTree = "<group>"; };
+		B26CCE7C296C4FA30077B697 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetDemoViewController.swift; sourceTree = "<group>"; };
 		B2924FED296A80EB00704131 /* SwiftElements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftElements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2924FF0296A80EB00704131 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2924FF2296A80EB00704131 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,7 +106,7 @@
 		B2925036296A821400704131 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		B2925045296A822D00704131 /* DemoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoListViewController.swift; sourceTree = "<group>"; };
 		B2925046296A822D00704131 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		B2925048296A822D00704131 /* SegmentControlViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlViewController.swift; sourceTree = "<group>"; };
+		B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDemoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,9 +134,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7ECFD428296BA1D4007C893D /* PhotonActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				7ECFD429296BA1D4007C893D /* PhotonAction.swift */,
+				7EF0193F296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift */,
+				7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */,
+				7ECFD42F296BA436007C893D /* PhotonActionSheetCell.swift */,
+				B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */,
+				7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */,
+				7EDA2BC5296BBF2A00589E80 /* CollectionExtensions.swift */,
+				B26CCE7B296C4F980077B697 /* Extensions */,
+				7EDA2BC3296BB77B00589E80 /* PhotonActionSheet.bundle */,
+			);
+			path = PhotonActionSheet;
+			sourceTree = "<group>";
+		};
+		B26CCE7B296C4F980077B697 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				B26CCE7C296C4FA30077B697 /* UIImage.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B26CCE7E296C50810077B697 /* PhotonActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */,
+			);
+			path = PhotonActionSheet;
+			sourceTree = "<group>";
+		};
 		B2924FE4296A80EB00704131 = {
 			isa = PBXGroup;
 			children = (
+				7EDA2BC8296BCC7500589E80 /* LICENSE */,
+				7EDA2BC9296BCC7600589E80 /* README.md */,
+				7EDA2BC7296BCC7500589E80 /* SwiftElements.podspec */,
 				B2925022296A813C00704131 /* Source */,
 				B2925021296A810A00704131 /* Example */,
 				B2925006296A80ED00704131 /* SwiftElementsTests */,
@@ -165,8 +226,8 @@
 		B2925022296A813C00704131 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				B292502A296A821400704131 /* Elements */,
-				B2925025296A821400704131 /* Extensions */,
+				7ECFD428296BA1D4007C893D /* PhotonActionSheet */,
+				B292502B296A821400704131 /* SegmentControl */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -174,6 +235,7 @@
 		B2925024296A815500704131 /* Demos */ = {
 			isa = PBXGroup;
 			children = (
+				B26CCE7E296C50810077B697 /* PhotonActionSheet */,
 				B2925047296A822D00704131 /* SegmentControl */,
 			);
 			path = Demos;
@@ -190,14 +252,6 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B292502A296A821400704131 /* Elements */ = {
-			isa = PBXGroup;
-			children = (
-				B292502B296A821400704131 /* SegmentControl */,
-			);
-			path = Elements;
-			sourceTree = "<group>";
-		};
 		B292502B296A821400704131 /* SegmentControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +262,7 @@
 				B292502C296A821400704131 /* SegmentControl.swift */,
 				B292502D296A821400704131 /* SegmentControl+Delegate.swift */,
 				B2925034296A821400704131 /* SegmentControl+DataSource.swift */,
+				B2925025296A821400704131 /* Extensions */,
 				B2925030296A821400704131 /* Cell */,
 			);
 			path = SegmentControl;
@@ -216,8 +271,8 @@
 		B2925030296A821400704131 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				B2925031296A821400704131 /* SegmentControlOvalCell.swift */,
 				B2925032296A821400704131 /* SegmentControlCell.swift */,
+				B2925031296A821400704131 /* SegmentControlOvalCell.swift */,
 				B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */,
 			);
 			path = Cell;
@@ -226,7 +281,7 @@
 		B2925047296A822D00704131 /* SegmentControl */ = {
 			isa = PBXGroup;
 			children = (
-				B2925048296A822D00704131 /* SegmentControlViewController.swift */,
+				B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */,
 			);
 			path = SegmentControl;
 			sourceTree = "<group>";
@@ -311,7 +366,7 @@
 				};
 			};
 			buildConfigurationList = B2924FE8296A80EB00704131 /* Build configuration list for PBXProject "SwiftElements" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -335,9 +390,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EDA2BCB296BCC7600589E80 /* LICENSE in Resources */,
 				B2924FFD296A80ED00704131 /* LaunchScreen.storyboard in Resources */,
+				7EDA2BCA296BCC7600589E80 /* SwiftElements.podspec in Resources */,
+				7EDA2BCC296BCC7600589E80 /* README.md in Resources */,
 				B2924FFA296A80ED00704131 /* Assets.xcassets in Resources */,
 				B2924FF8296A80EB00704131 /* Main.storyboard in Resources */,
+				7EDA2BC4296BB77B00589E80 /* PhotonActionSheet.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +421,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */,
+				7EDA2BC6296BBF2A00589E80 /* CollectionExtensions.swift in Sources */,
 				B2925039296A821400704131 /* FloatingPoint.swift in Sources */,
 				B2925044296A821400704131 /* Layout.swift in Sources */,
 				B2925037296A821400704131 /* UIEdgeInsetsExtensions.swift in Sources */,
@@ -371,16 +432,23 @@
 				B292503B296A821400704131 /* SegmentControl.swift in Sources */,
 				B292503E296A821400704131 /* Segment.swift in Sources */,
 				B2925043296A821400704131 /* Style.swift in Sources */,
+				B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */,
 				B292503D296A821400704131 /* Alignment.swift in Sources */,
 				B292503C296A821400704131 /* SegmentControl+Delegate.swift in Sources */,
-				B292504B296A822D00704131 /* SegmentControlViewController.swift in Sources */,
+				B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */,
 				B2925049296A822D00704131 /* DemoListViewController.swift in Sources */,
+				7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */,
 				B2924FF1296A80EB00704131 /* AppDelegate.swift in Sources */,
 				B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */,
+				7ECFD430296BA436007C893D /* PhotonActionSheetCell.swift in Sources */,
+				7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */,
 				B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */,
 				B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
+				B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */,
 				B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */,
+				B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */,
 				B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */,
+				7EF01940296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

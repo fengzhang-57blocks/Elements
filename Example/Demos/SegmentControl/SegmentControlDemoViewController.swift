@@ -1,5 +1,5 @@
 //
-//  SegmentControlViewController.swift
+//  SegmentControlDemoViewController.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SegmentControlViewController: BaseViewController {
+class SegmentControlDemoViewController: BaseViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
@@ -84,7 +84,7 @@ class SegmentControlViewController: BaseViewController {
 	}
 }
 
-extension SegmentControlViewController: SegmentControlDelegate {
+extension SegmentControlDemoViewController: SegmentControlDelegate {
 	func segmentControl(_ segmentControl: SegmentControl, didSelect segment: Segment, at index: Int) {
 		print(segment.title.string)
 	}

@@ -22,20 +22,20 @@ public extension PhotonAction {
 }
 
 public struct PhotonAction {
-	let title: NSAttributedString
+	public let title: NSAttributedString
 	
-	let iconType: PhotonAction.IconType
-	let iconImage: UIImage?
-	let iconURL: URL?
+	public let iconType: PhotonAction.IconType
+	public let iconImage: UIImage?
+	public let iconURL: URL?
 	
-	var isSelected: Bool
-	var isEnabled: Bool
+	public var isSelected: Bool
+	public var isEnabled: Bool
 	
-	var customHeight: PhotonActionCustomHeight?
-	var customRender: PhotonActionCustomRender?
-	let actionHandler: PhotonActionHandler?
+	public var customHeight: PhotonActionCustomHeight?
+	public var customRender: PhotonActionCustomRender?
+	public let actionHandler: PhotonActionHandler?
 	
-	init(
+	public init(
 		title: NSAttributedString,
 		iconType: PhotonAction.IconType = .none,
 		iconImage: UIImage? = nil,

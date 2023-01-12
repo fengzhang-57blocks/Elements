@@ -9,20 +9,20 @@ import UIKit
 
 public extension PhotonActionSheet {
 	struct Configuration {
-		let spacing: CGFloat
+		public let spacing: CGFloat
 		
 		// Only work for Landscape screen.
-		let maxSheetWidth: CGFloat
-		let maxSheetHeight: CGFloat
+		public let maxSheetWidth: CGFloat
+		public let maxSheetHeight: CGFloat
 		
-		let showCloseButton: Bool
-		let closeButtonHeight: CGFloat
-		let separatorRowHeight: CGFloat
-		let actionHeight: CGFloat
+		public let showCloseButton: Bool
+		public let closeButtonHeight: CGFloat
+		public let separatorRowHeight: CGFloat
+		public let actionHeight: CGFloat
 		
-		let cornerRadius: CGFloat
+		public let cornerRadius: CGFloat
 		
-		init(
+		public init(
 			spacing: CGFloat = 10,
 			maxSheetWidth: CGFloat = 370,
 			maxSheetHeight: CGFloat = 280,

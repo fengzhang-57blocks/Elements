@@ -36,13 +36,13 @@ public class PhotonActionSheet: UIViewController {
 		return button
 	}()
 	
-	let actions: [[PhotonAction]]
+	public let actions: [[PhotonAction]]
 	
-	let configure: PhotonActionSheet.Configuration
+	public let configure: PhotonActionSheet.Configuration
 	
-	private let tableView = UITableView(frame: .zero, style: .grouped)
+	public let tableView = UITableView(frame: .zero, style: .grouped)
 	
-	required init(actions: [[PhotonAction]], configure: PhotonActionSheet.Configuration = .default) {
+	public required init(actions: [[PhotonAction]], configure: PhotonActionSheet.Configuration = .default) {
 		self.actions = actions
 		self.configure = configure
 		super.init(nibName: nil, bundle: nil)

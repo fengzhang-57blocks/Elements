@@ -10,7 +10,7 @@ import UIKit
 public class SegmentControlOvalCell: SegmentControlCell {
 	private var button: UIButton!
 	
-	override init(frame: CGRect) {
+	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		
 		if #available(iOS 15, *) {

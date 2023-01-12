@@ -15,19 +15,19 @@ public class SegmentControl: UIView {
 		}
 	}
 	
-  var alignment: SegmentControl.Alignment = .centered
+  public var alignment: SegmentControl.Alignment = .centered
 	
-	var style: SegmentControl.Style = .indicator
+  public var style: SegmentControl.Style = .indicator
   
-  var dataSource: SegmentControlDataSource?
-  var delegate: SegmentControlDelegate?
+  public var dataSource: SegmentControlDataSource?
+  public var delegate: SegmentControlDelegate?
 	
 	private(set) var collectionView: UICollectionView!
 	
 	private var selectedSegment: Segment?
 	
-	private(set) public var segments: [Segment]
-	public init(segments: [Segment] = []) {
+  private(set) public var segments: [Segment]
+	public required init(segments: [Segment] = []) {
 		self.segments = segments
 		super.init(frame: .zero)
 		
@@ -104,17 +104,17 @@ public class SegmentControl: UIView {
 		collectionView.center = CGPoint(x: half(bounds.width), y: half(bounds.height))
 	}
 	
-	func reloadSegments(_ segments: [Segment]) {
+	public func reloadSegments(_ segments: [Segment]) {
 		self.segments = segments
 		
 		selectedSegment = segments.filter({
 			$0.isSelected
 		}).first
 		
-    collectionView.reloadData()
+    reloadData()
 	}
 	
-	func reloadData() {
+	public func reloadData() {
 		collectionView.reloadData()
 	}
 }

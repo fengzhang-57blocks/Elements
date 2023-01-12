@@ -8,14 +8,14 @@
 import UIKit
 
 public class SegmentControlIndicatorCell: SegmentControlCell {
-	lazy var label: UILabel = {
+	private(set) public lazy var label: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
 		label.translatesAutoresizingMaskIntoConstraints = false
 		return label
 	}()
 	
-	lazy var indicator: UIView = {
+  private(set) public lazy var indicator: UIView = {
 		let indicator = UIView()
 		indicator.isHidden = true
 		indicator.backgroundColor = .blue

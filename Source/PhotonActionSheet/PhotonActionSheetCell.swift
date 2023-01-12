@@ -16,9 +16,9 @@ public class PhotonActionSheetCell: UITableViewCell {
     static let labelColor: UIColor = .black
   }
   
-  lazy var titleLabel = UILabel()
+  private(set) public lazy var titleLabel = UILabel()
   
-  lazy var iconImageView = UIImageView()
+  private(set) public lazy var iconImageView = UIImageView()
   
   override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
     super.init(style: style, reuseIdentifier: reuseIdentifier)

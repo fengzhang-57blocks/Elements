@@ -40,17 +40,17 @@ class PhotonActionSheetDemoViewController: BaseViewController {
 			title: title,
 			iconType: iconType,
 			iconImage: iconImage,
-			customHeight: customHeight,
-			actionHandler:  { action, _ in
-				print("Click cell with action: \(action.title.string)")
-				self.actions = self.actions.map { actionGroup -> [PhotonAction] in
-					return actionGroup.map { tar in
-						var mutableAction = tar
-						mutableAction.isSelected = tar == action
-						return mutableAction
-					}
-				}
-			})
+      customHeight: customHeight,
+      handler:  { action, _ in
+        print("Click cell with action: \(action.title.string)")
+        self.actions = self.actions.map { actionGroup -> [PhotonAction] in
+          return actionGroup.map { tar in
+            var mutableAction = tar
+            mutableAction.isSelected = tar == action
+            return mutableAction
+          }
+        }
+      })
 	}
 	
 	private func makeActions() -> [[PhotonAction]] {
@@ -58,7 +58,7 @@ class PhotonActionSheetDemoViewController: BaseViewController {
 			[
 				makeHandlerAction(with: NSAttributedString(string: "Title Action", attributes: [.font: UIFont.systemFont(ofSize: 15, weight: .semibold)])),
 				makeHandlerAction(with: NSAttributedString(string: "Title and Image Action"), iconType: .image, iconImage: UIImage(named: "github")),
-				makeHandlerAction(with: NSAttributedString(string: "Disabled Action"), isSelected: true),
+				makeHandlerAction(with: NSAttributedString(string: "Disabled Action"), isEnabled: false),
 				makeHandlerAction(with: NSAttributedString(string: "Default Selected Action"), isSelected: true),
 				makeHandlerAction(with: NSAttributedString(string: "Height provided Action"), customHeight: { action in
 					return 100

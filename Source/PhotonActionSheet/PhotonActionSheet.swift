@@ -8,7 +8,7 @@
 import UIKit
 
 public class PhotonActionSheet: UIViewController {
-  var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
+  public var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
     didSet {
       transitioningDelegate = photonActionSheetTransitioningDelegate
     }
@@ -179,14 +179,14 @@ extension PhotonActionSheet: UITableViewDataSource, UITableViewDelegate {
 	public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		let cell = tableView.cellForRow(at: indexPath)!
 		let action = actions[indexPath.section][indexPath.row]
-		guard let actionHandler = action.actionHandler else {
+		guard let handler = action.handler else {
 			dismiss(animated: true, completion: nil)
 			return
 		}
 
 		dismiss(animated: true, completion: nil)
 
-		actionHandler(action, cell)
+    handler(action, cell)
 	}
 }
 

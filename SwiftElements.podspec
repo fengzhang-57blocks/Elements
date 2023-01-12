@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "SwiftElements"
-  spec.version = "0.0.1"
+  spec.version = "0.0.2"
   spec.license = "MIT"
   spec.summary = "Elements kit for Swift."
 
@@ -8,9 +8,9 @@ Pod::Spec.new do |spec|
 
   spec.author = { "mkjfeng01" => "zfeng0712@gmail.com" }
 
-  spec.ios.deployment_target = "11.0"
+  spec.ios.deployment_target = "13.0"
 
-  spec.source = { :git => "https://github.com/fengzhang-57blocks/SwiftElements.git", :tag => "0.0.1" }
+  spec.source = { :git => "https://github.com/fengzhang-57blocks/SwiftElements.git", :tag => "0.0.2" }
 
   spec.source_files  = "Source/**/*.swift"
 

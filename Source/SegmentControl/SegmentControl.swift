@@ -9,13 +9,13 @@ import UIKit
 
 public class SegmentControl: UIView {
 	
-	var layout: SegmentControl.Layout = SegmentControl.Layout() {
+	public var layout: SegmentControl.Layout = SegmentControl.Layout() {
 		didSet {
 			collectionView.reloadData()
 		}
 	}
 	
-	var alignment: SegmentControl.Alignment = .centered
+  var alignment: SegmentControl.Alignment = .centered
 	
 	var style: SegmentControl.Style = .indicator
   
@@ -26,7 +26,7 @@ public class SegmentControl: UIView {
 	
 	private var selectedSegment: Segment?
 	
-	var segments: [Segment]
+	private(set) public var segments: [Segment]
 	public init(segments: [Segment] = []) {
 		self.segments = segments
 		super.init(frame: .zero)

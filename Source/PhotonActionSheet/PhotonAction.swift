@@ -33,7 +33,7 @@ public struct PhotonAction {
 	
 	public var customHeight: PhotonActionCustomHeight?
 	public var customRender: PhotonActionCustomRender?
-	public let actionHandler: PhotonActionHandler?
+	public let handler: PhotonActionHandler?
 	
 	public init(
 		title: NSAttributedString,
@@ -44,7 +44,7 @@ public struct PhotonAction {
 		isEnabled: Bool = true,
 		customHeight: PhotonActionCustomHeight? = nil,
 		customRender: PhotonActionCustomRender? = nil,
-    actionHandler: PhotonActionHandler? = nil
+    handler: PhotonActionHandler? = nil
 	) {
 		self.title = title
 		self.iconType = iconType
@@ -54,7 +54,7 @@ public struct PhotonAction {
 		self.isEnabled = isEnabled
 		self.customHeight = customHeight
 		self.customRender = customRender
-		self.actionHandler = actionHandler
+		self.handler = handler
 	}
 }
 

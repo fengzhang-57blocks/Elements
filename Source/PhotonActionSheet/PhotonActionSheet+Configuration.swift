@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension PhotonActionSheet {
+public extension PhotonActionSheet {
 	struct Configuration {
 		let spacing: CGFloat
 		
@@ -44,6 +44,6 @@ extension PhotonActionSheet {
 	}
 }
 
-extension PhotonActionSheet.Configuration {
+public extension PhotonActionSheet.Configuration {
 	static let `default` = PhotonActionSheet.Configuration()
 }

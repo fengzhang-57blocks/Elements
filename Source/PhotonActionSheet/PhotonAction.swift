@@ -7,13 +7,13 @@
 
 import UIKit
 
-extension PhotonAction {
+public extension PhotonAction {
 	typealias PhotonActionCustomHeight = (_ action: PhotonAction) -> CGFloat
 	typealias PhotonActionCustomRender = (_ contentView: UIView) -> Void
 	typealias PhotonActionHandler = (_ action: PhotonAction, _ cell: UITableViewCell) -> Void
 }
 
-extension PhotonAction {
+public extension PhotonAction {
 	enum IconType {
 		case image
 		case url
@@ -21,7 +21,7 @@ extension PhotonAction {
 	}
 }
 
-struct PhotonAction {
+public struct PhotonAction {
 	let title: NSAttributedString
 	
 	let iconType: PhotonAction.IconType
@@ -59,7 +59,7 @@ struct PhotonAction {
 }
 
 extension PhotonAction: Equatable {
-	static func == (lhs: PhotonAction, rhs: PhotonAction) -> Bool {
+	public static func == (lhs: PhotonAction, rhs: PhotonAction) -> Bool {
 		return lhs.title.isEqual(to: rhs.title)
 	}
 }

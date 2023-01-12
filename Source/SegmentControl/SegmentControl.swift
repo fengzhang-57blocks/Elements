@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SegmentControl: UIView {
+public class SegmentControl: UIView {
 	
 	var layout: SegmentControl.Layout = SegmentControl.Layout() {
 		didSet {
@@ -62,7 +62,7 @@ class SegmentControl: UIView {
 		addSubview(collectionView)
 	}
 	
-	override func didMoveToSuperview() {
+	public override func didMoveToSuperview() {
 		super.didMoveToSuperview()
 		if let selectedSegment = selectedSegment, let index = segments.firstIndex(of: selectedSegment) {
 			let indexPath = IndexPath(item: index, section: 0)
@@ -75,7 +75,7 @@ class SegmentControl: UIView {
 		}
 	}
 	
-	override func layoutSubviews() {
+	public override func layoutSubviews() {
 		super.layoutSubviews()
 		
 		switch alignment {
@@ -120,7 +120,7 @@ class SegmentControl: UIView {
 }
 
 extension SegmentControl: UICollectionViewDataSource {
-	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let dataSource = dataSource {
       return dataSource.numberOfItemsInSegmentControl(self)
     }
@@ -128,7 +128,7 @@ extension SegmentControl: UICollectionViewDataSource {
 		return segments.count
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if let dataSource = dataSource {
       return dataSource.segmentControl(self, cellForItemAt: indexPath.item)
     }
@@ -146,7 +146,7 @@ extension SegmentControl: UICollectionViewDataSource {
 }
 
 extension SegmentControl: UICollectionViewDelegateFlowLayout {
-	func collectionView
+	public func collectionView
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -171,7 +171,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     }
 	}
   
-	func collectionView(
+	public func collectionView(
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -183,7 +183,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
       return layout.itemSpacing
 	}
 	
-	func collectionView(
+	public func collectionView(
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -195,7 +195,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
       return layout.itemSpacing
 	}
 	
-	func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+	public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     let segment = segments[indexPath.item]
 		
 		if let selectedSegment = selectedSegment,

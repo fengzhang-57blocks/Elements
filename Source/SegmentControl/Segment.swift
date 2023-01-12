@@ -7,9 +7,9 @@
 
 import Foundation
 
-typealias SegmentActionHandler = (Segment) -> Void
+public typealias SegmentActionHandler = (Segment) -> Void
 
-struct Segment {
+public struct Segment {
   
   let title: NSAttributedString
   
@@ -41,7 +41,7 @@ struct Segment {
 }
 
 extension Segment: Equatable {
-	static func == (lhs: Segment, rhs: Segment) -> Bool {
+	public static func == (lhs: Segment, rhs: Segment) -> Bool {
 		return lhs.title.string.elementsEqual(rhs.title.string)
 	}
 }

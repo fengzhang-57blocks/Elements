@@ -7,7 +7,7 @@
 
 import UIKit
 
-extension SegmentControl {
+public extension SegmentControl {
 	struct Layout {
 		var itemSpacing: CGFloat
 		var contentInsets: UIEdgeInsets

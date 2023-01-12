@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-extension NSAttributedString {
+public extension NSAttributedString {
 	func boundingRectSize(_ size: CGSize) -> CGSize {
 		return self.boundingRect(
 			with: size,

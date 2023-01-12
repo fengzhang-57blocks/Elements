@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PhotonActionSheetSeparator: UITableViewHeaderFooterView {
+public class PhotonActionSheetSeparator: UITableViewHeaderFooterView {
   let view = UIView()
   
   override init(reuseIdentifier: String?) {

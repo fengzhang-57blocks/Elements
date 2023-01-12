@@ -40,7 +40,7 @@ public class SegmentControlOvalCell: SegmentControlCell {
 	
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 	
-	override func layoutSubviews() {
+	public override func layoutSubviews() {
 		super.layoutSubviews()
     if #available(iOS 15.0, *) {} else {
       button.layer.cornerRadius = half(bounds.height)

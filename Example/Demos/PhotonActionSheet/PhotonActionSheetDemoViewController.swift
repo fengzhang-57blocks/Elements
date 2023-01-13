@@ -40,6 +40,8 @@ class PhotonActionSheetDemoViewController: BaseViewController {
 			title: title,
 			iconType: iconType,
 			iconImage: iconImage,
+			isSelected: isSelected,
+			isEnabled: isEnabled,
       customHeight: customHeight,
       handler:  { action, _ in
         print("Click cell with action: \(action.title.string)")

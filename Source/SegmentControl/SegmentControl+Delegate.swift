@@ -7,7 +7,7 @@
 
 import UIKit
 
-public protocol SegmentControlDelegate {
+public protocol SegmentControlDelegate: AnyObject {
   func segmentControl(_ segmentControl: SegmentControl, didSelect segment: Segment, at index: Int)
   func segmentControl(
     _ segmentControl: SegmentControl,

@@ -16,8 +16,9 @@ class SegmentControlDemoViewController: BaseViewController {
 		let s1Segments = makeSegments(["北京", "上海", "广州", "深圳"])
 		let s1 = makeSegmentControl(s1Segments, style: .indicator, alignment: .centered)
 		s1.bounds.size = CGSize(width: view.bounds.width, height: 50)
-		s1.delegate = self
 		navigationItem.titleView = s1
+		s1.delegate = self
+		s1.reloadData()
 		
 		
 		let s2Segments = makeSegments(["北京", "上海", "广州", "深圳"])
@@ -26,21 +27,23 @@ class SegmentControlDemoViewController: BaseViewController {
 		s2.delegate = self
 		view.addSubview(s2)
 		s2.translatesAutoresizingMaskIntoConstraints = false
-		
+		s2.reloadData()
+
 		NSLayoutConstraint.activate([
 			s2.heightAnchor.constraint(equalToConstant: 50),
 			s2.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
 			s2.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
 			s2.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -100)
 		])
-		
+
 		let s3Segments = makeSegments(["内蒙古", "呼和浩特", "新疆维吾尔自治区", "西藏", "青海省", "大美云南", "甘肃", "黑吉辽", "河西走廊"])
 		let s3 = makeSegmentControl(s3Segments, style: .oval, alignment: .tiled)
 		s3.bounds.size = CGSize(width: view.bounds.width, height: 50)
 		s3.delegate = self
 		view.addSubview(s3)
 		s3.translatesAutoresizingMaskIntoConstraints = false
-		
+		s3.reloadData()
+
 		NSLayoutConstraint.activate([
 			s3.heightAnchor.constraint(equalToConstant: 50),
 			s3.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
@@ -61,7 +64,7 @@ class SegmentControlDemoViewController: BaseViewController {
 				isSelected: index == 0)
 		}
 	}
-	
+
 	func makeSegmentControl(
 		_ segments: [Segment],
 		style: SegmentControl.Style,
@@ -69,7 +72,7 @@ class SegmentControlDemoViewController: BaseViewController {
 			let s = SegmentControl(segments: segments)
 			s.style = style
 			s.alignment = alignment
-			
+
 			var layout = SegmentControl.Layout()
 			if style == .indicator {
 				layout.itemSpacing = 0
@@ -79,7 +82,7 @@ class SegmentControlDemoViewController: BaseViewController {
 				layout.selectedBackgroundColor = .systemBlue
 			}
 			s.layout = layout
-			
+
 			return s
 	}
 }

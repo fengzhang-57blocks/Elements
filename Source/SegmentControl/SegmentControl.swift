@@ -22,7 +22,7 @@ public class SegmentControl: UIView {
 	public weak var dataSource: SegmentControlDataSource?
 	public weak var delegate: SegmentControlDelegate?
 
-	private(set) var collectionView: UICollectionView!
+	public private(set) var collectionView: UICollectionView!
 
 	private var selectedSegment: Segment?
 
@@ -89,8 +89,11 @@ public class SegmentControl: UIView {
 		}
 
 		collectionView.center = CGPoint(x: half(bounds.width), y: half(bounds.height))
+    
+    // Recalculate cell size incase of device orientation change.
+    collectionView.reloadData()
 	}
-
+  
 	public func reloadSegments(_ segments: [Segment]) {
 		self.segments = segments
 

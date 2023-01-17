@@ -23,9 +23,6 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
 		return indicator
 	}()
 	
-	private var indicatorLeadingConstaint: NSLayoutConstraint!
-	private var indicatorTrailingConstaint: NSLayoutConstraint!
-	
 	override init(frame: CGRect) {
 		super.init(frame: frame)
 		
@@ -38,12 +35,8 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
 		
     contentView.addSubview(indicator)
 		
-		indicatorLeadingConstaint = indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor)
-		indicatorTrailingConstaint = indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor)
-		
 		NSLayoutConstraint.activate([
-			indicatorLeadingConstaint,
-			indicatorTrailingConstaint,
+      indicator.centerXAnchor.constraint(equalTo: label.centerXAnchor),
 			indicator.heightAnchor.constraint(equalToConstant: 3),
       indicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
 		])
@@ -64,17 +57,15 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
       label.textColor = layout.titleColor
       contentView.backgroundColor = layout.selectedBackgroundColor
     }
-		
-		if layout.titleInsets != .zero {
-			NSLayoutConstraint.deactivate([indicatorLeadingConstaint, indicatorTrailingConstaint])
-			indicatorLeadingConstaint = indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor, constant: layout.titleInsets.left)
-			indicatorTrailingConstaint = indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: -layout.titleInsets.right)
-			NSLayoutConstraint.activate([
-				indicatorLeadingConstaint,
-				indicatorTrailingConstaint,
-			])
-		}
+    
+    switch layout.indicatorWidth {
+    case let .fixed(width):
+      NSLayoutConstraint.activate([indicator.widthAnchor.constraint(equalToConstant: width)])
+    case .automation:
+      NSLayoutConstraint.activate([
+        indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor),
+        indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor)
+      ])
+    }
 	}
-  
 }
-

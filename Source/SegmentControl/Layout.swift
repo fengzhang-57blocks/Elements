@@ -12,9 +12,6 @@ public extension SegmentControl {
 		public var itemSpacing: CGFloat
 		public var contentInsets: UIEdgeInsets
 		
-		// Only works when style is indicator
-		public var titleInsets: UIEdgeInsets
-    
 		public var titleColor: UIColor
 		public var selectedTitleColor: UIColor
     
@@ -23,6 +20,7 @@ public extension SegmentControl {
 		
 		// Only works when style is indicator
 		public var indicatorColor: UIColor
+    public var indicatorWidth: Layout.IndicatorWidth
 		
 		// Only works when style is oval
 		public var borderWidth: CGFloat
@@ -39,21 +37,29 @@ public extension SegmentControl {
       backgroundColor: UIColor = .white,
       selectedBackgroundColor: UIColor = .white,
       indicatorColor: UIColor = .systemBlue,
+      indicatorWidth: Layout.IndicatorWidth = .automation,
       borderWidth: CGFloat = 2,
 			borderColor: UIColor = .systemBlue,
 			isRepeatTouchEnabled: Bool = false
 		) {
 			self.itemSpacing = itemSpacing
       self.contentInsets = contentInsets
-			self.titleInsets = titleInsets
       self.titleColor = titleColor
       self.selectedTitleColor = selectedTitleColor
       self.backgroundColor = backgroundColor
       self.selectedBackgroundColor = selectedBackgroundColor
       self.indicatorColor = indicatorColor
+      self.indicatorWidth = indicatorWidth
       self.borderWidth = borderWidth
       self.borderColor = borderColor
 			self.isRepeatTouchEnabled = isRepeatTouchEnabled
 		}
 	}
+}
+
+public extension SegmentControl.Layout {
+  enum IndicatorWidth {
+    case automation
+    case fixed(CGFloat)
+  }
 }

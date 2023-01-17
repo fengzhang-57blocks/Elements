@@ -12,8 +12,6 @@ public class PhotonActionSheetCell: UITableViewCell {
     static let iconSize: CGFloat = 24
     static let verticalPadding: CGFloat = 5
     static let horizontalPadding: CGFloat = 20
-    static let labelFont: UIFont = .systemFont(ofSize: 16)
-    static let labelColor: UIColor = .black
   }
   
   private(set) public lazy var titleLabel = UILabel()
@@ -47,8 +45,6 @@ public class PhotonActionSheetCell: UITableViewCell {
       iconImageView.widthAnchor.constraint(equalToConstant: UX.iconSize),
     ])
     
-    titleLabel.font = UX.labelFont
-    titleLabel.textColor = UX.labelColor
     titleLabel.adjustsFontSizeToFitWidth = true
   }
   
@@ -58,15 +54,14 @@ public class PhotonActionSheetCell: UITableViewCell {
   
   func configure(with action: PhotonAction) {
     titleLabel.attributedText = action.title
-    accessoryView = action.isSelected ? UIImageView(image: UIImage.fromBundle("PhotonActionSheet", imageName: "checked")) : nil
+    accessoryView = action.isChecked ? UIImageView(image: UIImage.fromBundle("PhotonActionSheet", imageName: "checked")) : nil
     if action.isEnabled {
       selectionStyle = .default
       isUserInteractionEnabled = true
-      titleLabel.textColor = UX.labelColor
     } else {
       selectionStyle = .none
       isUserInteractionEnabled = false
-      titleLabel.textColor = UX.labelColor.withAlphaComponent(0.3)
+      titleLabel.textColor = titleLabel.textColor.withAlphaComponent(0.3)
     }
     switch action.iconType {
     case .image:

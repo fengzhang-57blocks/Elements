@@ -8,9 +8,9 @@
 import UIKit
 
 public extension PhotonAction {
-	typealias PhotonActionCustomHeight = (_ action: PhotonAction) -> CGFloat
-	typealias PhotonActionCustomRender = (_ contentView: UIView) -> Void
-	typealias PhotonActionHandler = (_ action: PhotonAction, _ cell: UITableViewCell) -> Void
+	typealias PhotonActionHandler = (PhotonAction, UITableViewCell) -> Void
+	typealias PhotonActionCustomHeight = (PhotonAction) -> CGFloat
+	typealias PhotonActionCustomRender = (UIView) -> Void
 }
 
 public extension PhotonAction {
@@ -28,33 +28,34 @@ public struct PhotonAction {
 	public let iconImage: UIImage?
 	public let iconURL: URL?
 	
-	public var isSelected: Bool
+	public var isChecked: Bool
 	public var isEnabled: Bool
+	
+	public let handler: PhotonActionHandler?
 	
 	public var customHeight: PhotonActionCustomHeight?
 	public var customRender: PhotonActionCustomRender?
-	public let handler: PhotonActionHandler?
 	
 	public init(
 		title: NSAttributedString,
 		iconType: PhotonAction.IconType = .none,
 		iconImage: UIImage? = nil,
 		iconURL: URL? = nil,
-		isSelected: Bool = false,
+		isChecked: Bool = false,
 		isEnabled: Bool = true,
+    handler: PhotonActionHandler? = nil,
 		customHeight: PhotonActionCustomHeight? = nil,
-		customRender: PhotonActionCustomRender? = nil,
-    handler: PhotonActionHandler? = nil
+		customRender: PhotonActionCustomRender? = nil
 	) {
 		self.title = title
 		self.iconType = iconType
 		self.iconImage = iconImage
 		self.iconURL = iconURL
-		self.isSelected = isSelected
+		self.isChecked = isChecked
 		self.isEnabled = isEnabled
+		self.handler = handler
 		self.customHeight = customHeight
 		self.customRender = customRender
-		self.handler = handler
 	}
 }
 

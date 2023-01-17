@@ -9,6 +9,7 @@ import UIKit
 
 public class PhotonActionSheetAnimator: NSObject {
 	public var isPresenting: Bool = false
+	
   private lazy var shadowView: UIView = {
     let view = UIView()
 		view.translatesAutoresizingMaskIntoConstraints = false

@@ -8,9 +8,9 @@
 import UIKit
 
 public class PhotonActionSheet: UIViewController {
-  public var photonActionSheetTransitioningDelegate: UIViewControllerTransitioningDelegate? {
+  public var photonTransitioningDelegate: UIViewControllerTransitioningDelegate? {
     didSet {
-      transitioningDelegate = photonActionSheetTransitioningDelegate
+      transitioningDelegate = photonTransitioningDelegate
     }
   }
   
@@ -83,6 +83,7 @@ public class PhotonActionSheet: UIViewController {
 	
 	public override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
+		
 		if constrains.count > 0 {
       NSLayoutConstraint.deactivate(constrains)
 			constrains.removeAll()
@@ -116,21 +117,6 @@ public class PhotonActionSheet: UIViewController {
 		
 		preferredContentSize = tableView.contentSize
 	}
-  
-	public override func updateViewConstraints() {
-    super.updateViewConstraints()
-  }
-  
-	public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-    switch UIDevice.current.orientation {
-    case .portrait, .portraitUpsideDown:
-      break
-    case .landscapeLeft, .landscapeRight:
-      break
-    default:
-      break
-    }
-  }
 	
 	@objc private func dismissViewController() {
     dismiss(animated: true, completion: nil)

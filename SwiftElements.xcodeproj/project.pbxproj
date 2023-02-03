@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7E6EE175298CE48A007D7E8A /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE174298CE48A007D7E8A /* PageController.swift */; };
+		7E6EE177298CE4FE007D7E8A /* PageController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */; };
+		7E6EE179298CE503007D7E8A /* PageController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */; };
+		7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */; };
 		7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD429296BA1D4007C893D /* PhotonAction.swift */; };
 		7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */; };
 		7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */; };
@@ -65,6 +69,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7E6EE174298CE48A007D7E8A /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
+		7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+DataSource.swift"; sourceTree = "<group>"; };
+		7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+Delegate.swift"; sourceTree = "<group>"; };
+		7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDemoViewController.swift; sourceTree = "<group>"; };
 		7ECFD429296BA1D4007C893D /* PhotonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonAction.swift; sourceTree = "<group>"; };
 		7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheet.swift; sourceTree = "<group>"; };
 		7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetAnimator.swift; sourceTree = "<group>"; };
@@ -140,6 +148,24 @@
 				7EDA2BC3296BB77B00589E80 /* PhotonActionSheet.bundle */,
 			);
 			path = Resource;
+			sourceTree = "<group>";
+		};
+		7E6EE173298CC175007D7E8A /* PageController */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EE174298CE48A007D7E8A /* PageController.swift */,
+				7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */,
+				7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */,
+			);
+			path = PageController;
+			sourceTree = "<group>";
+		};
+		7E6EE17A298CE790007D7E8A /* PageController */ = {
+			isa = PBXGroup;
+			children = (
+				7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */,
+			);
+			path = PageController;
 			sourceTree = "<group>";
 		};
 		7ECFD428296BA1D4007C893D /* PhotonActionSheet */ = {
@@ -234,6 +260,7 @@
 		B2925022296A813C00704131 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				7E6EE173298CC175007D7E8A /* PageController */,
 				7ECFD428296BA1D4007C893D /* PhotonActionSheet */,
 				B292502B296A821400704131 /* SegmentControl */,
 			);
@@ -243,6 +270,7 @@
 		B2925024296A815500704131 /* Demos */ = {
 			isa = PBXGroup;
 			children = (
+				7E6EE17A298CE790007D7E8A /* PageController */,
 				B26CCE7E296C50810077B697 /* PhotonActionSheet */,
 				B2925047296A822D00704131 /* SegmentControl */,
 			);
@@ -429,10 +457,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E6EE175298CE48A007D7E8A /* PageController.swift in Sources */,
 				7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */,
 				7EDA2BC6296BBF2A00589E80 /* CollectionExtensions.swift in Sources */,
 				B2925039296A821400704131 /* FloatingPoint.swift in Sources */,
+				7E6EE179298CE503007D7E8A /* PageController+Delegate.swift in Sources */,
 				B2925044296A821400704131 /* Layout.swift in Sources */,
+				7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */,
 				B2925037296A821400704131 /* UIEdgeInsetsExtensions.swift in Sources */,
 				B2925040296A821400704131 /* SegmentControlCell.swift in Sources */,
 				B292504A296A822D00704131 /* BaseViewController.swift in Sources */,
@@ -453,6 +484,7 @@
 				B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */,
 				B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
 				B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */,
+				7E6EE177298CE4FE007D7E8A /* PageController+DataSource.swift in Sources */,
 				B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */,
 				B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */,
 				B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */,

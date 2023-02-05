@@ -8,9 +8,6 @@
 import UIKit
 
 public protocol PageControllerDataSource: AnyObject {
-	func pageController(_ pageController: PageController, viewControllerFor index: Int) -> UIViewController
-}
-
-extension PageControllerDataSource {
-	
+  func numberOfPages(for pageController: PageController) -> Int
+  func pageController(_ pageController: PageController, pageAt index: Int) -> PageController.Page
 }

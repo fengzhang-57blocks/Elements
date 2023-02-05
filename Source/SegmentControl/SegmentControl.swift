@@ -94,7 +94,7 @@ public class SegmentControl: UIView {
     collectionView.reloadData()
 	}
   
-	public func reloadSegments(_ segments: [Segment]) {
+	public func reload(with segments: [Segment]) {
 		self.segments = segments
 
 		selectedSegment = segments.filter({
@@ -119,12 +119,20 @@ public class SegmentControl: UIView {
 			}
 		}
 	}
+  
+  public func scrollTo(index: Int, animated: Bool) {
+    guard index < segments.count else {
+      return
+    }
+    
+    collectionView(collectionView, didSelectItemAt: IndexPath(item: index, section: 0))
+  }
 }
 
 extension SegmentControl: UICollectionViewDataSource {
 	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let dataSource = dataSource {
-      return dataSource.numberOfItemsInSegmentControl(self)
+      return dataSource.numberOfItems(in: self)
     }
 
 		return segments.count
@@ -139,9 +147,12 @@ extension SegmentControl: UICollectionViewDataSource {
 		if style == .indicator {
 			identifier = "indicator"
 		}
-		let segment = segments[indexPath.item]
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SegmentControlCell
-		cell.configure(segment, layout: layout)
+    if let segment = dataSource?.segmentControl(self, segmentAt: indexPath.item) {
+      cell.configure(segment, layout: layout)
+    } else {
+      cell.configure(segments[indexPath.item], layout: layout)
+    }
 
 		return cell
 	}

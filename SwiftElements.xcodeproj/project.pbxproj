@@ -21,6 +21,9 @@
 		7EDA2BCB296BCC7600589E80 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC8296BCC7500589E80 /* LICENSE */; };
 		7EDA2BCC296BCC7600589E80 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 7EDA2BC9296BCC7600589E80 /* README.md */; };
 		7EF01940296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EF0193F296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift */; };
+		B25C86D8298FAA2B00F5898A /* PageController+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25C86D7298FAA2B00F5898A /* PageController+Layout.swift */; };
+		B25C86DA298FAC9800F5898A /* PageController+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25C86D9298FAC9800F5898A /* PageController+Page.swift */; };
+		B25C86DC298FCDA600F5898A /* PageDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */; };
 		B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */; };
 		B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7C296C4FA30077B697 /* UIImage.swift */; };
 		B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */; };
@@ -38,14 +41,14 @@
 		B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925029296A821400704131 /* NSAttributedStringExtensions.swift */; };
 		B292503B296A821400704131 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502C296A821400704131 /* SegmentControl.swift */; };
 		B292503C296A821400704131 /* SegmentControl+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502D296A821400704131 /* SegmentControl+Delegate.swift */; };
-		B292503D296A821400704131 /* Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* Alignment.swift */; };
+		B292503D296A821400704131 /* SegmentControl+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* SegmentControl+Alignment.swift */; };
 		B292503E296A821400704131 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502F296A821400704131 /* Segment.swift */; };
 		B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925031296A821400704131 /* SegmentControlOvalCell.swift */; };
 		B2925040296A821400704131 /* SegmentControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925032296A821400704131 /* SegmentControlCell.swift */; };
 		B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */; };
 		B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* SegmentControl+DataSource.swift */; };
-		B2925043296A821400704131 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* Style.swift */; };
-		B2925044296A821400704131 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* Layout.swift */; };
+		B2925043296A821400704131 /* SegmentControl+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* SegmentControl+Style.swift */; };
+		B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* SegmentControl+Layout.swift */; };
 		B2925049296A822D00704131 /* DemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925045296A822D00704131 /* DemoListViewController.swift */; };
 		B292504A296A822D00704131 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925046296A822D00704131 /* BaseViewController.swift */; };
 		B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */; };
@@ -83,6 +86,9 @@
 		7EDA2BC8296BCC7500589E80 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		7EDA2BC9296BCC7600589E80 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		7EF0193F296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotonActionSheet+Configuration.swift"; sourceTree = "<group>"; };
+		B25C86D7298FAA2B00F5898A /* PageController+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+Layout.swift"; sourceTree = "<group>"; };
+		B25C86D9298FAC9800F5898A /* PageController+Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+Page.swift"; sourceTree = "<group>"; };
+		B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDemoViewController.swift; sourceTree = "<group>"; };
 		B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetSeparator.swift; sourceTree = "<group>"; };
 		B26CCE7C296C4FA30077B697 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetDemoViewController.swift; sourceTree = "<group>"; };
@@ -104,14 +110,14 @@
 		B2925029296A821400704131 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
 		B292502C296A821400704131 /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
 		B292502D296A821400704131 /* SegmentControl+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Delegate.swift"; sourceTree = "<group>"; };
-		B292502E296A821400704131 /* Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alignment.swift; sourceTree = "<group>"; };
+		B292502E296A821400704131 /* SegmentControl+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Alignment.swift"; sourceTree = "<group>"; };
 		B292502F296A821400704131 /* Segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		B2925031296A821400704131 /* SegmentControlOvalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlOvalCell.swift; sourceTree = "<group>"; };
 		B2925032296A821400704131 /* SegmentControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlCell.swift; sourceTree = "<group>"; };
 		B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlIndicatorCell.swift; sourceTree = "<group>"; };
 		B2925034296A821400704131 /* SegmentControl+DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+DataSource.swift"; sourceTree = "<group>"; };
-		B2925035296A821400704131 /* Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		B2925036296A821400704131 /* Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
+		B2925035296A821400704131 /* SegmentControl+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Style.swift"; sourceTree = "<group>"; };
+		B2925036296A821400704131 /* SegmentControl+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Layout.swift"; sourceTree = "<group>"; };
 		B2925045296A822D00704131 /* DemoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoListViewController.swift; sourceTree = "<group>"; };
 		B2925046296A822D00704131 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDemoViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 		7E6EE173298CC175007D7E8A /* PageController */ = {
 			isa = PBXGroup;
 			children = (
+				B25C86D7298FAA2B00F5898A /* PageController+Layout.swift */,
+				B25C86D9298FAC9800F5898A /* PageController+Page.swift */,
 				7E6EE174298CE48A007D7E8A /* PageController.swift */,
 				7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */,
 				7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */,
@@ -164,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */,
+				B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */,
 			);
 			path = PageController;
 			sourceTree = "<group>";
@@ -291,11 +300,11 @@
 		B292502B296A821400704131 /* SegmentControl */ = {
 			isa = PBXGroup;
 			children = (
-				B292502E296A821400704131 /* Alignment.swift */,
+				B292502E296A821400704131 /* SegmentControl+Alignment.swift */,
+				B2925035296A821400704131 /* SegmentControl+Style.swift */,
 				B292502F296A821400704131 /* Segment.swift */,
-				B2925035296A821400704131 /* Style.swift */,
-				B2925036296A821400704131 /* Layout.swift */,
 				B292502C296A821400704131 /* SegmentControl.swift */,
+				B2925036296A821400704131 /* SegmentControl+Layout.swift */,
 				B292502D296A821400704131 /* SegmentControl+Delegate.swift */,
 				B2925034296A821400704131 /* SegmentControl+DataSource.swift */,
 				B2925025296A821400704131 /* Extensions */,
@@ -458,11 +467,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E6EE175298CE48A007D7E8A /* PageController.swift in Sources */,
+				B25C86D8298FAA2B00F5898A /* PageController+Layout.swift in Sources */,
 				7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */,
 				7EDA2BC6296BBF2A00589E80 /* CollectionExtensions.swift in Sources */,
 				B2925039296A821400704131 /* FloatingPoint.swift in Sources */,
+				B25C86DA298FAC9800F5898A /* PageController+Page.swift in Sources */,
 				7E6EE179298CE503007D7E8A /* PageController+Delegate.swift in Sources */,
-				B2925044296A821400704131 /* Layout.swift in Sources */,
+				B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */,
 				7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */,
 				B2925037296A821400704131 /* UIEdgeInsetsExtensions.swift in Sources */,
 				B2925040296A821400704131 /* SegmentControlCell.swift in Sources */,
@@ -470,9 +481,9 @@
 				B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */,
 				B292503B296A821400704131 /* SegmentControl.swift in Sources */,
 				B292503E296A821400704131 /* Segment.swift in Sources */,
-				B2925043296A821400704131 /* Style.swift in Sources */,
+				B2925043296A821400704131 /* SegmentControl+Style.swift in Sources */,
 				B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */,
-				B292503D296A821400704131 /* Alignment.swift in Sources */,
+				B292503D296A821400704131 /* SegmentControl+Alignment.swift in Sources */,
 				B292503C296A821400704131 /* SegmentControl+Delegate.swift in Sources */,
 				B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */,
 				B2925049296A822D00704131 /* DemoListViewController.swift in Sources */,
@@ -483,6 +494,7 @@
 				7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */,
 				B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */,
 				B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
+				B25C86DC298FCDA600F5898A /* PageDemoViewController.swift in Sources */,
 				B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */,
 				7E6EE177298CE4FE007D7E8A /* PageController+DataSource.swift in Sources */,
 				B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */,

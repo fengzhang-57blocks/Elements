@@ -8,6 +8,7 @@
 import UIKit
 
 public protocol SegmentControlDataSource: AnyObject {
-  func numberOfItemsInSegmentControl(_ segmentControl: SegmentControl) -> Int
+  func numberOfItems(in segmentControl: SegmentControl) -> Int
   func segmentControl(_ segmentControl: SegmentControl, cellForItemAt index: Int) -> UICollectionViewCell
+  func segmentControl(_ segmentControl: SegmentControl, segmentAt index: Int) -> Segment
 }

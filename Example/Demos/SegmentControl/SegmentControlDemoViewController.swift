@@ -67,8 +67,9 @@ class SegmentControlDemoViewController: BaseViewController {
 
 	func makeSegmentControl(
 		_ segments: [Segment],
-		style: SegmentControl.Style,
-		alignment: SegmentControl.Alignment) -> SegmentControl {
+		style: SegmentControlStyle,
+		alignment: SegmentControlAlignment
+	) -> SegmentControl {
 			let s = SegmentControl(segments: segments)
 			s.style = style
 			s.alignment = alignment
@@ -76,7 +77,7 @@ class SegmentControlDemoViewController: BaseViewController {
 			var layout = SegmentControl.Layout()
 			if style == .indicator {
 				layout.itemSpacing = 0
-        layout.indicatorWidth = .fixed(20)
+				layout.indicatorSize = .init(width: .fixed(20), height: 3)
 			} else {
 				layout.selectedTitleColor = .white
 				layout.selectedBackgroundColor = .systemBlue

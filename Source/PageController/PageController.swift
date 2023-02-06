@@ -92,7 +92,7 @@ public class PageController: UIViewController {
 
 extension PageController {
   func makeSegmentControl() -> SegmentControl {
-    if let customizedControl = delegate?.segmentControl(for: self) {
+    if let customizedControl = delegate?.segmentControl {
       return customizedControl
     }
     

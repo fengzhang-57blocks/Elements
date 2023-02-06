@@ -1,5 +1,5 @@
 //
-//  SegmentControl+Delegate.swift
+//  SegmentControlDelegate.swift
 //  Elements
 //
 //  Created by feng.zhang on 2023/1/5.

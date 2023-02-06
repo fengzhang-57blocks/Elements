@@ -15,9 +15,9 @@ public class SegmentControl: UIView {
 		}
 	}
 
-  public var alignment: SegmentControl.Alignment = .centered
+  public var alignment: SegmentControlAlignment = .centered
 
-  public var style: SegmentControl.Style = .indicator
+  public var style: SegmentControlStyle = .indicator
 
 	public weak var dataSource: SegmentControlDataSource?
 	public weak var delegate: SegmentControlDelegate?

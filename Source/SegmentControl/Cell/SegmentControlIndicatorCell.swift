@@ -37,8 +37,7 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
 		
 		NSLayoutConstraint.activate([
       indicator.centerXAnchor.constraint(equalTo: label.centerXAnchor),
-			indicator.heightAnchor.constraint(equalToConstant: 3),
-      indicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -3),
+      indicator.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
 		])
 	}
 	
@@ -57,11 +56,13 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
       label.textColor = layout.titleColor
       contentView.backgroundColor = layout.selectedBackgroundColor
     }
+		
+		NSLayoutConstraint.activate([indicator.heightAnchor.constraint(equalToConstant: layout.indicatorSize.height)])
     
-    switch layout.indicatorWidth {
-    case let .fixed(width):
-      NSLayoutConstraint.activate([indicator.widthAnchor.constraint(equalToConstant: width)])
-    case .automation:
+		switch layout.indicatorSize.width {
+		case let .fixed(width):
+			NSLayoutConstraint.activate([indicator.widthAnchor.constraint(equalToConstant: width)])
+		case .equal:
       NSLayoutConstraint.activate([
         indicator.leadingAnchor.constraint(equalTo: label.leadingAnchor),
         indicator.trailingAnchor.constraint(equalTo: label.trailingAnchor)

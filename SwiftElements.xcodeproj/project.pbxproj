@@ -40,14 +40,14 @@
 		B2925039296A821400704131 /* FloatingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925028296A821400704131 /* FloatingPoint.swift */; };
 		B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925029296A821400704131 /* NSAttributedStringExtensions.swift */; };
 		B292503B296A821400704131 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502C296A821400704131 /* SegmentControl.swift */; };
-		B292503C296A821400704131 /* SegmentControl+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502D296A821400704131 /* SegmentControl+Delegate.swift */; };
-		B292503D296A821400704131 /* SegmentControl+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* SegmentControl+Alignment.swift */; };
+		B292503C296A821400704131 /* SegmentControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502D296A821400704131 /* SegmentControlDelegate.swift */; };
+		B292503D296A821400704131 /* SegmentControlAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* SegmentControlAlignment.swift */; };
 		B292503E296A821400704131 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502F296A821400704131 /* Segment.swift */; };
 		B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925031296A821400704131 /* SegmentControlOvalCell.swift */; };
 		B2925040296A821400704131 /* SegmentControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925032296A821400704131 /* SegmentControlCell.swift */; };
 		B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */; };
-		B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* SegmentControl+DataSource.swift */; };
-		B2925043296A821400704131 /* SegmentControl+Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* SegmentControl+Style.swift */; };
+		B2925042296A821400704131 /* SegmentControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* SegmentControlDataSource.swift */; };
+		B2925043296A821400704131 /* SegmentControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* SegmentControlStyle.swift */; };
 		B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* SegmentControl+Layout.swift */; };
 		B2925049296A822D00704131 /* DemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925045296A822D00704131 /* DemoListViewController.swift */; };
 		B292504A296A822D00704131 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925046296A822D00704131 /* BaseViewController.swift */; };
@@ -109,14 +109,14 @@
 		B2925028296A821400704131 /* FloatingPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPoint.swift; sourceTree = "<group>"; };
 		B2925029296A821400704131 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
 		B292502C296A821400704131 /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
-		B292502D296A821400704131 /* SegmentControl+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Delegate.swift"; sourceTree = "<group>"; };
-		B292502E296A821400704131 /* SegmentControl+Alignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Alignment.swift"; sourceTree = "<group>"; };
+		B292502D296A821400704131 /* SegmentControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDelegate.swift; sourceTree = "<group>"; };
+		B292502E296A821400704131 /* SegmentControlAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlAlignment.swift; sourceTree = "<group>"; };
 		B292502F296A821400704131 /* Segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
 		B2925031296A821400704131 /* SegmentControlOvalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlOvalCell.swift; sourceTree = "<group>"; };
 		B2925032296A821400704131 /* SegmentControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlCell.swift; sourceTree = "<group>"; };
 		B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlIndicatorCell.swift; sourceTree = "<group>"; };
-		B2925034296A821400704131 /* SegmentControl+DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+DataSource.swift"; sourceTree = "<group>"; };
-		B2925035296A821400704131 /* SegmentControl+Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Style.swift"; sourceTree = "<group>"; };
+		B2925034296A821400704131 /* SegmentControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDataSource.swift; sourceTree = "<group>"; };
+		B2925035296A821400704131 /* SegmentControlStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlStyle.swift; sourceTree = "<group>"; };
 		B2925036296A821400704131 /* SegmentControl+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Layout.swift"; sourceTree = "<group>"; };
 		B2925045296A822D00704131 /* DemoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoListViewController.swift; sourceTree = "<group>"; };
 		B2925046296A822D00704131 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -175,6 +175,25 @@
 				B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */,
 			);
 			path = PageController;
+			sourceTree = "<group>";
+		};
+		7E98DB432990A7900093543E /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B292502D296A821400704131 /* SegmentControlDelegate.swift */,
+				B2925034296A821400704131 /* SegmentControlDataSource.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		7E98DB452990A7FD0093543E /* Enmus */ = {
+			isa = PBXGroup;
+			children = (
+				B292502E296A821400704131 /* SegmentControlAlignment.swift */,
+				B2925035296A821400704131 /* SegmentControlStyle.swift */,
+				B2925036296A821400704131 /* SegmentControl+Layout.swift */,
+			);
+			path = Enmus;
 			sourceTree = "<group>";
 		};
 		7ECFD428296BA1D4007C893D /* PhotonActionSheet */ = {
@@ -300,13 +319,10 @@
 		B292502B296A821400704131 /* SegmentControl */ = {
 			isa = PBXGroup;
 			children = (
-				B292502E296A821400704131 /* SegmentControl+Alignment.swift */,
-				B2925035296A821400704131 /* SegmentControl+Style.swift */,
 				B292502F296A821400704131 /* Segment.swift */,
 				B292502C296A821400704131 /* SegmentControl.swift */,
-				B2925036296A821400704131 /* SegmentControl+Layout.swift */,
-				B292502D296A821400704131 /* SegmentControl+Delegate.swift */,
-				B2925034296A821400704131 /* SegmentControl+DataSource.swift */,
+				7E98DB452990A7FD0093543E /* Enmus */,
+				7E98DB432990A7900093543E /* Protocols */,
 				B2925025296A821400704131 /* Extensions */,
 				B2925030296A821400704131 /* Cell */,
 			);
@@ -481,10 +497,10 @@
 				B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */,
 				B292503B296A821400704131 /* SegmentControl.swift in Sources */,
 				B292503E296A821400704131 /* Segment.swift in Sources */,
-				B2925043296A821400704131 /* SegmentControl+Style.swift in Sources */,
+				B2925043296A821400704131 /* SegmentControlStyle.swift in Sources */,
 				B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */,
-				B292503D296A821400704131 /* SegmentControl+Alignment.swift in Sources */,
-				B292503C296A821400704131 /* SegmentControl+Delegate.swift in Sources */,
+				B292503D296A821400704131 /* SegmentControlAlignment.swift in Sources */,
+				B292503C296A821400704131 /* SegmentControlDelegate.swift in Sources */,
 				B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */,
 				B2925049296A822D00704131 /* DemoListViewController.swift in Sources */,
 				7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */,
@@ -492,7 +508,7 @@
 				B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */,
 				7ECFD430296BA436007C893D /* PhotonActionSheetCell.swift in Sources */,
 				7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */,
-				B2925042296A821400704131 /* SegmentControl+DataSource.swift in Sources */,
+				B2925042296A821400704131 /* SegmentControlDataSource.swift in Sources */,
 				B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
 				B25C86DC298FCDA600F5898A /* PageDemoViewController.swift in Sources */,
 				B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */,

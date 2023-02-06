@@ -20,7 +20,7 @@ public extension SegmentControl {
 		
 		// Only works when style is indicator
 		public var indicatorColor: UIColor
-    public var indicatorWidth: Layout.IndicatorWidth
+		public var indicatorSize: Layout.IndicatorSize
 		
 		// Only works when style is oval
 		public var borderWidth: CGFloat
@@ -37,7 +37,7 @@ public extension SegmentControl {
       backgroundColor: UIColor = .white,
       selectedBackgroundColor: UIColor = .white,
       indicatorColor: UIColor = .systemBlue,
-      indicatorWidth: Layout.IndicatorWidth = .automation,
+			indicatorSize: Layout.IndicatorSize = .init(width: .equal, height: 3),
       borderWidth: CGFloat = 2,
 			borderColor: UIColor = .systemBlue,
 			isRepeatTouchEnabled: Bool = false
@@ -49,7 +49,7 @@ public extension SegmentControl {
       self.backgroundColor = backgroundColor
       self.selectedBackgroundColor = selectedBackgroundColor
       self.indicatorColor = indicatorColor
-      self.indicatorWidth = indicatorWidth
+      self.indicatorSize = indicatorSize
       self.borderWidth = borderWidth
       self.borderColor = borderColor
 			self.isRepeatTouchEnabled = isRepeatTouchEnabled
@@ -58,8 +58,18 @@ public extension SegmentControl {
 }
 
 public extension SegmentControl.Layout {
-  enum IndicatorWidth {
-    case automation
-    case fixed(CGFloat)
-  }
+	enum IndicatorSizeBehaviour {
+		case equal
+		case fixed(CGFloat)
+	}
+	
+	struct IndicatorSize {
+		public var width: IndicatorSizeBehaviour
+		public var height: CGFloat
+		
+		public init(width: IndicatorSizeBehaviour, height: CGFloat) {
+			self.width = width
+			self.height = height
+		}
+	}
 }

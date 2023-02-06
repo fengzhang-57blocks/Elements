@@ -7,22 +7,17 @@
 
 import UIKit
 
-public protocol PageControllerDelegate: AnyObject {
-	func segmentControl(for pageController: PageController) -> SegmentControl?
-  func edgeInsetsForSegmentControl(_ pageController: PageController) -> UIEdgeInsets
+public protocol PageControllerDelegate: NSObjectProtocol {
   func pageController(_ pageController: PageController, didDisplay page: PageController.Page)
+	var segmentControl: SegmentControl? { get }
 }
 
 public extension PageControllerDelegate {
-  func segmentControl(for pageController: PageController) -> SegmentControl? {
-    return nil
-  }
-  
-  func edgeInsetsForSegmentControl(_ pageController: PageController) -> UIEdgeInsets {
-    return .zero
-  }
-  
   func pageController(_ pageController: PageController, didDisplay page: PageController.Page) {
     // 
   }
+	
+	var segmentControl: SegmentControl? {
+		return nil
+	}
 }

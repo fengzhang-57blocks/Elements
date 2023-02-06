@@ -1,5 +1,5 @@
 //
-//  PageController.swift
+//  PagingController.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/3.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PageController: UIViewController {
+public class PagingController: UIViewController {
 	
 	public lazy var scrollView: UIScrollView = {
 		let scrollView = UIScrollView()
@@ -30,13 +30,13 @@ public class PageController: UIViewController {
     return control
   }()
   
-	weak public var dataSource: PageControllerDataSource?
-	weak public var delegate: PageControllerDelegate?
+	weak public var dataSource: PagingControllerDataSource?
+	weak public var delegate: PagingControllerDelegate?
   
   public var selectedPageIndex: Int = 0
   
-  public var layout: PageController.Layout
-  init(layout: PageController.Layout = PageController.Layout()) {
+  public var layout: PagingController.Layout
+  init(layout: PagingController.Layout = PagingController.Layout()) {
     self.layout = layout
     super.init(nibName: nil, bundle: nil)
   }
@@ -90,7 +90,7 @@ public class PageController: UIViewController {
   }
 }
 
-extension PageController {
+extension PagingController {
   func makeTabControl() -> TabControl {
     if let customizedControl = delegate?.tabControl {
       return customizedControl
@@ -106,7 +106,7 @@ extension PageController {
     
     var tabs = [Tab]()
     for index in 0..<count {
-      if let page = dataSource?.pageController(self, pageAt: index) {
+      if let page = dataSource?.pagingController(self, pageAt: index) {
         let tab = Tab(
           title: NSAttributedString(string: page.title),
           isSelected: index == 0
@@ -128,7 +128,7 @@ extension PageController {
     
     let count = dataSource.numberOfPages(for: self)
     
-    let page = dataSource.pageController(self, pageAt: selectedPageIndex)
+    let page = dataSource.pagingController(self, pageAt: selectedPageIndex)
     if !pages!.contains(page) {
       addChild(page.viewController)
       scrollView.addSubview(page.viewController.view)
@@ -137,7 +137,7 @@ extension PageController {
     
     let prevIndex = selectedPageIndex - 1
     if prevIndex >= 0 {
-      let prevPage = dataSource.pageController(self, pageAt: prevIndex)
+      let prevPage = dataSource.pagingController(self, pageAt: prevIndex)
       if !pages!.contains(prevPage) {
         addChild(prevPage.viewController)
         scrollView.addSubview(prevPage.viewController.view)
@@ -147,7 +147,7 @@ extension PageController {
     
     let nextIndex = selectedPageIndex + 1
     if nextIndex < count {
-      let nextPage = dataSource.pageController(self, pageAt: nextIndex)
+      let nextPage = dataSource.pagingController(self, pageAt: nextIndex)
       if !pages!.contains(nextPage) {
         addChild(nextPage.viewController)
         scrollView.addSubview(nextPage.viewController.view)
@@ -155,25 +155,25 @@ extension PageController {
       }
     }
     
-    delegate?.pageController(self, didDisplay: page)
+    delegate?.pagingController(self, didDisplay: page)
     
     view.setNeedsLayout()
     view.layoutIfNeeded()
   }
 }
 
-extension PageController: TabControlDelegate {
+extension PagingController: TabControlDelegate {
 //  public func numberOfItems(in tabControl: TabControl) -> Int {
 //    return dataSource?.numberOfViewControllers(for: self) ?? 0
 //  }
 //
 //  public func tabControl(_ tabControl: TabControl, tabAt index: Int) -> Tab {
-//    if let title = delegate?.pageController(self, titleAt: index) {
+//    if let title = delegate?.pagingController(self, titleAt: index) {
 //      return Tab(
 //        title: NSAttributedString(string: title),
 //        isSelected: index == 0
 //      )
-//    } else if let title = dataSource?.pageController(self, viewControllerFor: index).title {
+//    } else if let title = dataSource?.pagingController(self, viewControllerFor: index).title {
 //      return Tab(
 //        title: NSAttributedString(string: title),
 //        isSelected: index == 0
@@ -199,7 +199,7 @@ extension PageController: TabControlDelegate {
   }
 }
 
-extension PageController: UIScrollViewDelegate {
+extension PagingController: UIScrollViewDelegate {
   public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
     let offsetX = scrollView.contentOffset.x
     let index = offsetX / scrollView.bounds.width

@@ -9,7 +9,7 @@ import UIKit
 
 public class TabControl: UIView {
 
-	public var layout: TabControlConfigurations = TabControlConfigurations() {
+	public var layout: TabControlOptions = TabControlOptions() {
 		didSet {
 			collectionView.reloadData()
 		}
@@ -229,6 +229,12 @@ extension TabControl: UICollectionViewDelegateFlowLayout {
 
     handleSelectTab(tab, at: indexPath)
 	}
+}
+
+extension TabControl: UIScrollViewDelegate {
+  public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    
+  }
 }
 
 private extension TabControl {

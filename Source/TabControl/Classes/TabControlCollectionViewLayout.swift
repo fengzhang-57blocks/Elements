@@ -9,13 +9,13 @@ import UIKit
 
 open class TabControlCollectionViewLayout: UICollectionViewLayout {
 	
-	public var configurations = TabControlConfigurations()
+	public var options = TabControlOptions()
 	
 	private let indicatorKind: String = "indicator"
-	public var indicatorLayoutAttributes: TabControlIndicatorLayoutAttributes?
-	open var indicatorClass: TabControlIndicatorView.Type {
-		set { configurations.indicatorClass = newValue }
-		get { return configurations.indicatorClass }
+	public private(set) var indicatorLayoutAttributes: TabIndicatorLayoutAttributes?
+	open var indicatorClass: TabIndicatorView.Type {
+		set { options.indicatorClass = newValue }
+		get { return options.indicatorClass }
 	}
 	
 	override init() {
@@ -34,6 +34,8 @@ open class TabControlCollectionViewLayout: UICollectionViewLayout {
 	
 	open override func prepare() {
 		super.prepare()
+    
+    indicatorLayoutAttributes = nil
 	}
 	
 	open override func layoutAttributesForDecorationView(

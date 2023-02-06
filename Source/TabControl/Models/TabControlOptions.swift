@@ -1,5 +1,5 @@
 //
-//  TabControlConfigurations.swift
+//  TabConfigurations.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct TabControlConfigurations {
+public struct TabControlOptions {
 	public var itemSpacing: CGFloat
 	public var contentInsets: UIEdgeInsets
 	
@@ -18,8 +18,7 @@ public struct TabControlConfigurations {
 	public var selectedBackgroundColor: UIColor
 	
 	// Only works when style is indicator
-	public var indicatorColor: UIColor
-	public var indicatorSize: TabControlConfigurations.IndicatorSize
+	public var indicatorSize: TabControlOptions.IndicatorSize
 	
 	// Only works when style is oval
 	public var borderWidth: CGFloat
@@ -28,11 +27,21 @@ public struct TabControlConfigurations {
 	public var isRepeatTouchEnabled: Bool
 	
 	// ----
+  
+  public var insets: UIEdgeInsets
+  
+  public var height: CGFloat {
+    return tabSize.height + insets.top + insets.bottom
+  }
+  
+  public var position: TabControlPosition
+  
+  public var tabSize: TabSize
 	
-	public var indicatorClass: TabControlIndicatorView.Type
+  public var indicatorOptions: TabIndicatorOptions
+  public var indicatorColor: UIColor
+  public var indicatorClass: TabIndicatorView.Type
 	
-	
-	// ------
 	
 	public init(
 		itemSpacing: CGFloat = 8,
@@ -43,11 +52,16 @@ public struct TabControlConfigurations {
 		backgroundColor: UIColor = .white,
 		selectedBackgroundColor: UIColor = .white,
 		indicatorColor: UIColor = .systemBlue,
-		indicatorSize: TabControlConfigurations.IndicatorSize = .init(width: .equal, height: 3),
+		indicatorSize: TabControlOptions.IndicatorSize = .init(width: .equal, height: 3),
 		borderWidth: CGFloat = 2,
 		borderColor: UIColor = .systemBlue,
 		isRepeatTouchEnabled: Bool = false,
-		indicatorClass: TabControlIndicatorView.Type = TabControlIndicatorView.self
+    
+    insets: UIEdgeInsets = .zero,
+    position: TabControlPosition = .top,
+    tabSize: TabSize = .fixed(width: 50, height: 50),
+		indicatorClass: TabIndicatorView.Type = TabIndicatorView.self,
+    indicatorOptions: TabIndicatorOptions = .visible(height: 3, insets: .zero, zIndex: Int.max)
 	) {
 		self.itemSpacing = itemSpacing
 		self.contentInsets = contentInsets
@@ -60,11 +74,16 @@ public struct TabControlConfigurations {
 		self.borderWidth = borderWidth
 		self.borderColor = borderColor
 		self.isRepeatTouchEnabled = isRepeatTouchEnabled
+    
+    self.insets = insets
+    self.position = position
+    self.tabSize = tabSize
 		self.indicatorClass = indicatorClass
+    self.indicatorOptions = indicatorOptions
 	}
 }
 
-public extension TabControlConfigurations {
+public extension TabControlOptions {
 	enum IndicatorSizeBehaviour {
 		case equal
 		case fixed(CGFloat)

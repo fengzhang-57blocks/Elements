@@ -43,7 +43,7 @@ public class TabControlIndicatorCell: TabControlCell {
 	
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 	
-	override func configure(_ tab: Tab, layout: TabControlConfigurations) {
+	override func configure(_ tab: Tab, layout: TabControlOptions) {
 		super.configure(tab, layout: layout)
     label.attributedText = tab.title
     indicator.isHidden = !tab.isSelected

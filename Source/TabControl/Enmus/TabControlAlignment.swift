@@ -7,6 +7,6 @@
 
 public enum TabControlAlignment {
 	case tiled
-	 case centered
-	 case equalization
+  case centered
+  case equalization
  }

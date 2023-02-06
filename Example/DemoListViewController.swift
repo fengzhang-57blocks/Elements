@@ -37,7 +37,7 @@ class DemoListViewController: UITableViewController {
 		return [
       Demo(title: "PhotonActionSheet", viewController: PhotonActionSheetDemoViewController()),
 			Demo(title: "TabControl", viewController: TabControlDemoViewController()),
-			Demo(title: "PageController", viewController: PageControllerDemoViewController()),
+			Demo(title: "PagingController", viewController: PagingControllerDemoViewController()),
 		]
 	}
 

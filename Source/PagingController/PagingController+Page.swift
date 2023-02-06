@@ -1,5 +1,5 @@
 //
-//  PageController+Page.swift
+//  PagingController+Page.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/5.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension PageController {
+public extension PagingController {
   struct Page {
     public let index: Int
     public let title: String
@@ -20,8 +20,8 @@ public extension PageController {
   }
 }
 
-extension PageController.Page: Equatable {
-  public static func == (lhs: PageController.Page, rhs: PageController.Page) -> Bool {
+extension PagingController.Page: Equatable {
+  public static func == (lhs: PagingController.Page, rhs: PagingController.Page) -> Bool {
     return lhs.viewController.hash == rhs.viewController.hash
   }
 }

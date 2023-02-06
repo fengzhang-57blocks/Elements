@@ -47,7 +47,7 @@ public class TabControlOvalCell: TabControlCell {
     }
 	}
   
-	override func configure(_ tab: Tab, layout: TabControlConfigurations) {
+	override func configure(_ tab: Tab, layout: TabControlOptions) {
 		super.configure(tab, layout: layout)
     
 		button.setAttributedTitle(tab.title, for: .normal)

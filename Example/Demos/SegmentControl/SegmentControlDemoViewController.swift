@@ -74,7 +74,7 @@ class TabControlDemoViewController: BaseViewController {
 			s.style = style
 			s.alignment = alignment
 
-			var layout = TabControlConfigurations()
+			var layout = TabControlOptions()
 			if style == .indicator {
 				layout.itemSpacing = 0
 				layout.indicatorSize = .init(width: .fixed(20), height: 3)

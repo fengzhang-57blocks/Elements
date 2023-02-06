@@ -7,7 +7,7 @@
 
 import UIKit
 
-public extension SegmentControl {
+public extension TabControl {
 	struct Layout {
 		public var itemSpacing: CGFloat
 		public var contentInsets: UIEdgeInsets
@@ -57,7 +57,7 @@ public extension SegmentControl {
 	}
 }
 
-public extension SegmentControl.Layout {
+public extension TabControl.Layout {
 	enum IndicatorSizeBehaviour {
 		case equal
 		case fixed(CGFloat)

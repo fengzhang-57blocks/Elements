@@ -1,5 +1,5 @@
 //
-//  SegmentControlOvalCell.swift
+//  TabControlOvalCell.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class SegmentControlOvalCell: SegmentControlCell {
+public class TabControlOvalCell: TabControlCell {
 	private var button: UIButton!
 	
 	public override init(frame: CGRect) {
@@ -47,17 +47,17 @@ public class SegmentControlOvalCell: SegmentControlCell {
     }
 	}
   
-	override func configure(_ segment: Segment, layout: SegmentControl.Layout) {
-		super.configure(segment, layout: layout)
+	override func configure(_ tab: Tab, layout: TabControl.Layout) {
+		super.configure(tab, layout: layout)
     
-		button.setAttributedTitle(segment.title, for: .normal)
+		button.setAttributedTitle(tab.title, for: .normal)
     
 		if #available(iOS 15.0, *) {
 			button.configuration?.contentInsets = NSDirectionalEdgeInsets(insets: layout.contentInsets)
       button.configuration?.background.strokeWidth = layout.borderWidth
       button.configuration?.background.strokeColor = layout.borderColor
       
-      if segment.isSelected {
+      if tab.isSelected {
         button.configuration?.baseForegroundColor = layout.selectedTitleColor
         button.configuration?.baseBackgroundColor = layout.selectedBackgroundColor
       } else {
@@ -69,7 +69,7 @@ public class SegmentControlOvalCell: SegmentControlCell {
       button.layer.borderColor = layout.borderColor.cgColor
       button.layer.borderWidth = layout.borderWidth
       
-      if segment.isSelected {
+      if tab.isSelected {
         button.setTitleColor(layout.selectedTitleColor, for: .normal)
         button.backgroundColor = layout.selectedBackgroundColor
       } else {

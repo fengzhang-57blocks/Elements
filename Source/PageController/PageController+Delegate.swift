@@ -9,7 +9,7 @@ import UIKit
 
 public protocol PageControllerDelegate: NSObjectProtocol {
   func pageController(_ pageController: PageController, didDisplay page: PageController.Page)
-	var segmentControl: SegmentControl? { get }
+	var tabControl: TabControl? { get }
 }
 
 public extension PageControllerDelegate {
@@ -17,7 +17,7 @@ public extension PageControllerDelegate {
     // 
   }
 	
-	var segmentControl: SegmentControl? {
+	var tabControl: TabControl? {
 		return nil
 	}
 }

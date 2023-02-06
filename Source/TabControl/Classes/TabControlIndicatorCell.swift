@@ -1,5 +1,5 @@
 //
-//  SegmentControlIndicatorCell.swift
+//  TabControlIndicatorCell.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class SegmentControlIndicatorCell: SegmentControlCell {
+public class TabControlIndicatorCell: TabControlCell {
 	private(set) public lazy var label: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
@@ -43,13 +43,13 @@ public class SegmentControlIndicatorCell: SegmentControlCell {
 	
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 	
-	override func configure(_ segment: Segment, layout: SegmentControl.Layout) {
-		super.configure(segment, layout: layout)
-    label.attributedText = segment.title
-    indicator.isHidden = !segment.isSelected
+	override func configure(_ tab: Tab, layout: TabControl.Layout) {
+		super.configure(tab, layout: layout)
+    label.attributedText = tab.title
+    indicator.isHidden = !tab.isSelected
     indicator.backgroundColor = layout.indicatorColor
 		
-    if segment.isSelected {
+    if tab.isSelected {
       label.textColor = layout.selectedTitleColor
       contentView.backgroundColor = layout.backgroundColor
     } else {

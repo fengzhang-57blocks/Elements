@@ -1,5 +1,5 @@
 //
-//  SegmentControl.swift
+//  TabControl.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,31 +7,31 @@
 
 import UIKit
 
-public class SegmentControl: UIView {
+public class TabControl: UIView {
 
-	public var layout: SegmentControl.Layout = SegmentControl.Layout() {
+	public var layout: TabControl.Layout = TabControl.Layout() {
 		didSet {
 			collectionView.reloadData()
 		}
 	}
 
-  public var alignment: SegmentControlAlignment = .centered
+  public var alignment: TabControlAlignment = .centered
 
-  public var style: SegmentControlStyle = .indicator
+  public var style: TabControlStyle = .indicator
 
-	public weak var dataSource: SegmentControlDataSource?
-	public weak var delegate: SegmentControlDelegate?
+	public weak var dataSource: TabControlDataSource?
+	public weak var delegate: TabControlDelegate?
 
 	public private(set) var collectionView: UICollectionView!
 
-	private var selectedSegment: Segment?
+	private var selectedTab: Tab?
 
-  private(set) public var segments: [Segment]
-	public required init(segments: [Segment] = []) {
-		self.segments = segments
+  private(set) public var tabs: [Tab]
+	public required init(tabs: [Tab] = []) {
+		self.tabs = tabs
 		super.init(frame: .zero)
 
-		selectedSegment = segments.filter({
+		selectedTab = tabs.filter({
 			$0.isSelected
 		}).first
 
@@ -51,8 +51,8 @@ public class SegmentControl: UIView {
 		collectionView.showsVerticalScrollIndicator = false
 		collectionView.showsHorizontalScrollIndicator = false
 
-		collectionView.register(SegmentControlOvalCell.self, forCellWithReuseIdentifier: "oval")
-		collectionView.register(SegmentControlIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
+		collectionView.register(TabControlOvalCell.self, forCellWithReuseIdentifier: "oval")
+		collectionView.register(TabControlIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
 
 		collectionView.dataSource = self
 		collectionView.delegate = self
@@ -68,11 +68,11 @@ public class SegmentControl: UIView {
 		switch alignment {
 		case .centered:
 			var cellSpacings: CGFloat = 0
-			if segments.count > 0 {
-				cellSpacings = CGFloat(segments.count - 1) * layout.itemSpacing
+			if tabs.count > 0 {
+				cellSpacings = CGFloat(tabs.count - 1) * layout.itemSpacing
 			}
 
-			let contentWidth = segments.reduce(0) {
+			let contentWidth = tabs.reduce(0) {
 				layout.contentInsets.horizontal +
 				$0 +
 				$1.title.boundingRectSize(bounds.size).width
@@ -94,10 +94,10 @@ public class SegmentControl: UIView {
     collectionView.reloadData()
 	}
   
-	public func reload(with segments: [Segment]) {
-		self.segments = segments
+	public func reload(with tabs: [Tab]) {
+		self.tabs = tabs
 
-		selectedSegment = segments.filter({
+		selectedTab = tabs.filter({
 			$0.isSelected
 		}).first
 
@@ -107,21 +107,21 @@ public class SegmentControl: UIView {
 	public func reloadData() {
 		collectionView.reloadData()
 		DispatchQueue.main.asyncAfter(deadline: .now()) {
-			if let selectedSegment = self.selectedSegment,
-				 let index = self.segments.firstIndex(of: selectedSegment) {
+			if let selectedTab = self.selectedTab,
+				 let index = self.tabs.firstIndex(of: selectedTab) {
 				let indexPath = IndexPath(item: index, section: 0)
 				self.collectionView.selectItem(
 					at: indexPath,
 					animated: true,
 					scrollPosition: .centeredHorizontally
 				)
-				self.handleSelectSegment(selectedSegment, at: indexPath)
+				self.handleSelectTab(selectedTab, at: indexPath)
 			}
 		}
 	}
   
   public func scrollTo(index: Int, animated: Bool) {
-    guard index < segments.count else {
+    guard index < tabs.count else {
       return
     }
     
@@ -129,41 +129,41 @@ public class SegmentControl: UIView {
   }
 }
 
-extension SegmentControl: UICollectionViewDataSource {
+extension TabControl: UICollectionViewDataSource {
 	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let dataSource = dataSource {
       return dataSource.numberOfItems(in: self)
     }
 
-		return segments.count
+		return tabs.count
 	}
 
 	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if let dataSource = dataSource {
-      return dataSource.segmentControl(self, cellForItemAt: indexPath.item)
+      return dataSource.tabControl(self, cellForItemAt: indexPath.item)
     }
 
 		var identifier = "oval"
 		if style == .indicator {
 			identifier = "indicator"
 		}
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! SegmentControlCell
-    if let segment = dataSource?.segmentControl(self, segmentAt: indexPath.item) {
-      cell.configure(segment, layout: layout)
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! TabControlCell
+    if let tab = dataSource?.tabControl(self, tabAt: indexPath.item) {
+      cell.configure(tab, layout: layout)
     } else {
-      cell.configure(segments[indexPath.item], layout: layout)
+      cell.configure(tabs[indexPath.item], layout: layout)
     }
 
 		return cell
 	}
 }
 
-extension SegmentControl: UICollectionViewDelegateFlowLayout {
+extension TabControl: UICollectionViewDelegateFlowLayout {
 	public func collectionView
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
-		if let size = delegate?.segmentControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
+		if let size = delegate?.tabControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
 				!size.equalTo(.zero) {
       return size
     }
@@ -171,14 +171,14 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     switch alignment {
 		case .tiled, .centered:
 			return CGSize(
-				width: segments[indexPath.item].title.boundingRectSize(bounds.size).width + layout.contentInsets.horizontal,
+				width: tabs[indexPath.item].title.boundingRectSize(bounds.size).width + layout.contentInsets.horizontal,
 				height: bounds.height
 			)
     case .equalization:
       return CGSize(
 				width: (
-					bounds.width - CGFloat(segments.count - 1) * layout.itemSpacing
-				) / CGFloat(segments.count),
+					bounds.width - CGFloat(tabs.count - 1) * layout.itemSpacing
+				) / CGFloat(tabs.count),
 				height: bounds.height
 			)
     }
@@ -188,7 +188,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-			if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout),
+			if let spacing = delegate?.minimumInteritemSpacingForTabControl(self, layout: collectionViewLayout),
 					!spacing.isEqual(to: .zero) {
         return spacing
       }
@@ -200,7 +200,7 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      if let spacing = delegate?.minimumInteritemSpacingForSegmentControl(self, layout: collectionViewLayout),
+      if let spacing = delegate?.minimumInteritemSpacingForTabControl(self, layout: collectionViewLayout),
 				 !spacing.isEqual(to: .zero) {
         return spacing
       }
@@ -209,34 +209,34 @@ extension SegmentControl: UICollectionViewDelegateFlowLayout {
 	}
 
 	public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let segment = segments[indexPath.item]
+    let tab = tabs[indexPath.item]
 
-		if let selectedSegment = selectedSegment,
-			 selectedSegment.isEqual(to: segment),
+		if let selectedTab = selectedTab,
+			 selectedTab.isEqual(to: tab),
 				!layout.isRepeatTouchEnabled {
 			return
 		}
 
-		selectedSegment = segment
-		segments = segments.map { s in
+		selectedTab = tab
+		tabs = tabs.map { s in
       var nexts = s
-      nexts.isSelected = segment.title.isEqual(to: s.title)
+      nexts.isSelected = tab.title.isEqual(to: s.title)
       return nexts
     }
 
     collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     collectionView.reloadData()
 
-    handleSelectSegment(segment, at: indexPath)
+    handleSelectTab(tab, at: indexPath)
 	}
 }
 
-private extension SegmentControl {
-	func handleSelectSegment(_ segment: Segment, at indexPath: IndexPath) {
-		if let actionHandler = segment.handler {
-			actionHandler(segment)
+private extension TabControl {
+	func handleSelectTab(_ tab: Tab, at indexPath: IndexPath) {
+		if let actionHandler = tab.handler {
+			actionHandler(tab)
 		} else if let delegate = delegate {
-			delegate.segmentControl(self, didSelect: segment, at: indexPath.item)
+			delegate.tabControl(self, didSelect: tab, at: indexPath.item)
 		}
 	}
 }

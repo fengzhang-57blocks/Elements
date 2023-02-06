@@ -9,8 +9,8 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '13.0'
   spec.source = { :git => 'https://github.com/fengzhang-57blocks/SwiftElements.git', :tag => '0.0.18' }
 
-  spec.subspec 'SegmentControl' do |s|
-    s.source_files = 'Source/SegmentControl/**.swift', 'Source/SegmentControl/Cell/**.swift', 'Source/SegmentControl/Extensions/**.swift'
+  spec.subspec 'TabControl' do |s|
+    s.source_files = 'Source/TabControl/**.swift', 'Source/TabControl/Cell/**.swift', 'Source/TabControl/Extensions/**.swift'
   end
 
   spec.subspec 'PhotonActionSheet' do |s|

@@ -11,6 +11,8 @@
 		7E6EE177298CE4FE007D7E8A /* PageController+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */; };
 		7E6EE179298CE503007D7E8A /* PageController+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */; };
 		7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */; };
+		7E98DC3C2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */; };
+		7E98DC3E2990D31F0093543E /* TabControlIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */; };
 		7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD429296BA1D4007C893D /* PhotonAction.swift */; };
 		7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */; };
 		7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */; };
@@ -39,15 +41,15 @@
 		B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925027296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift */; };
 		B2925039296A821400704131 /* FloatingPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925028296A821400704131 /* FloatingPoint.swift */; };
 		B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925029296A821400704131 /* NSAttributedStringExtensions.swift */; };
-		B292503B296A821400704131 /* SegmentControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502C296A821400704131 /* SegmentControl.swift */; };
-		B292503C296A821400704131 /* SegmentControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502D296A821400704131 /* SegmentControlDelegate.swift */; };
-		B292503D296A821400704131 /* SegmentControlAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* SegmentControlAlignment.swift */; };
-		B292503E296A821400704131 /* Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502F296A821400704131 /* Segment.swift */; };
-		B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925031296A821400704131 /* SegmentControlOvalCell.swift */; };
-		B2925040296A821400704131 /* SegmentControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925032296A821400704131 /* SegmentControlCell.swift */; };
-		B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */; };
-		B2925042296A821400704131 /* SegmentControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* SegmentControlDataSource.swift */; };
-		B2925043296A821400704131 /* SegmentControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* SegmentControlStyle.swift */; };
+		B292503B296A821400704131 /* TabControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502C296A821400704131 /* TabControl.swift */; };
+		B292503C296A821400704131 /* TabControlDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502D296A821400704131 /* TabControlDelegate.swift */; };
+		B292503D296A821400704131 /* TabControlAlignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502E296A821400704131 /* TabControlAlignment.swift */; };
+		B292503E296A821400704131 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = B292502F296A821400704131 /* Tab.swift */; };
+		B292503F296A821400704131 /* TabControlOvalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925031296A821400704131 /* TabControlOvalCell.swift */; };
+		B2925040296A821400704131 /* TabControlCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925032296A821400704131 /* TabControlCell.swift */; };
+		B2925041296A821400704131 /* TabControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925033296A821400704131 /* TabControlIndicatorCell.swift */; };
+		B2925042296A821400704131 /* TabControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* TabControlDataSource.swift */; };
+		B2925043296A821400704131 /* TabControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* TabControlStyle.swift */; };
 		B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* SegmentControl+Layout.swift */; };
 		B2925049296A822D00704131 /* DemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925045296A822D00704131 /* DemoListViewController.swift */; };
 		B292504A296A822D00704131 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925046296A822D00704131 /* BaseViewController.swift */; };
@@ -76,6 +78,8 @@
 		7E6EE176298CE4FE007D7E8A /* PageController+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+DataSource.swift"; sourceTree = "<group>"; };
 		7E6EE178298CE503007D7E8A /* PageController+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageController+Delegate.swift"; sourceTree = "<group>"; };
 		7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDemoViewController.swift; sourceTree = "<group>"; };
+		7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorLayoutAttributes.swift; sourceTree = "<group>"; };
+		7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorView.swift; sourceTree = "<group>"; };
 		7ECFD429296BA1D4007C893D /* PhotonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonAction.swift; sourceTree = "<group>"; };
 		7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheet.swift; sourceTree = "<group>"; };
 		7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetAnimator.swift; sourceTree = "<group>"; };
@@ -108,15 +112,15 @@
 		B2925027296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDirectionalEdgeInsetsExtensions.swift; sourceTree = "<group>"; };
 		B2925028296A821400704131 /* FloatingPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatingPoint.swift; sourceTree = "<group>"; };
 		B2925029296A821400704131 /* NSAttributedStringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtensions.swift; sourceTree = "<group>"; };
-		B292502C296A821400704131 /* SegmentControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControl.swift; sourceTree = "<group>"; };
-		B292502D296A821400704131 /* SegmentControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDelegate.swift; sourceTree = "<group>"; };
-		B292502E296A821400704131 /* SegmentControlAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlAlignment.swift; sourceTree = "<group>"; };
-		B292502F296A821400704131 /* Segment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Segment.swift; sourceTree = "<group>"; };
-		B2925031296A821400704131 /* SegmentControlOvalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlOvalCell.swift; sourceTree = "<group>"; };
-		B2925032296A821400704131 /* SegmentControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlCell.swift; sourceTree = "<group>"; };
-		B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlIndicatorCell.swift; sourceTree = "<group>"; };
-		B2925034296A821400704131 /* SegmentControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDataSource.swift; sourceTree = "<group>"; };
-		B2925035296A821400704131 /* SegmentControlStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlStyle.swift; sourceTree = "<group>"; };
+		B292502C296A821400704131 /* TabControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControl.swift; sourceTree = "<group>"; };
+		B292502D296A821400704131 /* TabControlDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlDelegate.swift; sourceTree = "<group>"; };
+		B292502E296A821400704131 /* TabControlAlignment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlAlignment.swift; sourceTree = "<group>"; };
+		B292502F296A821400704131 /* Tab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		B2925031296A821400704131 /* TabControlOvalCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlOvalCell.swift; sourceTree = "<group>"; };
+		B2925032296A821400704131 /* TabControlCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlCell.swift; sourceTree = "<group>"; };
+		B2925033296A821400704131 /* TabControlIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorCell.swift; sourceTree = "<group>"; };
+		B2925034296A821400704131 /* TabControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlDataSource.swift; sourceTree = "<group>"; };
+		B2925035296A821400704131 /* TabControlStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlStyle.swift; sourceTree = "<group>"; };
 		B2925036296A821400704131 /* SegmentControl+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Layout.swift"; sourceTree = "<group>"; };
 		B2925045296A822D00704131 /* DemoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoListViewController.swift; sourceTree = "<group>"; };
 		B2925046296A822D00704131 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -180,8 +184,8 @@
 		7E98DB432990A7900093543E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				B292502D296A821400704131 /* SegmentControlDelegate.swift */,
-				B2925034296A821400704131 /* SegmentControlDataSource.swift */,
+				B292502D296A821400704131 /* TabControlDelegate.swift */,
+				B2925034296A821400704131 /* TabControlDataSource.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -189,11 +193,32 @@
 		7E98DB452990A7FD0093543E /* Enmus */ = {
 			isa = PBXGroup;
 			children = (
-				B292502E296A821400704131 /* SegmentControlAlignment.swift */,
-				B2925035296A821400704131 /* SegmentControlStyle.swift */,
+				B2925035296A821400704131 /* TabControlStyle.swift */,
+				B292502E296A821400704131 /* TabControlAlignment.swift */,
 				B2925036296A821400704131 /* SegmentControl+Layout.swift */,
 			);
 			path = Enmus;
+			sourceTree = "<group>";
+		};
+		7E98DC392990D0A90093543E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B292502C296A821400704131 /* TabControl.swift */,
+				B2925032296A821400704131 /* TabControlCell.swift */,
+				B2925031296A821400704131 /* TabControlOvalCell.swift */,
+				B2925033296A821400704131 /* TabControlIndicatorCell.swift */,
+				7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */,
+				7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		7E98DC3A2990D0B10093543E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B292502F296A821400704131 /* Tab.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		7ECFD428296BA1D4007C893D /* PhotonActionSheet */ = {
@@ -290,7 +315,7 @@
 			children = (
 				7E6EE173298CC175007D7E8A /* PageController */,
 				7ECFD428296BA1D4007C893D /* PhotonActionSheet */,
-				B292502B296A821400704131 /* SegmentControl */,
+				B292502B296A821400704131 /* TabControl */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -316,27 +341,16 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		B292502B296A821400704131 /* SegmentControl */ = {
+		B292502B296A821400704131 /* TabControl */ = {
 			isa = PBXGroup;
 			children = (
-				B292502F296A821400704131 /* Segment.swift */,
-				B292502C296A821400704131 /* SegmentControl.swift */,
+				7E98DC3A2990D0B10093543E /* Models */,
+				7E98DC392990D0A90093543E /* Classes */,
 				7E98DB452990A7FD0093543E /* Enmus */,
 				7E98DB432990A7900093543E /* Protocols */,
 				B2925025296A821400704131 /* Extensions */,
-				B2925030296A821400704131 /* Cell */,
 			);
-			path = SegmentControl;
-			sourceTree = "<group>";
-		};
-		B2925030296A821400704131 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				B2925032296A821400704131 /* SegmentControlCell.swift */,
-				B2925031296A821400704131 /* SegmentControlOvalCell.swift */,
-				B2925033296A821400704131 /* SegmentControlIndicatorCell.swift */,
-			);
-			path = Cell;
+			path = TabControl;
 			sourceTree = "<group>";
 		};
 		B2925047296A822D00704131 /* SegmentControl */ = {
@@ -482,6 +496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E98DC3C2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift in Sources */,
 				7E6EE175298CE48A007D7E8A /* PageController.swift in Sources */,
 				B25C86D8298FAA2B00F5898A /* PageController+Layout.swift in Sources */,
 				7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */,
@@ -492,30 +507,31 @@
 				B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */,
 				7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */,
 				B2925037296A821400704131 /* UIEdgeInsetsExtensions.swift in Sources */,
-				B2925040296A821400704131 /* SegmentControlCell.swift in Sources */,
+				B2925040296A821400704131 /* TabControlCell.swift in Sources */,
 				B292504A296A822D00704131 /* BaseViewController.swift in Sources */,
 				B292503A296A821400704131 /* NSAttributedStringExtensions.swift in Sources */,
-				B292503B296A821400704131 /* SegmentControl.swift in Sources */,
-				B292503E296A821400704131 /* Segment.swift in Sources */,
-				B2925043296A821400704131 /* SegmentControlStyle.swift in Sources */,
+				B292503B296A821400704131 /* TabControl.swift in Sources */,
+				B292503E296A821400704131 /* Tab.swift in Sources */,
+				B2925043296A821400704131 /* TabControlStyle.swift in Sources */,
 				B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */,
-				B292503D296A821400704131 /* SegmentControlAlignment.swift in Sources */,
-				B292503C296A821400704131 /* SegmentControlDelegate.swift in Sources */,
+				B292503D296A821400704131 /* TabControlAlignment.swift in Sources */,
+				B292503C296A821400704131 /* TabControlDelegate.swift in Sources */,
 				B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */,
 				B2925049296A822D00704131 /* DemoListViewController.swift in Sources */,
 				7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */,
 				B2924FF1296A80EB00704131 /* AppDelegate.swift in Sources */,
-				B292503F296A821400704131 /* SegmentControlOvalCell.swift in Sources */,
+				B292503F296A821400704131 /* TabControlOvalCell.swift in Sources */,
 				7ECFD430296BA436007C893D /* PhotonActionSheetCell.swift in Sources */,
 				7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */,
-				B2925042296A821400704131 /* SegmentControlDataSource.swift in Sources */,
+				B2925042296A821400704131 /* TabControlDataSource.swift in Sources */,
+				7E98DC3E2990D31F0093543E /* TabControlIndicatorView.swift in Sources */,
 				B2925038296A821400704131 /* NSDirectionalEdgeInsetsExtensions.swift in Sources */,
 				B25C86DC298FCDA600F5898A /* PageDemoViewController.swift in Sources */,
 				B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */,
 				7E6EE177298CE4FE007D7E8A /* PageController+DataSource.swift in Sources */,
 				B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */,
 				B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */,
-				B2925041296A821400704131 /* SegmentControlIndicatorCell.swift in Sources */,
+				B2925041296A821400704131 /* TabControlIndicatorCell.swift in Sources */,
 				7EF01940296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

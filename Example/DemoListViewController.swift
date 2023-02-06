@@ -36,7 +36,7 @@ class DemoListViewController: UITableViewController {
 	func getDemos() -> [Demo] {
 		return [
       Demo(title: "PhotonActionSheet", viewController: PhotonActionSheetDemoViewController()),
-			Demo(title: "SegmentControl", viewController: SegmentControlDemoViewController()),
+			Demo(title: "TabControl", viewController: TabControlDemoViewController()),
 			Demo(title: "PageController", viewController: PageControllerDemoViewController()),
 		]
 	}

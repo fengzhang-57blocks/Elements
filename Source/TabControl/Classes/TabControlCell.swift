@@ -8,13 +8,13 @@
 import UIKit
 
 public class TabControlCell: UICollectionViewCell {
-	func configure(_ tab: Tab, layout: TabControl.Layout) {
+	func configure(_ tab: Tab, layout: TabControlConfigurations) {
 		self.layout = layout
 		self.tab = tab
 		// in subclass
 	}
 	
+	var layout: TabControlConfigurations?
 	var tab: Tab?
-	var layout: TabControl.Layout?
 	
 }

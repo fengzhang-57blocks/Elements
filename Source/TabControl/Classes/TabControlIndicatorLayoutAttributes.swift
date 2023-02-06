@@ -24,6 +24,4 @@ open class TabControlIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
 		
 		return super.isEqual(object)
 	}
-	
-	
 }

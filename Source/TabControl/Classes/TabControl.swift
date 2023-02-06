@@ -9,7 +9,7 @@ import UIKit
 
 public class TabControl: UIView {
 
-	public var layout: TabControl.Layout = TabControl.Layout() {
+	public var layout: TabControlConfigurations = TabControlConfigurations() {
 		didSet {
 			collectionView.reloadData()
 		}

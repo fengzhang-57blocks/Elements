@@ -13,6 +13,7 @@
 		7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */; };
 		7E98DC3C2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */; };
 		7E98DC3E2990D31F0093543E /* TabControlIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */; };
+		7E98DC402990DAD70093543E /* TabControlCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E98DC3F2990DAD70093543E /* TabControlCollectionViewLayout.swift */; };
 		7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD429296BA1D4007C893D /* PhotonAction.swift */; };
 		7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */; };
 		7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */; };
@@ -50,7 +51,7 @@
 		B2925041296A821400704131 /* TabControlIndicatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925033296A821400704131 /* TabControlIndicatorCell.swift */; };
 		B2925042296A821400704131 /* TabControlDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925034296A821400704131 /* TabControlDataSource.swift */; };
 		B2925043296A821400704131 /* TabControlStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925035296A821400704131 /* TabControlStyle.swift */; };
-		B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* SegmentControl+Layout.swift */; };
+		B2925044296A821400704131 /* TabControlConfigurations.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925036296A821400704131 /* TabControlConfigurations.swift */; };
 		B2925049296A822D00704131 /* DemoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925045296A822D00704131 /* DemoListViewController.swift */; };
 		B292504A296A822D00704131 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925046296A822D00704131 /* BaseViewController.swift */; };
 		B292504B296A822D00704131 /* SegmentControlDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */; };
@@ -80,6 +81,7 @@
 		7E6EE17B298CE7B1007D7E8A /* PageControllerDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControllerDemoViewController.swift; sourceTree = "<group>"; };
 		7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorLayoutAttributes.swift; sourceTree = "<group>"; };
 		7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorView.swift; sourceTree = "<group>"; };
+		7E98DC3F2990DAD70093543E /* TabControlCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabControlCollectionViewLayout.swift; sourceTree = "<group>"; };
 		7ECFD429296BA1D4007C893D /* PhotonAction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonAction.swift; sourceTree = "<group>"; };
 		7ECFD42A296BA1D4007C893D /* PhotonActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheet.swift; sourceTree = "<group>"; };
 		7ECFD42B296BA1D4007C893D /* PhotonActionSheetAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetAnimator.swift; sourceTree = "<group>"; };
@@ -121,7 +123,7 @@
 		B2925033296A821400704131 /* TabControlIndicatorCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlIndicatorCell.swift; sourceTree = "<group>"; };
 		B2925034296A821400704131 /* TabControlDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlDataSource.swift; sourceTree = "<group>"; };
 		B2925035296A821400704131 /* TabControlStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlStyle.swift; sourceTree = "<group>"; };
-		B2925036296A821400704131 /* SegmentControl+Layout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SegmentControl+Layout.swift"; sourceTree = "<group>"; };
+		B2925036296A821400704131 /* TabControlConfigurations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabControlConfigurations.swift; sourceTree = "<group>"; };
 		B2925045296A822D00704131 /* DemoListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DemoListViewController.swift; sourceTree = "<group>"; };
 		B2925046296A822D00704131 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		B2925048296A822D00704131 /* SegmentControlDemoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegmentControlDemoViewController.swift; sourceTree = "<group>"; };
@@ -184,8 +186,8 @@
 		7E98DB432990A7900093543E /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				B292502D296A821400704131 /* TabControlDelegate.swift */,
 				B2925034296A821400704131 /* TabControlDataSource.swift */,
+				B292502D296A821400704131 /* TabControlDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -195,7 +197,6 @@
 			children = (
 				B2925035296A821400704131 /* TabControlStyle.swift */,
 				B292502E296A821400704131 /* TabControlAlignment.swift */,
-				B2925036296A821400704131 /* SegmentControl+Layout.swift */,
 			);
 			path = Enmus;
 			sourceTree = "<group>";
@@ -209,6 +210,7 @@
 				B2925033296A821400704131 /* TabControlIndicatorCell.swift */,
 				7E98DC3D2990D31F0093543E /* TabControlIndicatorView.swift */,
 				7E98DC3B2990D1280093543E /* TabControlIndicatorLayoutAttributes.swift */,
+				7E98DC3F2990DAD70093543E /* TabControlCollectionViewLayout.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -217,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				B292502F296A821400704131 /* Tab.swift */,
+				B2925036296A821400704131 /* TabControlConfigurations.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -500,11 +503,12 @@
 				7E6EE175298CE48A007D7E8A /* PageController.swift in Sources */,
 				B25C86D8298FAA2B00F5898A /* PageController+Layout.swift in Sources */,
 				7ECFD42E296BA1D4007C893D /* PhotonActionSheetAnimator.swift in Sources */,
+				7E98DC402990DAD70093543E /* TabControlCollectionViewLayout.swift in Sources */,
 				7EDA2BC6296BBF2A00589E80 /* CollectionExtensions.swift in Sources */,
 				B2925039296A821400704131 /* FloatingPoint.swift in Sources */,
 				B25C86DA298FAC9800F5898A /* PageController+Page.swift in Sources */,
 				7E6EE179298CE503007D7E8A /* PageController+Delegate.swift in Sources */,
-				B2925044296A821400704131 /* SegmentControl+Layout.swift in Sources */,
+				B2925044296A821400704131 /* TabControlConfigurations.swift in Sources */,
 				7E6EE17C298CE7B1007D7E8A /* PageControllerDemoViewController.swift in Sources */,
 				B2925037296A821400704131 /* UIEdgeInsetsExtensions.swift in Sources */,
 				B2925040296A821400704131 /* TabControlCell.swift in Sources */,

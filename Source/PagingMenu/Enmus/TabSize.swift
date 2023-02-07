@@ -12,14 +12,14 @@ public enum TabSize {
 }
 
 public extension TabSize {
-  public var width: CGFloat {
+	var width: CGFloat {
     switch self {
     case let .fixed(width, _):
         return width
     }
   }
   
-  public var height: CGFloat {
+	var height: CGFloat {
     switch self {
     case let .fixed(_, height):
       return height

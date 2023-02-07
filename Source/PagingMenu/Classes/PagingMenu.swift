@@ -43,16 +43,15 @@ public class PagingMenu: UIView {
 	}
 
 	private func setupSubviews() {
-		let layout = UICollectionViewFlowLayout()
-		layout.scrollDirection = .horizontal
+		let layout = PagingMenuCollectionViewLayout()
+//		layout.scrollDirection = .horizontal
 
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
 		collectionView.showsVerticalScrollIndicator = false
 		collectionView.showsHorizontalScrollIndicator = false
 
-		collectionView.register(PagingMenuOvalCell.self, forCellWithReuseIdentifier: "oval")
-		collectionView.register(PagingMenuIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
+		collectionView.register(PagingMenuCell.self, forCellWithReuseIdentifier: "cell")
 
 		collectionView.dataSource = self
 		collectionView.delegate = self
@@ -125,28 +124,25 @@ public class PagingMenu: UIView {
       return
     }
     
-    collectionView(collectionView, didSelectItemAt: IndexPath(item: index, section: 0))
+//    collectionView(collectionView, didSelectItemAt: IndexPath(item: index, section: 0))
   }
 }
 
 extension PagingMenu: UICollectionViewDataSource {
 	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if let dataSource = dataSource {
-      return dataSource.numberOfItems(in: self)
-    }
+//    if let dataSource = dataSource {
+//      return dataSource.numberOfItems(in: self)
+//    }
 
 		return tabs.count
 	}
 
 	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    if let dataSource = dataSource {
-      return dataSource.pagingMenu(self, cellForItemAt: indexPath.item)
-    }
+//    if let dataSource = dataSource {
+//      return dataSource.pagingMenu(self, cellForItemAt: indexPath.item)
+//    }
 
-		var identifier = "oval"
-		if style == .indicator {
-			identifier = "indicator"
-		}
+		let identifier = "cell"
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PagingMenuCell
     if let tab = dataSource?.pagingMenu(self, tabAt: indexPath.item) {
       cell.configure(tab, layout: layout)
@@ -159,76 +155,76 @@ extension PagingMenu: UICollectionViewDataSource {
 }
 
 extension PagingMenu: UICollectionViewDelegateFlowLayout {
-	public func collectionView
-	(_ collectionView: UICollectionView,
-	 layout collectionViewLayout: UICollectionViewLayout,
-	 sizeForItemAt indexPath: IndexPath) -> CGSize {
-		if let size = delegate?.pagingMenu(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
-				!size.equalTo(.zero) {
-      return size
-    }
-
-    switch alignment {
-		case .tiled, .centered:
-			return CGSize(
-				width: tabs[indexPath.item].title.boundingRectSize(bounds.size).width + layout.contentInsets.horizontal,
-				height: bounds.height
-			)
-    case .equalization:
-      return CGSize(
-				width: (
-					bounds.width - CGFloat(tabs.count - 1) * layout.itemSpacing
-				) / CGFloat(tabs.count),
-				height: bounds.height
-			)
-    }
-	}
-
-	public func collectionView(
-    _ collectionView: UICollectionView,
-    layout collectionViewLayout: UICollectionViewLayout,
-    minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-			if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
-					!spacing.isEqual(to: .zero) {
-        return spacing
-      }
-
-      return layout.itemSpacing
-	}
-
-	public func collectionView(
-    _ collectionView: UICollectionView,
-    layout collectionViewLayout: UICollectionViewLayout,
-    minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
-				 !spacing.isEqual(to: .zero) {
-        return spacing
-      }
-
-      return layout.itemSpacing
-	}
-
-	public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    let tab = tabs[indexPath.item]
-
-		if let selectedTab = selectedTab,
-			 selectedTab.isEqual(to: tab),
-				!layout.isRepeatTouchEnabled {
-			return
-		}
-
-		selectedTab = tab
-		tabs = tabs.map { s in
-      var nexts = s
-      nexts.isSelected = tab.title.isEqual(to: s.title)
-      return nexts
-    }
-
-    collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-    collectionView.reloadData()
-
-    handleSelectTab(tab, at: indexPath)
-	}
+//	public func collectionView
+//	(_ collectionView: UICollectionView,
+//	 layout collectionViewLayout: UICollectionViewLayout,
+//	 sizeForItemAt indexPath: IndexPath) -> CGSize {
+//		if let size = delegate?.pagingMenu(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
+//				!size.equalTo(.zero) {
+//      return size
+//    }
+//
+//    switch alignment {
+//		case .tiled, .centered:
+//			return CGSize(
+//				width: tabs[indexPath.item].title.boundingRectSize(bounds.size).width + layout.contentInsets.horizontal,
+//				height: bounds.height
+//			)
+//    case .equalization:
+//      return CGSize(
+//				width: (
+//					bounds.width - CGFloat(tabs.count - 1) * layout.itemSpacing
+//				) / CGFloat(tabs.count),
+//				height: bounds.height
+//			)
+//    }
+//	}
+//
+//	public func collectionView(
+//    _ collectionView: UICollectionView,
+//    layout collectionViewLayout: UICollectionViewLayout,
+//    minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//			if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
+//					!spacing.isEqual(to: .zero) {
+//        return spacing
+//      }
+//
+//      return layout.itemSpacing
+//	}
+//
+//	public func collectionView(
+//    _ collectionView: UICollectionView,
+//    layout collectionViewLayout: UICollectionViewLayout,
+//    minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//      if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
+//				 !spacing.isEqual(to: .zero) {
+//        return spacing
+//      }
+//
+//      return layout.itemSpacing
+//	}
+//
+//	public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    let tab = tabs[indexPath.item]
+//
+//		if let selectedTab = selectedTab,
+//			 selectedTab.isEqual(to: tab),
+//				!layout.isRepeatTouchEnabled {
+//			return
+//		}
+//
+//		selectedTab = tab
+//		tabs = tabs.map { s in
+//      var nexts = s
+//      nexts.isSelected = tab.title.isEqual(to: s.title)
+//      return nexts
+//    }
+//
+//    collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+//    collectionView.reloadData()
+//
+//    handleSelectTab(tab, at: indexPath)
+//	}
 }
 
 extension PagingMenu: UIScrollViewDelegate {

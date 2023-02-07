@@ -14,6 +14,15 @@ public class PagingMenuCell: UICollectionViewCell {
 		// in subclass
 	}
 	
+	public override init(frame: CGRect) {
+		super.init(frame: frame)
+		backgroundColor = .orange
+	}
+	
+	public required init?(coder: NSCoder) {
+		super.init(coder: coder)
+	}
+	
 	var layout: PagingMenuOptions?
 	var tab: Tab?
 }

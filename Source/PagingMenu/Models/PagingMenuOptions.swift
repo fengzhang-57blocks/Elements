@@ -1,5 +1,5 @@
 //
-//  TabConfigurations.swift
+//  PagingMenuOptions.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -38,9 +38,9 @@ public struct PagingMenuOptions {
   
   public var tabSize: TabSize
 	
+	public var indicatorClass: PaginMenuIndicatorView.Type
   public var indicatorOptions: PagingMenuIndicatorOptions
   public var indicatorColor: UIColor
-  public var indicatorClass: PaginMenuIndicatorView.Type
 	
 	
 	public init(
@@ -80,6 +80,10 @@ public struct PagingMenuOptions {
     self.tabSize = tabSize
 		self.indicatorClass = indicatorClass
     self.indicatorOptions = indicatorOptions
+	}
+	
+	public func `default`() -> PagingMenuOptions {
+		return PagingMenuOptions()
 	}
 }
 

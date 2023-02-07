@@ -11,6 +11,7 @@ public enum PagingMenuIndicatorOptions {
 	case hidden
 	case visible(
     height: CGFloat,
+    spacing: UIEdgeInsets,
     insets: UIEdgeInsets,
     zIndex: Int
   )

@@ -61,7 +61,7 @@ public struct PagingMenuOptions {
     position: PagingMenuPosition = .top,
     tabSize: TabSize = .fixed(width: 50, height: 50),
 		indicatorClass: PaginMenuIndicatorView.Type = PaginMenuIndicatorView.self,
-    indicatorOptions: PagingMenuIndicatorOptions = .visible(height: 3, insets: .zero, zIndex: Int.max)
+    indicatorOptions: PagingMenuIndicatorOptions = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max)
 	) {
 		self.itemSpacing = itemSpacing
 		self.contentInsets = contentInsets
@@ -82,7 +82,7 @@ public struct PagingMenuOptions {
     self.indicatorOptions = indicatorOptions
 	}
 	
-	public func `default`() -> PagingMenuOptions {
+	public static func `default`() -> PagingMenuOptions {
 		return PagingMenuOptions()
 	}
 }

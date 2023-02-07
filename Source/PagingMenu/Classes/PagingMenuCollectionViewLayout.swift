@@ -27,7 +27,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	public var state: PagingMenuState = .empty
 	
-	public var options = PagingMenuOptions()
+  public var options = PagingMenuOptions.default()
 	
 	override init() {
 		super.init()
@@ -42,7 +42,19 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	open override func prepare() {
 		super.prepare()
     
+    layoutAttributes = [:]
     indicatorLayoutAttributes = nil
+    
+    createLayoutAttributes()
+    
+    if case .visible = options.indicatorOptions {
+      indicatorLayoutAttributes = PagingMenuIndicatorLayoutAttributes(
+        forDecorationViewOfKind: indicatorKind,
+        with: IndexPath(item: 0, section: 0)
+      )
+    }
+    
+    indicatorLayoutAttributes?.configure(with: options)
 	}
 	
 	open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -65,7 +77,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		guard let layoutAttributes = self.layoutAttributes[indexPath] as? PagingMenuCellLayoutAttributes else {
 			return nil
 		}
-		layoutAttributes.progress = progressForCellLayoutAttributes(at: indexPath)
+    layoutAttributes.progress = progressForCellLayoutAttributes(at: layoutAttributes.indexPath)
 		return layoutAttributes
 	}
 	
@@ -94,6 +106,17 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	) -> Bool {
 		return false
 	}
+}
+
+private extension PagingMenuCollectionViewLayout {
+  func createLayoutAttributes() {
+    var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
+    
+    for index in 0..<collectionView!.numberOfItems(inSection: 0) {
+      let indexPath = IndexPath(item: index, section: 0)
+      
+    }
+  }
 }
 
 private extension PagingMenuCollectionViewLayout {

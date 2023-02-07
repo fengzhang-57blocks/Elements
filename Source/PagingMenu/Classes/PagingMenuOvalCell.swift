@@ -1,5 +1,5 @@
 //
-//  TabControlOvalCell.swift
+//  PagingMenuOvalCell.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class TabControlOvalCell: TabControlCell {
+public class PagingMenuOvalCell: PagingMenuCell {
 	private var button: UIButton!
 	
 	public override init(frame: CGRect) {
@@ -47,7 +47,7 @@ public class TabControlOvalCell: TabControlCell {
     }
 	}
   
-	override func configure(_ tab: Tab, layout: TabControlOptions) {
+	override func configure(_ tab: Tab, layout: PagingMenuOptions) {
 		super.configure(tab, layout: layout)
     
 		button.setAttributedTitle(tab.title, for: .normal)

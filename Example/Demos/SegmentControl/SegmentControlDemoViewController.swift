@@ -1,5 +1,5 @@
 //
-//  TabControlDemoViewController.swift
+//  PagingMenuDemoViewController.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/6.
@@ -7,14 +7,14 @@
 
 import UIKit
 
-class TabControlDemoViewController: BaseViewController {
+class PagingMenuDemoViewController: BaseViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
 		navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .refresh, target: nil, action: nil)
 		
 		let s1Tabs = makeTabs(["C", "Objective-C", "Swift", "Go"])
-		let s1 = makeTabControl(s1Tabs, style: .indicator, alignment: .centered)
+		let s1 = makePagingMenu(s1Tabs, style: .indicator, alignment: .centered)
 		s1.bounds.size = CGSize(width: view.bounds.width, height: 50)
 		navigationItem.titleView = s1
 		s1.delegate = self
@@ -22,7 +22,7 @@ class TabControlDemoViewController: BaseViewController {
 		
 
 		let s2Tabs = makeTabs(["C", "Objective-C", "Swift", "Go"])
-		let s2 = makeTabControl(s2Tabs, style: .indicator, alignment: .equalization)
+		let s2 = makePagingMenu(s2Tabs, style: .indicator, alignment: .equalization)
 		s2.bounds.size = CGSize(width: view.bounds.width, height: 50)
 		s2.delegate = self
 		view.addSubview(s2)
@@ -37,7 +37,7 @@ class TabControlDemoViewController: BaseViewController {
 		])
 
 		let s3Tabs = makeTabs(["C", "Objective-C", "Swift", "Go", "Python", "Javascript", "HTML", "CSS", "ES6"])
-		let s3 = makeTabControl(s3Tabs, style: .oval, alignment: .tiled)
+		let s3 = makePagingMenu(s3Tabs, style: .oval, alignment: .tiled)
 		s3.bounds.size = CGSize(width: view.bounds.width, height: 50)
 		s3.delegate = self
 		view.addSubview(s3)
@@ -65,16 +65,16 @@ class TabControlDemoViewController: BaseViewController {
 		}
 	}
 
-	func makeTabControl(
+	func makePagingMenu(
 		_ tabs: [Tab],
-		style: TabControlStyle,
-		alignment: TabControlAlignment
-	) -> TabControl {
-			let s = TabControl(tabs: tabs)
+		style: PagingMenuStyle,
+		alignment: PagingMenuAlignment
+	) -> PagingMenu {
+			let s = PagingMenu(tabs: tabs)
 			s.style = style
 			s.alignment = alignment
 
-			var layout = TabControlOptions()
+			var layout = PagingMenuOptions()
 			if style == .indicator {
 				layout.itemSpacing = 0
 				layout.indicatorSize = .init(width: .fixed(20), height: 3)
@@ -88,8 +88,8 @@ class TabControlDemoViewController: BaseViewController {
 	}
 }
 
-extension TabControlDemoViewController: TabControlDelegate {
-	func tabControl(_ tabControl: TabControl, didSelect tab: Tab, at index: Int) {
+extension PagingMenuDemoViewController: PagingMenuDelegate {
+	func pagingMenu(_ pagingMenu: PagingMenu, didSelect tab: Tab, at index: Int) {
 		print(tab.title.string)
 	}
 }

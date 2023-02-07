@@ -9,7 +9,7 @@ import UIKit
 
 public protocol PagingControllerDelegate: NSObjectProtocol {
   func pagingController(_ pagingController: PagingController, didDisplay page: PagingController.Page)
-	var tabControl: TabControl? { get }
+	var pagingMenu: PagingMenu? { get }
 }
 
 public extension PagingControllerDelegate {
@@ -17,7 +17,7 @@ public extension PagingControllerDelegate {
     // 
   }
 	
-	var tabControl: TabControl? {
+	var pagingMenu: PagingMenu? {
 		return nil
 	}
 }

@@ -20,10 +20,10 @@ public class PagingController: UIViewController {
   
   public private(set) var pages: [Page]?
   
-  public lazy var tabControl = makeTabControl()
+  public lazy var pagingMenu = makePagingMenu()
   
-  private lazy var defaultTabControl: TabControl = {
-    let control = TabControl()
+  private lazy var defaultPagingMenu: PagingMenu = {
+    let control = PagingMenu()
     control.style = .indicator
     control.alignment = .tiled
     control.delegate = self
@@ -54,12 +54,12 @@ public class PagingController: UIViewController {
 	public override func viewDidLayoutSubviews() {
 		super.viewDidLayoutSubviews()
     
-		tabControl.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
+		pagingMenu.frame = CGRect(x: 0, y: 0, width: view.bounds.width, height: 50)
     scrollView.frame = CGRect(
       x: 0,
-      y: tabControl.frame.maxY,
+      y: pagingMenu.frame.maxY,
       width: view.bounds.width,
-      height: view.bounds.height - tabControl.bounds.height
+      height: view.bounds.height - pagingMenu.bounds.height
     )
     
     if let count = dataSource?.numberOfPages(for: self) {
@@ -83,23 +83,23 @@ public class PagingController: UIViewController {
 	}
   
   func setupSubviews() {
-    view.addSubview(tabControl)
+    view.addSubview(pagingMenu)
     view.addSubview(scrollView)
     
-    toleTabControl()
+    tolePagingMenu()
   }
 }
 
 extension PagingController {
-  func makeTabControl() -> TabControl {
-    if let customizedControl = delegate?.tabControl {
+  func makePagingMenu() -> PagingMenu {
+    if let customizedControl = delegate?.pagingMenu {
       return customizedControl
     }
     
-    return defaultTabControl
+    return defaultPagingMenu
   }
   
-  func toleTabControl() {
+  func tolePagingMenu() {
     guard let count = dataSource?.numberOfPages(for: self) else {
       return
     }
@@ -114,7 +114,7 @@ extension PagingController {
 				tabs.append(tab)
       }
     }
-		tabControl.reload(with: tabs)
+		pagingMenu.reload(with: tabs)
   }
   
   func tolePages() {
@@ -162,34 +162,8 @@ extension PagingController {
   }
 }
 
-extension PagingController: TabControlDelegate {
-//  public func numberOfItems(in tabControl: TabControl) -> Int {
-//    return dataSource?.numberOfViewControllers(for: self) ?? 0
-//  }
-//
-//  public func tabControl(_ tabControl: TabControl, tabAt index: Int) -> Tab {
-//    if let title = delegate?.pagingController(self, titleAt: index) {
-//      return Tab(
-//        title: NSAttributedString(string: title),
-//        isSelected: index == 0
-//      )
-//    } else if let title = dataSource?.pagingController(self, viewControllerFor: index).title {
-//      return Tab(
-//        title: NSAttributedString(string: title),
-//        isSelected: index == 0
-//      )
-//    }
-//
-//    return Tab(title: NSAttributedString(string: ""))
-//  }
-//
-//  public func tabControl(
-//    _ tabControl: TabControl,
-//    cellForItemAt index: Int) -> UICollectionViewCell {
-//    return UICollectionViewCell()
-//  }
-  
-  public func tabControl(_ tabControl: TabControl, didSelect tab: Tab, at index: Int) {
+extension PagingController: PagingMenuDelegate {
+  public func pagingMenu(_ pagingMenu: PagingMenu, didSelect tab: Tab, at index: Int) {
     selectedPageIndex = index
     
     let offset = CGPoint(x: scrollView.bounds.width * CGFloat(selectedPageIndex), y: 0)
@@ -206,6 +180,6 @@ extension PagingController: UIScrollViewDelegate {
     
     selectedPageIndex = Int(index)
     
-		tabControl.scrollTo(index: selectedPageIndex, animated: true)
+		pagingMenu.scrollTo(index: selectedPageIndex, animated: true)
   }
 }

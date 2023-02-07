@@ -1,5 +1,5 @@
 //
-//  TabControlIndicatorCell.swift
+//  PagingMenuIndicatorCell.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class TabControlIndicatorCell: TabControlCell {
+public class PagingMenuIndicatorCell: PagingMenuCell {
 	private(set) public lazy var label: UILabel = {
 		let label = UILabel()
 		label.textAlignment = .center
@@ -43,7 +43,7 @@ public class TabControlIndicatorCell: TabControlCell {
 	
 	required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 	
-	override func configure(_ tab: Tab, layout: TabControlOptions) {
+	override func configure(_ tab: Tab, layout: PagingMenuOptions) {
 		super.configure(tab, layout: layout)
     label.attributedText = tab.title
     indicator.isHidden = !tab.isSelected

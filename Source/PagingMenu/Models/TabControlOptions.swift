@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct TabControlOptions {
+public struct PagingMenuOptions {
 	public var itemSpacing: CGFloat
 	public var contentInsets: UIEdgeInsets
 	
@@ -18,7 +18,7 @@ public struct TabControlOptions {
 	public var selectedBackgroundColor: UIColor
 	
 	// Only works when style is indicator
-	public var indicatorSize: TabControlOptions.IndicatorSize
+	public var indicatorSize: PagingMenuOptions.IndicatorSize
 	
 	// Only works when style is oval
 	public var borderWidth: CGFloat
@@ -34,13 +34,13 @@ public struct TabControlOptions {
     return tabSize.height + insets.top + insets.bottom
   }
   
-  public var position: TabControlPosition
+  public var position: PagingMenuPosition
   
   public var tabSize: TabSize
 	
-  public var indicatorOptions: TabIndicatorOptions
+  public var indicatorOptions: PagingMenuIndicatorOptions
   public var indicatorColor: UIColor
-  public var indicatorClass: TabIndicatorView.Type
+  public var indicatorClass: PaginMenuIndicatorView.Type
 	
 	
 	public init(
@@ -52,16 +52,16 @@ public struct TabControlOptions {
 		backgroundColor: UIColor = .white,
 		selectedBackgroundColor: UIColor = .white,
 		indicatorColor: UIColor = .systemBlue,
-		indicatorSize: TabControlOptions.IndicatorSize = .init(width: .equal, height: 3),
+		indicatorSize: PagingMenuOptions.IndicatorSize = .init(width: .equal, height: 3),
 		borderWidth: CGFloat = 2,
 		borderColor: UIColor = .systemBlue,
 		isRepeatTouchEnabled: Bool = false,
     
     insets: UIEdgeInsets = .zero,
-    position: TabControlPosition = .top,
+    position: PagingMenuPosition = .top,
     tabSize: TabSize = .fixed(width: 50, height: 50),
-		indicatorClass: TabIndicatorView.Type = TabIndicatorView.self,
-    indicatorOptions: TabIndicatorOptions = .visible(height: 3, insets: .zero, zIndex: Int.max)
+		indicatorClass: PaginMenuIndicatorView.Type = PaginMenuIndicatorView.self,
+    indicatorOptions: PagingMenuIndicatorOptions = .visible(height: 3, insets: .zero, zIndex: Int.max)
 	) {
 		self.itemSpacing = itemSpacing
 		self.contentInsets = contentInsets
@@ -83,7 +83,7 @@ public struct TabControlOptions {
 	}
 }
 
-public extension TabControlOptions {
+public extension PagingMenuOptions {
 	enum IndicatorSizeBehaviour {
 		case equal
 		case fixed(CGFloat)

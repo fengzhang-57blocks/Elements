@@ -1,5 +1,5 @@
 //
-//  CollectionViewLayout.swift
+//  PagingMenuCollectionViewLayout.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/6.
@@ -7,13 +7,13 @@
 
 import UIKit
 
-open class TabControlCollectionViewLayout: UICollectionViewLayout {
+open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
-	public var options = TabControlOptions()
+	public var options = PagingMenuOptions()
 	
 	private let indicatorKind: String = "indicator"
-	public private(set) var indicatorLayoutAttributes: TabIndicatorLayoutAttributes?
-	open var indicatorClass: TabIndicatorView.Type {
+	public private(set) var indicatorLayoutAttributes: PagingMenuIndicatorLayoutAttributes?
+	open var indicatorClass: PaginMenuIndicatorView.Type {
 		set { options.indicatorClass = newValue }
 		get { return options.indicatorClass }
 	}

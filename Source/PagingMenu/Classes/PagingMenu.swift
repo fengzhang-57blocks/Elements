@@ -1,5 +1,5 @@
 //
-//  TabControl.swift
+//  PagingMenu.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,20 +7,20 @@
 
 import UIKit
 
-public class TabControl: UIView {
+public class PagingMenu: UIView {
 
-	public var layout: TabControlOptions = TabControlOptions() {
+	public var layout: PagingMenuOptions = PagingMenuOptions() {
 		didSet {
 			collectionView.reloadData()
 		}
 	}
 
-  public var alignment: TabControlAlignment = .centered
+  public var alignment: PagingMenuAlignment = .centered
 
-  public var style: TabControlStyle = .indicator
+  public var style: PagingMenuStyle = .indicator
 
-	public weak var dataSource: TabControlDataSource?
-	public weak var delegate: TabControlDelegate?
+	public weak var dataSource: PagingMenuDataSource?
+	public weak var delegate: PagingMenuDelegate?
 
 	public private(set) var collectionView: UICollectionView!
 
@@ -51,8 +51,8 @@ public class TabControl: UIView {
 		collectionView.showsVerticalScrollIndicator = false
 		collectionView.showsHorizontalScrollIndicator = false
 
-		collectionView.register(TabControlOvalCell.self, forCellWithReuseIdentifier: "oval")
-		collectionView.register(TabControlIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
+		collectionView.register(PagingMenuOvalCell.self, forCellWithReuseIdentifier: "oval")
+		collectionView.register(PagingMenuIndicatorCell.self, forCellWithReuseIdentifier: "indicator")
 
 		collectionView.dataSource = self
 		collectionView.delegate = self
@@ -129,7 +129,7 @@ public class TabControl: UIView {
   }
 }
 
-extension TabControl: UICollectionViewDataSource {
+extension PagingMenu: UICollectionViewDataSource {
 	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let dataSource = dataSource {
       return dataSource.numberOfItems(in: self)
@@ -140,15 +140,15 @@ extension TabControl: UICollectionViewDataSource {
 
 	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     if let dataSource = dataSource {
-      return dataSource.tabControl(self, cellForItemAt: indexPath.item)
+      return dataSource.pagingMenu(self, cellForItemAt: indexPath.item)
     }
 
 		var identifier = "oval"
 		if style == .indicator {
 			identifier = "indicator"
 		}
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! TabControlCell
-    if let tab = dataSource?.tabControl(self, tabAt: indexPath.item) {
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PagingMenuCell
+    if let tab = dataSource?.pagingMenu(self, tabAt: indexPath.item) {
       cell.configure(tab, layout: layout)
     } else {
       cell.configure(tabs[indexPath.item], layout: layout)
@@ -158,12 +158,12 @@ extension TabControl: UICollectionViewDataSource {
 	}
 }
 
-extension TabControl: UICollectionViewDelegateFlowLayout {
+extension PagingMenu: UICollectionViewDelegateFlowLayout {
 	public func collectionView
 	(_ collectionView: UICollectionView,
 	 layout collectionViewLayout: UICollectionViewLayout,
 	 sizeForItemAt indexPath: IndexPath) -> CGSize {
-		if let size = delegate?.tabControl(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
+		if let size = delegate?.pagingMenu(self, layout: collectionViewLayout, sizeForItemAt: indexPath.item),
 				!size.equalTo(.zero) {
       return size
     }
@@ -188,7 +188,7 @@ extension TabControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-			if let spacing = delegate?.minimumInteritemSpacingForTabControl(self, layout: collectionViewLayout),
+			if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
 					!spacing.isEqual(to: .zero) {
         return spacing
       }
@@ -200,7 +200,7 @@ extension TabControl: UICollectionViewDelegateFlowLayout {
     _ collectionView: UICollectionView,
     layout collectionViewLayout: UICollectionViewLayout,
     minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-      if let spacing = delegate?.minimumInteritemSpacingForTabControl(self, layout: collectionViewLayout),
+      if let spacing = delegate?.minimumInteritemSpacingForPagingMenu(self, layout: collectionViewLayout),
 				 !spacing.isEqual(to: .zero) {
         return spacing
       }
@@ -231,18 +231,18 @@ extension TabControl: UICollectionViewDelegateFlowLayout {
 	}
 }
 
-extension TabControl: UIScrollViewDelegate {
+extension PagingMenu: UIScrollViewDelegate {
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
   }
 }
 
-private extension TabControl {
+private extension PagingMenu {
 	func handleSelectTab(_ tab: Tab, at indexPath: IndexPath) {
 		if let actionHandler = tab.handler {
 			actionHandler(tab)
 		} else if let delegate = delegate {
-			delegate.tabControl(self, didSelect: tab, at: indexPath.item)
+			delegate.pagingMenu(self, didSelect: tab, at: indexPath.item)
 		}
 	}
 }

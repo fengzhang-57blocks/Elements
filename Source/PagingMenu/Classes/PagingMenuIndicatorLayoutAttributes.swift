@@ -1,5 +1,5 @@
 //
-//  TabIndicatorLayoutAttributes.swift
+//  PagingMenuIndicatorLayoutAttributes.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/6.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-open class TabIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
+open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
 	open var backgroundColor: UIColor?
 	
 	open override func copy(with zone: NSZone? = nil) -> Any {
-		let copy = super.copy(with: zone) as! TabIndicatorLayoutAttributes
+		let copy = super.copy(with: zone) as! PagingMenuIndicatorLayoutAttributes
 		copy.backgroundColor = backgroundColor
 		return copy
 	}
 	
 	open override func isEqual(_ object: Any?) -> Bool {
-		guard let rhs = object as? TabIndicatorLayoutAttributes,
+		guard let rhs = object as? PagingMenuIndicatorLayoutAttributes,
 				rhs.backgroundColor != backgroundColor else {
 			return false
 		}
@@ -25,7 +25,7 @@ open class TabIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
 		return super.isEqual(object)
 	}
   
-  func configure(with options: TabControlOptions) {
+  func configure(with options: PagingMenuOptions) {
     guard case let .visible(height, insets, zindex) = options.indicatorOptions else {
       return
     }

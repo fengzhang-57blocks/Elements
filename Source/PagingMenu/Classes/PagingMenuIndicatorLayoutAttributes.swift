@@ -29,6 +29,7 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
     guard case let .visible(height, _, insets, zindex) = options.indicatorOptions else {
       return
     }
+    
     backgroundColor = options.indicatorColor
     frame.size.height = size.height
     

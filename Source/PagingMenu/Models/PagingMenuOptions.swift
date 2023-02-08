@@ -31,12 +31,12 @@ public struct PagingMenuOptions {
   public var insets: UIEdgeInsets
   
   public var height: CGFloat {
-    return tabSize.height + insets.top + insets.bottom
+    return menuItemSize.height + insets.top + insets.bottom
   }
   
   public var position: PagingMenuPosition
   
-  public var tabSize: TabSize
+  public var menuItemSize: PagingMenuItemSize
 	
 	public var indicatorClass: PaginMenuIndicatorView.Type
   public var indicatorOptions: PagingMenuIndicatorOptions
@@ -59,7 +59,7 @@ public struct PagingMenuOptions {
     
     insets: UIEdgeInsets = .zero,
     position: PagingMenuPosition = .top,
-    tabSize: TabSize = .fixed(width: 50, height: 50),
+    menuItemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
 		indicatorClass: PaginMenuIndicatorView.Type = PaginMenuIndicatorView.self,
     indicatorOptions: PagingMenuIndicatorOptions = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max)
 	) {
@@ -77,7 +77,7 @@ public struct PagingMenuOptions {
     
     self.insets = insets
     self.position = position
-    self.tabSize = tabSize
+    self.menuItemSize = menuItemSize
 		self.indicatorClass = indicatorClass
     self.indicatorOptions = indicatorOptions
 	}

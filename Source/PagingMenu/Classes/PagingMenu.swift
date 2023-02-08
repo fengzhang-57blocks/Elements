@@ -100,4 +100,28 @@ extension PagingMenu: UIScrollViewDelegate {
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     
   }
+  
+  public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+    
+  }
+  
+  public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+    
+  }
+  
+  public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    
+  }
+  
+  public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    
+  }
+  
+  public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    
+  }
+  
+  public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
+    
+  }
 }

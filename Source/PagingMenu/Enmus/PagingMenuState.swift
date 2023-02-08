@@ -12,7 +12,7 @@ public enum PagingMenuState: Equatable {
 	case selected(item: PagingMenuItem)
 	case scrolling(
 		currentPagingItem: PagingMenuItem,
-		targetPagingItem: PagingMenuItem?,
+		upcomingPagingItem: PagingMenuItem?,
 		progress: CGFloat,
 		initialContentOffset: CGFloat,
 		distance: CGFloat
@@ -31,10 +31,10 @@ public extension PagingMenuState {
 		}
 	}
 	
-	var targetPagingItem: PagingMenuItem? {
+	var upcomingPagingItem: PagingMenuItem? {
 		switch self {
-		case .scrolling(_, let targetPagingItem, _, _, _):
-			return targetPagingItem
+		case .scrolling(_, let upcomingPagingItem, _, _, _):
+			return upcomingPagingItem
 		case .empty, .selected:
 			return nil
 		}

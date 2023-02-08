@@ -31,7 +31,7 @@
 		B216C5B429913FC2001B643F /* PagingControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216C5AF29913FC2001B643F /* PagingControllerDelegate.swift */; };
 		B216C5B529913FC2001B643F /* PagingController+Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216C5B029913FC2001B643F /* PagingController+Page.swift */; };
 		B216C5BD29914BAF001B643F /* PagingMenuPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216C5BC29914BAF001B643F /* PagingMenuPosition.swift */; };
-		B216C5BF29914C89001B643F /* TabSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216C5BE29914C89001B643F /* TabSize.swift */; };
+		B216C5BF29914C89001B643F /* PagingMenuItemSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B216C5BE29914C89001B643F /* PagingMenuItemSize.swift */; };
 		B25C86DC298FCDA600F5898A /* PageDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */; };
 		B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */; };
 		B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7C296C4FA30077B697 /* UIImage.swift */; };
@@ -103,7 +103,7 @@
 		B216C5AF29913FC2001B643F /* PagingControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingControllerDelegate.swift; sourceTree = "<group>"; };
 		B216C5B029913FC2001B643F /* PagingController+Page.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PagingController+Page.swift"; sourceTree = "<group>"; };
 		B216C5BC29914BAF001B643F /* PagingMenuPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingMenuPosition.swift; sourceTree = "<group>"; };
-		B216C5BE29914C89001B643F /* TabSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabSize.swift; sourceTree = "<group>"; };
+		B216C5BE29914C89001B643F /* PagingMenuItemSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingMenuItemSize.swift; sourceTree = "<group>"; };
 		B25C86DB298FCDA600F5898A /* PageDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDemoViewController.swift; sourceTree = "<group>"; };
 		B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetSeparator.swift; sourceTree = "<group>"; };
 		B26CCE7C296C4FA30077B697 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
@@ -196,7 +196,7 @@
 				B292502E296A821400704131 /* PagingMenuAlignment.swift */,
 				B216C5BC29914BAF001B643F /* PagingMenuPosition.swift */,
 				7E98DC412990F7960093543E /* PagingMenuIndicatorOptions.swift */,
-				B216C5BE29914C89001B643F /* TabSize.swift */,
+				B216C5BE29914C89001B643F /* PagingMenuItemSize.swift */,
 				7EDFE53C2992338600F8216F /* PagingMenuState.swift */,
 			);
 			path = Enmus;
@@ -551,7 +551,7 @@
 				B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */,
 				7EDFE53B29922D0A00F8216F /* PagingMenuCellLayoutAttributes.swift in Sources */,
 				B216C5B129913FC2001B643F /* PagingControllerDataSource.swift in Sources */,
-				B216C5BF29914C89001B643F /* TabSize.swift in Sources */,
+				B216C5BF29914C89001B643F /* PagingMenuItemSize.swift in Sources */,
 				7EF01940296CEB8B007EE965 /* PhotonActionSheet+Configuration.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

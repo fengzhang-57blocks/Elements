@@ -44,17 +44,9 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
     
     layoutAttributes = [:]
     indicatorLayoutAttributes = nil
-    
-    createLayoutAttributes()
-    
-    if case .visible = options.indicatorOptions {
-      indicatorLayoutAttributes = PagingMenuIndicatorLayoutAttributes(
-        forDecorationViewOfKind: indicatorKind,
-        with: IndexPath(item: 0, section: 0)
-      )
-    }
-    
-    indicatorLayoutAttributes?.configure(with: options)
+		
+		createIndicatorLayoutAttributes()
+		createCellLayoutAttributes()
 	}
 	
 	open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
@@ -77,15 +69,9 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		guard let layoutAttributes = self.layoutAttributes[indexPath] as? PagingMenuCellLayoutAttributes else {
 			return nil
 		}
+		
     layoutAttributes.progress = progressForCellLayoutAttributes(at: layoutAttributes.indexPath)
 		return layoutAttributes
-	}
-	
-	open override func layoutAttributesForSupplementaryView(
-		ofKind elementKind: String,
-		at indexPath: IndexPath
-	) -> UICollectionViewLayoutAttributes? {
-		return nil
 	}
 	
 	open override func layoutAttributesForDecorationView(
@@ -109,13 +95,32 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 }
 
 private extension PagingMenuCollectionViewLayout {
-  func createLayoutAttributes() {
+	func createIndicatorLayoutAttributes() {
+		if case .visible = options.indicatorOptions {
+			indicatorLayoutAttributes = PagingMenuIndicatorLayoutAttributes(
+				forDecorationViewOfKind: indicatorKind,
+				with: IndexPath(item: 0, section: 0)
+			)
+		}
+		
+		indicatorLayoutAttributes?.frame = CGRect(x: 0, y: 50, width: 30, height: 3)
+		
+		print("createIndicatorLayoutAttributes....")
+		
+		indicatorLayoutAttributes?.configure(with: options)
+	}
+	
+  func createCellLayoutAttributes() {
     var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     
     for index in 0..<collectionView!.numberOfItems(inSection: 0) {
       let indexPath = IndexPath(item: index, section: 0)
-      
+			let cellLayoutAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+			cellLayoutAttributes.frame = CGRect(x: 100 * index, y: 0, width: 50, height: 50)
+			layoutAttributes[indexPath] = cellLayoutAttributes
     }
+		
+		self.layoutAttributes = layoutAttributes
   }
 }
 

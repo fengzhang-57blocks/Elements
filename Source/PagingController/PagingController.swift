@@ -24,8 +24,6 @@ public class PagingController: UIViewController {
   
   private lazy var defaultPagingMenu: PagingMenu = {
     let control = PagingMenu()
-    control.style = .indicator
-    control.alignment = .tiled
     control.delegate = self
     return control
   }()
@@ -175,11 +173,6 @@ extension PagingController: PagingMenuDelegate {
 
 extension PagingController: UIScrollViewDelegate {
   public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    let offsetX = scrollView.contentOffset.x
-    let index = offsetX / scrollView.bounds.width
     
-    selectedPageIndex = Int(index)
-    
-		pagingMenu.scrollTo(index: selectedPageIndex, animated: true)
   }
 }

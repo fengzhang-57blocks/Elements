@@ -340,7 +340,7 @@
 			children = (
 				7E6EE17A298CE790007D7E8A /* PageController */,
 				B26CCE7E296C50810077B697 /* PhotonActionSheet */,
-				B2925047296A822D00704131 /* SegmentControl */,
+				B2925047296A822D00704131 /* PagingMenu */,
 			);
 			path = Demos;
 			sourceTree = "<group>";
@@ -368,12 +368,12 @@
 			path = PagingMenu;
 			sourceTree = "<group>";
 		};
-		B2925047296A822D00704131 /* SegmentControl */ = {
+		B2925047296A822D00704131 /* PagingMenu */ = {
 			isa = PBXGroup;
 			children = (
 				B2925048296A822D00704131 /* PagingMenuDemoViewController.swift */,
 			);
-			path = SegmentControl;
+			path = PagingMenu;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

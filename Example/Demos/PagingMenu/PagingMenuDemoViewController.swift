@@ -71,8 +71,6 @@ class PagingMenuDemoViewController: BaseViewController {
 		alignment: PagingMenuAlignment
 	) -> PagingMenu {
 			let s = PagingMenu(tabs: tabs)
-			s.style = style
-			s.alignment = alignment
 
 			var layout = PagingMenuOptions()
 			if style == .indicator {

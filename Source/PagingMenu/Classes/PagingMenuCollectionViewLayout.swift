@@ -24,11 +24,13 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	open override var collectionViewContentSize: CGSize {
 		return contentSize
 	}
-	
-	public var state: PagingMenuState = .empty
-	
+  
+  private(set) var sizeCahce = PagingMenuSizeCache()
+  
   public var options = PagingMenuOptions.default()
 	
+	public var state: PagingMenuState = .empty
+  
 	override init() {
 		super.init()
 		configure()
@@ -168,8 +170,6 @@ private extension PagingMenuCollectionViewLayout {
 		guard let _ = state.currentPagingItem else {
 			return 0
 		}
-		
-		
 		
 		return 0
 	}

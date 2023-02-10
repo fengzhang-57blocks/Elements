@@ -29,8 +29,8 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	public var options = PagingMenuOptions.default()
 	
-	private(set) var itemsCache = PagingMenuItemsCache(items: [])
   private(set) var sizeCahce = PagingMenuItemSizeCache()
+	private(set) var itemsCache: PagingMenuItemsCache?
 	
 	private var view: UICollectionView { return collectionView! }
   
@@ -150,7 +150,8 @@ private extension PagingMenuCollectionViewLayout {
 			)
 		}
 		
-		guard let indicatorLayoutAttributes = indicatorLayoutAttributes else {
+		guard let indicatorLayoutAttributes = indicatorLayoutAttributes,
+				let itemsCache = itemsCache else {
 			return
 		}
 		
@@ -170,6 +171,10 @@ private extension PagingMenuCollectionViewLayout {
 
 private extension PagingMenuCollectionViewLayout {
   func upcomingIndexPath(for indexPath: IndexPath) -> IndexPath? {
+		guard let itemsCache = itemsCache else {
+			return indexPath
+		}
+		
 		if let upcomingPagingItem = state.upcomingPagingItem,
 				let upcomingIndexPath = itemsCache.indexPath(for: upcomingPagingItem) {
 			return upcomingIndexPath

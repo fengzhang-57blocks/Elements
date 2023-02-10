@@ -15,14 +15,6 @@ public class PagingMenuCell: UICollectionViewCell {
     return label
   }()
   
-	func configure(_ tab: Tab, layout: PagingMenuOptions) {
-		self.layout = layout
-		self.tab = tab
-    label.attributedText = tab.title
-    addSubview(label)
-		// in subclass
-	}
-	
 	public override init(frame: CGRect) {
 		super.init(frame: frame)
 		backgroundColor = .orange
@@ -38,5 +30,4 @@ public class PagingMenuCell: UICollectionViewCell {
 	}
 	
 	var layout: PagingMenuOptions?
-	var tab: Tab?
 }

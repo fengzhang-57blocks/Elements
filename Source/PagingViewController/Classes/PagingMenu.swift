@@ -15,22 +15,11 @@ public class PagingMenu: UIView {
 		}
 	}
 
-	public weak var dataSource: PagingMenuDataSource?
-	public weak var delegate: PagingMenuDelegate?
-
 	public private(set) var collectionView: UICollectionView!
 
-	private var selectedTab: Tab?
-
-  private(set) public var tabs: [Tab]
-	public required init(tabs: [Tab] = []) {
-		self.tabs = tabs
+	public required init() {
 		super.init(frame: .zero)
-
-		selectedTab = tabs.filter({
-			$0.isSelected
-		}).first
-
+		
 		setupSubviews()
 	}
 
@@ -40,17 +29,11 @@ public class PagingMenu: UIView {
 
 	private func setupSubviews() {
 		let layout = PagingMenuCollectionViewLayout()
-
+		
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-
-		collectionView.showsVerticalScrollIndicator = false
-		collectionView.showsHorizontalScrollIndicator = false
-
 		collectionView.register(PagingMenuCell.self, forCellWithReuseIdentifier: "cell")
-
 		collectionView.dataSource = self
-
-		collectionView.bounces = true
+		collectionView.delegate = self
 
 		addSubview(collectionView)
 	}
@@ -62,66 +45,57 @@ public class PagingMenu: UIView {
 		
     collectionView.reloadData()
 	}
-  
-	public func reload(with tabs: [Tab]) {
-		self.tabs = tabs
-
-		selectedTab = tabs.filter({
-			$0.isSelected
-		}).first
-
-    reloadData()
-	}
-
-	public func reloadData() {
-		collectionView.reloadData()
-	}
 }
 
 extension PagingMenu: UICollectionViewDataSource {
 	public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return tabs.count
+		return 10
 	}
 
 	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let identifier = "cell"
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PagingMenuCell
-    if let tab = dataSource?.pagingMenu(self, tabAt: indexPath.item) {
-      cell.configure(tab, layout: layout)
-    } else {
-      cell.configure(tabs[indexPath.item], layout: layout)
-    }
 
 		return cell
 	}
 }
 
+extension PagingMenu: UICollectionViewDelegate {
+	public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+		print(indexPath.item)
+	}
+}
+
 extension PagingMenu: UIScrollViewDelegate {
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    
+    print("scrollViewDidScroll")
   }
   
   public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-    
+		print("scrollViewWillBeginDragging")
   }
   
   public func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-    
+		print("scrollViewWillEndDragging")
   }
   
   public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-    
+		print("scrollViewDidEndDragging")
   }
   
   public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-    
+		print("scrollViewWillBeginDecelerating")
   }
   
   public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-    
+		print("scrollViewDidEndDecelerating")
   }
   
   public func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
-    
+		print("scrollViewDidEndScrollingAnimation")
   }
+	
+	public func scrollViewDidChangeAdjustedContentInset(_ scrollView: UIScrollView) {
+		print("scrollViewDidChangeAdjustedContentInset")
+	}
 }

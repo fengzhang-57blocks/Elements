@@ -29,8 +29,8 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	public var options = PagingMenuOptions.default()
 	
-  private(set) var sizeCahce = PagingMenuItemSizeCache()
-	private(set) var itemsCache: PagingMenuItemsCache?
+  internal var sizeCahce: PagingMenuItemSizeCache?
+	public var itemCache: PagingMenuItemCache?
 	
 	private var view: UICollectionView { return collectionView! }
   
@@ -151,14 +151,14 @@ private extension PagingMenuCollectionViewLayout {
 		}
 		
 		guard let indicatorLayoutAttributes = indicatorLayoutAttributes,
-				let itemsCache = itemsCache else {
+				let itemCache = itemCache else {
 			return
 		}
 		
 		indicatorLayoutAttributes.configure(with: options)
 		
-		if let currentPagingItem = state.currentPagingItem {
-			if let currentIndexPath = itemsCache.indexPath(for: currentPagingItem),
+		if let currentPagingItem = state.currentPagingMenuItem {
+			if let currentIndexPath = itemCache.indexPath(for: currentPagingItem),
 					let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
 				let from = PagingMenuItemLayout(frame: indicatorFrame(for: currentIndexPath))
 				let to = PagingMenuItemLayout(frame: indicatorFrame(for: upcomingInexPath))
@@ -171,12 +171,12 @@ private extension PagingMenuCollectionViewLayout {
 
 private extension PagingMenuCollectionViewLayout {
   func upcomingIndexPath(for indexPath: IndexPath) -> IndexPath? {
-		guard let itemsCache = itemsCache else {
+		guard let itemCache = itemCache else {
 			return indexPath
 		}
 		
-		if let upcomingPagingItem = state.upcomingPagingItem,
-				let upcomingIndexPath = itemsCache.indexPath(for: upcomingPagingItem) {
+		if let upcomingPagingItem = state.upcomingPagingMenuItem,
+				let upcomingIndexPath = itemCache.indexPath(for: upcomingPagingItem) {
 			return upcomingIndexPath
     }
 		
@@ -206,7 +206,7 @@ private extension PagingMenuCollectionViewLayout {
 	}
 	
 	func progressForCellLayoutAttributes(at indexPath: IndexPath) -> CGFloat {
-		guard let _ = state.currentPagingItem else {
+		guard let _ = state.currentPagingMenuItem else {
 			return 0
 		}
 		

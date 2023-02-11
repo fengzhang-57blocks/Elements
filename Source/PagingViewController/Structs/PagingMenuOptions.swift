@@ -37,6 +37,14 @@ public struct PagingMenuOptions {
   public var position: PagingMenuPosition
   
   public var menuItemSize: PagingMenuItemSize
+  public var estimatedItemWidth: CGFloat {
+    switch menuItemSize {
+    case let .fixed(width, _):
+      return width
+    case let .selfSizing(estimatedWidth, _):
+      return estimatedWidth
+    }
+  }
 	
 	public var indicatorClass: PaginMenuIndicatorView.Type
   public var indicatorOptions: PagingMenuIndicatorOptions

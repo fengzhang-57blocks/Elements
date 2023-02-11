@@ -9,11 +9,11 @@ import UIKit
 
 struct Demo {
 	let title: String
-	let viewController: UIViewController
+  let ViewController: UIViewController.Type
 	
-	init(title: String, viewController: UIViewController) {
+  init(title: String, ViewController: UIViewController.Type) {
 		self.title = title
-		self.viewController = viewController
+		self.ViewController = ViewController
 	}
 }
 
@@ -24,19 +24,15 @@ class DemoListViewController: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		// Do any additional setup after loading the view.
-		
+    
 		navigationItem.backBarButtonItem = UIBarButtonItem()
 		
-	}
-
-	override func viewDidLayoutSubviews() {
-		super.viewDidLayoutSubviews()
 	}
 	
 	func getDemos() -> [Demo] {
 		return [
-      Demo(title: "PhotonActionSheet", viewController: PhotonActionSheetDemoViewController()),
-			Demo(title: "PagingViewController", viewController: PagingControllerDemoViewController()),
+      Demo(title: "PhotonActionSheet", ViewController: PhotonActionSheetDemoViewController.self),
+      Demo(title: "PagingViewController", ViewController: PagingControllerDemoViewController.self),
 		]
 	}
 
@@ -53,7 +49,8 @@ class DemoListViewController: UITableViewController {
 	override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 		tableView.deselectRow(at: indexPath, animated: true)
 		
-		navigationController?.pushViewController(demos[indexPath.row].viewController, animated: true)
+    let viewController = demos[indexPath.row].ViewController.init()
+		navigationController?.pushViewController(viewController, animated: true)
 	}
 	
 }

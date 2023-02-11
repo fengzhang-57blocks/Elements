@@ -12,7 +12,9 @@ open class PagingView: UIView {
 	public let collectionView: UICollectionView
 	public let pageView: UIView
 	
-	public let options: PagingMenuOptions
+	public var options: PagingMenuOptions
+  
+  private var heightConstraint: NSLayoutConstraint?
 	
 	public required init(collectionView: UICollectionView, pageView: UIView, options: PagingMenuOptions) {
 		self.collectionView = collectionView
@@ -26,38 +28,63 @@ open class PagingView: UIView {
 	}
 	
 	open func createLayout() {
+    addSubview(pageView)
 		addSubview(collectionView)
-		addSubview(pageView)
 		setupConstraints()
 	}
 	
 	open func setupConstraints() {
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		pageView.translatesAutoresizingMaskIntoConstraints = false
+
+    let metrics = [
+      "height": options.menuItemSize.height
+    ]
+    let views = [
+      "collectionView": collectionView,
+      "pageView": pageView,
+    ]
+    
+    let formatOptions = NSLayoutConstraint.FormatOptions()
+    
+    addConstraints(
+      NSLayoutConstraint.constraints(
+        withVisualFormat: "H:|[collectionView]|",
+        options: formatOptions,
+        metrics: metrics,
+        views: views
+      )
+    )
+    addConstraints(
+      NSLayoutConstraint.constraints(
+        withVisualFormat: "H:|[pageView]|",
+        options: formatOptions,
+        metrics: metrics,
+        views: views
+      )
+    )
 		
-		NSLayoutConstraint.activate([
-			collectionView.topAnchor.constraint(equalTo: topAnchor),
-			collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
-			collectionView.heightAnchor.constraint(equalToConstant: options.menuItemSize.height),
-		])
-		
-		NSLayoutConstraint.activate([
-			pageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-			pageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-		])
-		
+    var verticalVisualFormat: String
 		switch options.position {
 		case .top:
-			NSLayoutConstraint.activate([
-				pageView.topAnchor.constraint(equalTo: collectionView.bottomAnchor),
-				pageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-			])
+      verticalVisualFormat = "V:|[collectionView(==height)][pageView]|"
 		case .bottom:
-			NSLayoutConstraint.activate([
-				pageView.topAnchor.constraint(equalTo: topAnchor),
-				pageView.bottomAnchor.constraint(equalTo: collectionView.topAnchor),
-			])
+      verticalVisualFormat = "V:|[pageView][collectionView(==height)]|"
 		}
+    
+    let verticalConstraints = NSLayoutConstraint.constraints(
+      withVisualFormat: verticalVisualFormat,
+      options: formatOptions,
+      metrics: metrics,
+      views: views
+    )
+    
+    addConstraints(verticalConstraints)
+    
+    for constraint in verticalConstraints {
+      if constraint.firstAttribute == .height {
+        heightConstraint = constraint
+      }
+    }
 	}
 }

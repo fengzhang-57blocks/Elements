@@ -7,9 +7,39 @@
 
 import Foundation
 
-public struct PagingMenuItemSizeCache {
-  var item: PagingMenuItem?
+class PagingMenuItemSizeCache {
+  var options: PagingMenuOptions
+  var sizeForPagingMenuItem: ((PagingMenuItem, Bool) -> CGFloat?)?
   
-  var cachedSize: [Int: CGSize] = [:]
+  private var cachedSize: [Int: CGFloat] = [:]
+  private var selectedCachedSize: [Int: CGFloat] = [:]
   
+  init(options: PagingMenuOptions) {
+    self.options = options
+  }
+  
+  func clearCahces() {
+    cachedSize = [:]
+    selectedCachedSize = [:]
+  }
+  
+  func widthForItem(_ item: PagingMenuItem) -> CGFloat {
+    if let size = cachedSize[item.identifier] {
+      return size
+    }
+    
+    let size = sizeForPagingMenuItem?(item, false)
+    cachedSize[item.identifier] = size
+    return size ?? options.estimatedItemWidth
+  }
+  
+  func widthForSelectedItem(_ item: PagingMenuItem) -> CGFloat {
+    if let size = selectedCachedSize[item.identifier] {
+      return size
+    }
+    
+    let size = sizeForPagingMenuItem?(item, false)
+    cachedSize[item.identifier] = size
+    return size ?? options.estimatedItemWidth
+  }
 }

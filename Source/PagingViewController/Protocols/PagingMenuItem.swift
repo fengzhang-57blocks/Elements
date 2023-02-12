@@ -10,6 +10,13 @@ import Foundation
 public protocol PagingMenuItem {
 	var identifier: Int { get }
 	func isEqual(to item: PagingMenuItem) -> Bool
+  func isBefore(to item: PagingMenuItem) -> Bool
+}
+
+public extension PagingMenuItem where Self: Hashable {
+  var identifier: Int {
+    return hashValue
+  }
 }
 
 public extension PagingMenuItem where Self: Equatable {
@@ -21,8 +28,11 @@ public extension PagingMenuItem where Self: Equatable {
 	}
 }
 
-public extension PagingMenuItem where Self: Hashable {
-	var identifier: Int {
-		return hashValue
-	}
+public extension PagingMenuItem where Self: Comparable {
+  func isBefore(to item: PagingMenuItem) -> Bool {
+    guard let item = item as? Self else {
+      return false
+    }
+    return self < item
+  }
 }

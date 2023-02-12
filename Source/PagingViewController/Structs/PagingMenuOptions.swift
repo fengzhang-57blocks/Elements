@@ -36,6 +36,8 @@ public struct PagingMenuOptions {
   
   public var position: PagingMenuPosition
   
+  public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
+  
   public var menuItemSize: PagingMenuItemSize
   public var estimatedItemWidth: CGFloat {
     switch menuItemSize {
@@ -65,6 +67,7 @@ public struct PagingMenuOptions {
 		borderColor: UIColor = .systemBlue,
 		isRepeatTouchEnabled: Bool = false,
     
+    menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
     insets: UIEdgeInsets = .zero,
     position: PagingMenuPosition = .top,
     menuItemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
@@ -83,6 +86,7 @@ public struct PagingMenuOptions {
 		self.borderColor = borderColor
 		self.isRepeatTouchEnabled = isRepeatTouchEnabled
     
+    self.menuTransitionBehaviour = menuTransitionBehaviour
     self.insets = insets
     self.position = position
     self.menuItemSize = menuItemSize

@@ -15,7 +15,7 @@ public protocol PageViewControllerDelegate: AnyObject {
 	)
 	func pageViewController(
 		_ pageViewController: PageViewController,
-		isScrolling fromViewController: UIViewController,
+		isScrollingFrom fromViewController: UIViewController,
 		to destinationViewController: UIViewController,
 		with progress: CGFloat
 	)

@@ -31,7 +31,7 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
     }
     
     backgroundColor = options.indicatorColor
-    frame.size.height = size.height
+    frame.size.height = height
     
     switch options.position {
     case .top:
@@ -46,5 +46,7 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
   func updateSize(from: PagingMenuItemLayout, to: PagingMenuItemLayout, progress: CGFloat) {
     frame.origin.x = from.x + (to.x - from.x) * progress
     frame.size.width = from.width + (to.width - from.width) * progress
+    
+    print("🟢 ", frame.origin.x)
   }
 }

@@ -9,6 +9,7 @@ import Foundation
 
 class PagingMenuItemSizeCache {
   var options: PagingMenuOptions
+  var implementedSizeDelegate: Bool = false
   var sizeForPagingMenuItem: ((PagingMenuItem, Bool) -> CGFloat?)?
   
   private var cachedSize: [Int: CGFloat] = [:]

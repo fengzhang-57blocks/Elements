@@ -18,11 +18,16 @@ extension PagingViewController {
 open class PagingViewController: UIViewController {
   
   public private(set) var options: PagingMenuOptions
+  public private(set) var state: PagingMenuState {
+    didSet {
+      collectionViewLayout.state = state
+    }
+  }
   
-	public weak var delegate: PagingViewControllerDelegate?
-  public weak var sizeDelegate: PagingViewControllerSizeDelegate?
-  public weak var infiniteDataSource: PagingViewControllerDynamicDataSource?
-  public weak var dataSource: PagingViewControllerDataSource? {
+  weak open var delegate: PagingViewControllerDelegate?
+  weak open var sizeDelegate: PagingViewControllerSizeDelegate?
+  weak open var infiniteDataSource: PagingViewControllerDynamicDataSource?
+  weak open var dataSource: PagingViewControllerDataSource? {
     didSet {
       configureFiniteDataSource()
     }
@@ -30,14 +35,13 @@ open class PagingViewController: UIViewController {
   
 	public private(set) var pageViewController: PageViewController
 	
-	public let collectionView: UICollectionView
-	public private(set) var collectionViewLayout: PagingMenuCollectionViewLayout
+  public private(set) var collectionViewLayout: PagingMenuCollectionViewLayout
+  
+  public let collectionView: UICollectionView
   
   public private(set) var viewControllers: [UIViewController]?
-  
-  private var dataSourceReference: DataSourceReference = .none
 	
-  private var itemCache: PagingMenuItemCache {
+  public private(set) var itemCache: PagingMenuItemCache {
     didSet {
       collectionViewLayout.itemCache = itemCache
     }
@@ -49,13 +53,9 @@ open class PagingViewController: UIViewController {
     }
   }
   
-  private(set) var state: PagingMenuState {
-    didSet {
-      collectionViewLayout.state = state
-    }
-  }
-  
   private var didLayoutSubviews: Bool = false
+  
+  private var dataSourceReference: DataSourceReference = .none
 	
 	public init(options: PagingMenuOptions = PagingMenuOptions()) {
 		self.options = options
@@ -113,6 +113,7 @@ open class PagingViewController: UIViewController {
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
+    
 		addChild(pageViewController)
     pagingView.createLayout()
 		pageViewController.didMove(toParent: self)
@@ -123,14 +124,16 @@ open class PagingViewController: UIViewController {
   
   open override func viewDidLayoutSubviews() {
     super.viewDidLayoutSubviews()
+    
     if !didLayoutSubviews {
       didLayoutSubviews = true
       switch state {
       case let .selected(item), let .scrolling(_, item?, _, _, _):
+        state = .selected(item: item)
         selectPageItem(item, animated: false)
         collectionView.selectItem(
           at: itemCache.indexPath(for: item),
-          animated: true,
+          animated: false,
           scrollPosition: .centeredHorizontally
         )
       default:
@@ -224,7 +227,7 @@ public extension PagingViewController {
     } else if let firstItem = items.first {
       state = .selected(item: firstItem)
     } else {
-      resetToDefaultState()
+      resetState()
     }
   }
 }
@@ -274,7 +277,7 @@ private extension PagingViewController {
     return items
   }
   
-  func resetToDefaultState() {
+  func resetState() {
     state = .empty
     sizeCache.clearCahces()
     itemCache = PagingMenuItemCache(items: [])

@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class PageViewController: UIViewController {
+public final class PageViewController: UIViewController {
 	
 	public private(set) var options: PagingMenuOptions
   
@@ -47,6 +47,7 @@ open class PageViewController: UIViewController {
 			.flexibleLeftMargin,
 		]
 		scrollView.isPagingEnabled = true
+    scrollView.contentInsetAdjustmentBehavior = .never
 		scrollView.translatesAutoresizingMaskIntoConstraints = true
 //    scrollView.showsHorizontalScrollIndicator = false
 //    scrollView.showsVerticalScrollIndicator = false
@@ -66,7 +67,7 @@ open class PageViewController: UIViewController {
 		get { return scrollView.contentOffset.x }
 	}
   
-	private var direction: PageViewMovingDirection = .none
+	private var direction: PageViewDirection = .none
 	
 	public required init(options: PagingMenuOptions) {
 		self.options = options
@@ -78,23 +79,22 @@ open class PageViewController: UIViewController {
 		super.init(coder: coder)
 	}
   
-  open override func loadView() {
+  public override func loadView() {
     view = scrollView
   }
 	
-	open override func viewDidLoad() {
+  public override func viewDidLoad() {
 		super.viewDidLoad()
 		scrollView.delegate = self
-    scrollView.contentInsetAdjustmentBehavior = .never
 	}
 }
 
 // MARK: Public Functions
 
 public extension PageViewController {
-  func selectViewController(_ viewController: UIViewController, direction: PageViewMovingDirection, animated: Bool) {
+  func selectViewController(_ viewController: UIViewController, direction: PageViewDirection, animated: Bool) {
     if let selectedViewController = selectedViewController,
-        viewController.isEqual(selectedViewController) {
+       viewController.isEqual(selectedViewController) {
       return
     }
 		
@@ -108,7 +108,7 @@ public extension PageViewController {
 				addViewController(viewController)
 				nextViewController = viewController
 				layoutViewControllers()
-			case .backward:
+			case .reverse:
 				if let previousViewController = previousViewController {
 					removeViewController(previousViewController)
 				}
@@ -185,7 +185,7 @@ private extension PageViewController {
 		}
   }
 	
-	func scrollTowardsTo(direction: PageViewMovingDirection, animated: Bool) {
+	func scrollTowardsTo(direction: PageViewDirection, animated: Bool) {
 		switch direction {
 		case .forward, .none:
 			switch state {
@@ -196,7 +196,7 @@ private extension PageViewController {
 			default:
 				break
 			}
-		case .backward:
+		case .reverse:
 			switch state {
 			case .last, .centered:
 				scrollView.setContentOffset(.zero, animated: animated)
@@ -206,14 +206,14 @@ private extension PageViewController {
 		}
 	}
 	
-	func willBeginScrollTowardsTo(direction: PageViewMovingDirection) {
+	func willBeginScrollTowardsTo(direction: PageViewDirection) {
 		switch direction {
 		case .forward:
 			if let nextViewController = nextViewController,
 				 let selectedViewController = selectedViewController {
 				delegate?.pageViewController(self, willBeginScrollFrom: selectedViewController, to: nextViewController)
 			}
-		case .backward:
+		case .reverse:
 			if let previousViewController = previousViewController,
 				 let selectedViewController = selectedViewController {
 				delegate?.pageViewController(self, willBeginScrollFrom: selectedViewController, to: previousViewController)
@@ -223,7 +223,7 @@ private extension PageViewController {
 		}
 	}
 	
-	func didEndScrollTowardsTo(direction: PageViewMovingDirection) {
+	func didEndScrollTowardsTo(direction: PageViewDirection) {
 		switch direction {
 		case .forward:
 			guard let oldSelectedViewController = selectedViewController,
@@ -240,7 +240,7 @@ private extension PageViewController {
 			let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldNextViewController)
 			
 			if let newNextViewController = newNextViewController,
-					newNextViewController != previousViewController {
+         newNextViewController != previousViewController {
 				addViewController(newNextViewController)
 				if let oldPreviousViewController = previousViewController {
 					removeViewController(oldPreviousViewController)
@@ -252,7 +252,7 @@ private extension PageViewController {
 			nextViewController = newNextViewController
 			
 			layoutViewControllers()
-		case .backward:
+		case .reverse:
 			guard let oldPreviousViewController = previousViewController,
 					let oldSelectedViewController = selectedViewController else {
 				return
@@ -273,7 +273,7 @@ private extension PageViewController {
 					removeViewController(oldNextViewController)
 				}
 			}
-			
+
 			previousViewController = newPreviousViewController
 			selectedViewController = oldPreviousViewController
 			nextViewController = oldSelectedViewController
@@ -295,7 +295,7 @@ private extension PageViewController {
 					with: progress
 				)
 			}
-		case .backward:
+		case .reverse:
 			if let previousViewController = previousViewController, let selectedViewController = selectedViewController {
 				delegate?.pageViewController(
 					self,
@@ -370,14 +370,14 @@ extension PageViewController: UIScrollViewDelegate {
       progress = (contentOffset - distance) / distance
     }
     
-    let scrollDirection = PageViewMovingDirection(progress: progress)
+    let scrollDirection = PageViewDirection(progress: progress)
 		
 		switch direction {
 		case .none:
 			direction = scrollDirection
 			sendScrollToDelegate(with: progress)
 			willBeginScrollTowardsTo(direction: direction)
-		case .forward, .backward:
+		case .forward, .reverse:
 			sendScrollToDelegate(with: progress)
 		}
 		

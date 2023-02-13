@@ -10,18 +10,20 @@ import UIKit
 public protocol PageViewControllerDelegate: AnyObject {
 	func pageViewController(
 		_ pageViewController: PageViewController,
-		willBeginScroll fromViewController: UIViewController,
+		willBeginScrollFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController
 	)
+	
 	func pageViewController(
 		_ pageViewController: PageViewController,
-		isScrollingFrom fromViewController: UIViewController,
+		isScrollingFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController,
 		with progress: CGFloat
 	)
+	
 	func pageViewController(
 		_ pageViewController: PageViewController,
-		didEndScroll fromViewController: UIViewController,
+		didEndScrollFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController
 	)
 }

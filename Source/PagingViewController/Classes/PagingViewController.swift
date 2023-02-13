@@ -309,6 +309,7 @@ private extension PagingViewController {
     distance: CGFloat,
     progress: CGFloat
   ) {
+		print(progress)
     state = .scrolling(
       fromItem: fromItem,
       toItem: toItem,
@@ -322,8 +323,7 @@ private extension PagingViewController {
       if let _ = toItem, sizeCache.implementedSizeDelegate {
         invalidatingContext.invalidateSize = true
       }
-      
-      collectionViewLayout.invalidateLayout()
+      collectionViewLayout.invalidateLayout(with: invalidatingContext)
     }
   }
 }
@@ -398,15 +398,15 @@ extension PagingViewController: PageViewControllerDataSource {
 extension PagingViewController: PageViewControllerDelegate {
 	public func pageViewController(
 		_ pageViewController: PageViewController,
-		willBeginScroll fromViewController: UIViewController,
+		willBeginScrollFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController
 	) {
-		
+		delegate?.pagingViewController(self, isScrollingFrom: startViewController, to: destinationViewController)
 	}
 	
   public func pageViewController(
     _ pageViewController: PageViewController,
-    isScrollingFrom fromViewController: UIViewController,
+    isScrollingFrom startViewController: UIViewController,
     to destinationViewController: UIViewController,
     with progress: CGFloat
   ) {
@@ -447,13 +447,26 @@ extension PagingViewController: PageViewControllerDelegate {
     default:
       break
     }
+		
+		delegate?.pagingViewController(self, isScrollingFrom: startViewController, to: destinationViewController)
   }
 	
 	public func pageViewController(
 		_ pageViewController: PageViewController,
-		didEndScroll fromViewController: UIViewController,
+		didEndScrollFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController
 	) {
+		print("finish")
+		guard case let .scrolling(fromItem, toItem, _, _, _) = state else {
+			return
+		}
 		
+		if let toItem = toItem {
+			state = .selected(item: toItem)
+		} else {
+			state = .selected(item: fromItem)
+		}
+		
+		delegate?.pagingViewController(self, didEndScrollFrom: startViewController, to: destinationViewController)
 	}
 }

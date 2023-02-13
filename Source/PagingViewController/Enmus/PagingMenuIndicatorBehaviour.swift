@@ -1,5 +1,5 @@
 //
-//  PagingMenuIndicatorOptions.swift
+//  PagingMenuIndicatorBehaviour.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/6.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum PagingMenuIndicatorOptions {
+public enum PagingMenuIndicatorBehaviour {
 	case hidden
 	case visible(
     height: CGFloat,
@@ -15,4 +15,9 @@ public enum PagingMenuIndicatorOptions {
     insets: UIEdgeInsets,
     zIndex: Int
   )
+	// TODO: Worm for indicator scrolling
+//	case worm(
+//		dampingRatio: CGFloat,
+//		velocity: CGFloat
+//	)
 }

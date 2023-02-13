@@ -46,7 +46,5 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
   func updateSize(from: PagingMenuItemLayout, to: PagingMenuItemLayout, progress: CGFloat) {
     frame.origin.x = from.x + (to.x - from.x) * progress
     frame.size.width = from.width + (to.width - from.width) * progress
-    
-    print("🟢 ", frame.origin.x)
   }
 }

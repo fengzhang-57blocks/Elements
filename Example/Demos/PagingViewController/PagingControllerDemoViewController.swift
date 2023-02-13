@@ -35,7 +35,7 @@ extension PagingControllerDemoViewController: PagingViewControllerDataSource {
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
     let viewController = PageDemoViewController()
     viewController.label.text = "View \(index)"
-    
+		viewController.title = "View \(index)"
     return viewController
   }
   

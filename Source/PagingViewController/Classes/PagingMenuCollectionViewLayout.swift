@@ -159,8 +159,6 @@ private extension PagingMenuCollectionViewLayout {
       return
     }
     
-    print("🔴", state.progress)
-    
     indicatorLayoutAttributes.configure(with: options)
     
     if let fromItem = state.currentPagingMenuItem {

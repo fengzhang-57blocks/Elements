@@ -17,7 +17,7 @@ extension PagingViewController {
 
 open class PagingViewController: UIViewController {
   
-  public private(set) var options: PagingMenuOptions
+  public private(set) var options: PagingOptions
   public private(set) var state: PagingMenuState {
     didSet {
       collectionViewLayout.state = state
@@ -57,7 +57,7 @@ open class PagingViewController: UIViewController {
   
   private var dataSourceReference: DataSourceReference = .none
 	
-	public init(options: PagingMenuOptions = PagingMenuOptions()) {
+	public init(options: PagingOptions = PagingOptions()) {
 		self.options = options
 		collectionViewLayout = PagingMenuCollectionViewLayout()
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
@@ -75,7 +75,7 @@ open class PagingViewController: UIViewController {
 	}
   
   public convenience init(
-    options: PagingMenuOptions = PagingMenuOptions(),
+    options: PagingOptions = PagingOptions(),
     viewControllers: [UIViewController]
   ) {
     self.init(options: options)
@@ -83,7 +83,7 @@ open class PagingViewController: UIViewController {
   }
 	
 	public required init?(coder: NSCoder) {
-		options = PagingMenuOptions()
+		options = PagingOptions()
 		collectionViewLayout = PagingMenuCollectionViewLayout()
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
@@ -312,7 +312,6 @@ private extension PagingViewController {
     distance: CGFloat,
     progress: CGFloat
   ) {
-		print(progress)
     state = .scrolling(
       fromItem: fromItem,
       toItem: toItem,

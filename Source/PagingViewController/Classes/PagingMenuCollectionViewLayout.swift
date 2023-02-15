@@ -27,7 +27,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	public var state: PagingMenuState = .empty
 	
-	public var options = PagingMenuOptions.default()
+	public var options = PagingOptions.default()
 	
   internal var sizeCahce: PagingMenuItemSizeCache?
 	public var itemCache: PagingMenuItemCache?

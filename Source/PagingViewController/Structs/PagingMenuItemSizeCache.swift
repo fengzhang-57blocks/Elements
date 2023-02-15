@@ -8,14 +8,14 @@
 import Foundation
 
 class PagingMenuItemSizeCache {
-  var options: PagingMenuOptions
+  var options: PagingOptions
   var implementedSizeDelegate: Bool = false
   var sizeForPagingMenuItem: ((PagingMenuItem, Bool) -> CGFloat?)?
   
   private var cachedSize: [Int: CGFloat] = [:]
   private var selectedCachedSize: [Int: CGFloat] = [:]
   
-  init(options: PagingMenuOptions) {
+  init(options: PagingOptions) {
     self.options = options
   }
   

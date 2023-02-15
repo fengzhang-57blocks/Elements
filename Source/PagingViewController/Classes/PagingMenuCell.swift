@@ -8,7 +8,7 @@
 import UIKit
 
 open class PagingMenuCell: UICollectionViewCell {
-  open func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingMenuOptions) {
+  open func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingOptions) {
 		
 	}
 }

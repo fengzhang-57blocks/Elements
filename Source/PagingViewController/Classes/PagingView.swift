@@ -12,11 +12,11 @@ open class PagingView: UIView {
 	public let collectionView: UICollectionView
 	public let pageView: UIView
 	
-	public var options: PagingMenuOptions
+	public var options: PagingOptions
   
   private var heightConstraint: NSLayoutConstraint?
 	
-	public required init(collectionView: UICollectionView, pageView: UIView, options: PagingMenuOptions) {
+	public required init(collectionView: UICollectionView, pageView: UIView, options: PagingOptions) {
 		self.collectionView = collectionView
 		self.pageView = pageView
 		self.options = options

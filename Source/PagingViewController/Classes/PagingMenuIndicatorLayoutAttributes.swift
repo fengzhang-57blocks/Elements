@@ -25,7 +25,7 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
 		return super.isEqual(object)
 	}
   
-  func configure(with options: PagingMenuOptions) {
+  func configure(with options: PagingOptions) {
     guard case let .visible(height, _, insets, zindex) = options.indicatorOptions else {
       return
     }

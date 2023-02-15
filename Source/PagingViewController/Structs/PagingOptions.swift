@@ -1,5 +1,5 @@
 //
-//  PagingMenuOptions.swift
+//  PagingOptions.swift
 //  Elements
 //
 //  Created by 57block on 2023/1/4.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct PagingMenuOptions {
+public struct PagingOptions {
   public var position: PagingMenuPosition
   
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
@@ -51,7 +51,7 @@ public struct PagingMenuOptions {
 		self.indicatorColor = indicatorColor
 	}
 	
-	public static func `default`() -> PagingMenuOptions {
-		return PagingMenuOptions()
+	public static func `default`() -> PagingOptions {
+		return PagingOptions()
 	}
 }

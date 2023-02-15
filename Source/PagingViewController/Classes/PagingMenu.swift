@@ -9,7 +9,7 @@ import UIKit
 
 public class PagingMenu: UIView {
 
-	public var layout: PagingMenuOptions = PagingMenuOptions() {
+	public var layout: PagingOptions = PagingOptions() {
 		didSet {
 			collectionView.reloadData()
 		}

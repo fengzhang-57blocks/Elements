@@ -9,7 +9,7 @@ import UIKit
 
 public final class PageViewController: UIViewController {
 	
-	public private(set) var options: PagingMenuOptions
+	public private(set) var options: PagingOptions
   
   public weak var delegate: PageViewControllerDelegate?
   public weak var dataSource: PageViewControllerDataSource?
@@ -69,13 +69,13 @@ public final class PageViewController: UIViewController {
   
 	private var direction: PageViewDirection = .none
 	
-	public required init(options: PagingMenuOptions) {
+	public required init(options: PagingOptions) {
 		self.options = options
 		super.init(nibName: nil, bundle: nil)
 	}
 	
 	public required init?(coder: NSCoder) {
-		options = PagingMenuOptions()
+		options = PagingOptions()
 		super.init(coder: coder)
 	}
   
@@ -93,34 +93,36 @@ public final class PageViewController: UIViewController {
 
 public extension PageViewController {
   func selectViewController(_ viewController: UIViewController, direction: PageViewDirection, animated: Bool) {
-    if let selectedViewController = selectedViewController,
-       viewController.isEqual(selectedViewController) {
+//    if let selectedViewController = selectedViewController,
+//       viewController.isEqual(selectedViewController) {
+//      return
+//    }
+    
+    if state == .empty || !animated {
+      selectViewController(viewController, animated: animated)
       return
     }
+    
+    resetState()
 		
-		switch state {
-		case .single, .first, .last, .centered:
-			switch direction {
-			case .forward, .none:
-				if let nextViewController = nextViewController {
-					removeViewController(nextViewController)
-				}
-				addViewController(viewController)
-				nextViewController = viewController
-				layoutViewControllers()
-			case .reverse:
-				if let previousViewController = previousViewController {
-					removeViewController(previousViewController)
-				}
-				addViewController(viewController)
-				previousViewController = viewController
-				layoutViewControllers()
-			}
-			
-			scrollTowardsTo(direction: direction, animated: animated)
-		case .empty:
-			selectViewController(viewController, animated: animated)
-		}
+    switch direction {
+    case .forward, .none:
+      if let nextViewController = nextViewController {
+        removeViewController(nextViewController)
+      }
+      addViewController(viewController)
+      nextViewController = viewController
+      layoutViewControllers()
+    case .reverse:
+      if let previousViewController = previousViewController {
+        removeViewController(previousViewController)
+      }
+      addViewController(viewController)
+      previousViewController = viewController
+      layoutViewControllers()
+    }
+    
+    scrollTowardsTo(direction: direction, animated: animated)
   }
 }
 
@@ -190,9 +192,9 @@ private extension PageViewController {
 		case .forward, .none:
 			switch state {
 			case .first:
-				scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: animated)
+				scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: true)
 			case .centered:
-				scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: animated)
+				scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: true)
 			default:
 				break
 			}
@@ -310,45 +312,59 @@ private extension PageViewController {
 	}
 	
 	func selectViewController(_ viewController: UIViewController, animated: Bool) {
-		guard viewController != selectedViewController else {
-			return
-		}
-		
-		let oldViewControllers = [
-			previousViewController,
-			selectedViewController,
-			nextViewController
-		].filter {
-			$0 != nil
-		}
-		
-		if let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController) {
-			if !oldViewControllers.contains(newPreviousViewController) {
-				if let oldPreviousViewController = previousViewController {
-					removeViewController(oldPreviousViewController)
-				}
-				addViewController(newPreviousViewController)
-			}
-			previousViewController = newPreviousViewController
-		} else {
-			previousViewController = nil
-		}
-		
-		if let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController) {
-			if !oldViewControllers.contains(newNextViewController) {
-				if let oldNextViewController = nextViewController {
-					removeViewController(oldNextViewController)
-				}
-				addViewController(newNextViewController)
-			}
-			nextViewController = newNextViewController
-		} else {
-			nextViewController = nil
-		}
-		
-		selectedViewController = viewController
-		
-		layoutViewControllers()
+    let oldSelectedViewController = selectedViewController
+    let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
+    let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
+
+    if let oldPreviosViewController = previousViewController {
+      if oldPreviosViewController !== viewController,
+        oldPreviosViewController !== newPreviousViewController,
+        oldPreviosViewController !== newNextViewController {
+        removeViewController(oldPreviosViewController)
+      }
+    }
+
+    if let oldSelectedViewController = selectedViewController {
+      if oldSelectedViewController !== newPreviousViewController,
+        oldSelectedViewController !== newNextViewController {
+        removeViewController(oldSelectedViewController)
+      }
+    }
+
+    if let oldNextViewController = nextViewController {
+      if oldNextViewController !== viewController,
+        oldNextViewController !== newPreviousViewController,
+        oldNextViewController !== newNextViewController {
+        removeViewController(oldNextViewController)
+      }
+    }
+
+    if let newPreviousViewController = newPreviousViewController {
+      if newPreviousViewController !== selectedViewController,
+        newPreviousViewController !== previousViewController,
+        newPreviousViewController !== nextViewController {
+        addViewController(newPreviousViewController)
+      }
+    }
+
+    if viewController !== nextViewController,
+       viewController !== previousViewController {
+      addViewController(viewController)
+    }
+
+    if let newNextViewController = newNextViewController {
+      if newNextViewController !== selectedViewController,
+          newNextViewController !== previousViewController,
+          newNextViewController !== nextViewController {
+          addViewController(newNextViewController)
+      }
+    }
+
+    previousViewController = newPreviousViewController
+    selectedViewController = viewController
+    nextViewController = newNextViewController
+
+    layoutViewControllers()
 	}
 	
 	func resetState() {

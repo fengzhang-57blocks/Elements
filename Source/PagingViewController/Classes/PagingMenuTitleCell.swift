@@ -42,7 +42,7 @@ open class PagingMenuTitleCell: PagingMenuCell {
     )
   }
   
-  open override func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingMenuOptions) {
+  open override func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingOptions) {
     if let indexItem = item as? PagingMenuIndexItem {
       titleLabel.text = "\(indexItem.title)"
     }

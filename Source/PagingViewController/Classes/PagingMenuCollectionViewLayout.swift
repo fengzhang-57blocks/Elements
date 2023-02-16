@@ -30,7 +30,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	public var options = PagingOptions.default()
 	
   internal var sizeCahce: PagingMenuItemSizeCache?
-	public var itemCache: PagingMenuItemCache?
+	public var itemCache: PagingMenuItemsCache?
 	
 	private var view: UICollectionView { return collectionView! }
   

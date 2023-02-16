@@ -1,5 +1,5 @@
 //
-//  PageViewState.swift
+//  PageState.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PageViewState {
+public enum PageState {
   case empty
   case single
   case first

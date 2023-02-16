@@ -11,8 +11,8 @@ public final class PageViewController: UIViewController {
 	
 	public private(set) var options: PagingOptions
   
-  public weak var delegate: PageViewControllerDelegate?
   public weak var dataSource: PageViewControllerDataSource?
+  public weak var delegate: PageViewControllerDelegate?
   
   public private(set) var selectedViewController: UIViewController?
   
@@ -20,7 +20,7 @@ public final class PageViewController: UIViewController {
   
   public private(set) var nextViewController: UIViewController?
   
-  public var state: PageViewState {
+  public var state: PageState {
     if previousViewController == nil, nextViewController == nil, selectedViewController == nil {
       return .empty
 		} else if previousViewController == nil, nextViewController == nil {
@@ -93,11 +93,6 @@ public final class PageViewController: UIViewController {
 
 public extension PageViewController {
   func selectViewController(_ viewController: UIViewController, direction: PagingDirection, animated: Bool) {
-//    if let selectedViewController = selectedViewController,
-//       viewController.isEqual(selectedViewController) {
-//      return
-//    }
-    
     if state == .empty || !animated {
       selectViewController(viewController, animated: animated)
       return
@@ -122,16 +117,8 @@ public extension PageViewController {
       layoutViewControllers()
     }
     
-    scrollTowardsTo(direction: direction, animated: animated)
+    scrollTowards(direction: direction, animated: animated)
   }
-	
-	func selectPreviousViewController() {
-		
-	}
-	
-	func selectNextViewController() {
-		
-	}
 	
 	func removeAllViewControllers() {
 		for viewController in [
@@ -155,72 +142,55 @@ public extension PageViewController {
 // MARK: Private Functions
 
 private extension PageViewController {
-  func addViewController(_ viewController: UIViewController) {
-    viewController.willMove(toParent: self)
-    addChild(viewController)
-    scrollView.addSubview(viewController.view)
-    viewController.didMove(toParent: self)
-  }
-  
-  func removeViewController(_ viewController: UIViewController) {
-    viewController.willMove(toParent: nil)
-    viewController.view.removeFromSuperview()
-    viewController.removeFromParent()
-    viewController.didMove(toParent: nil)
-  }
-  
-  func layoutViewControllers() {
-    var viewControllers: [UIViewController] = []
+  func selectViewController(_ viewController: UIViewController, animated: Bool) {
+    let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
+    let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
     
-    if let previousViewController = previousViewController {
-      viewControllers.append(previousViewController)
-    }
-    if let currentViewController = selectedViewController {
-      viewControllers.append(currentViewController)
-    }
-    if let nextViewController = nextViewController {
-      viewControllers.append(nextViewController)
-    }
-		
-		view.layoutIfNeeded()
+    let oldViewControllers = [
+      previousViewController,
+      selectedViewController,
+      nextViewController
+    ]
+      .filter {
+        $0 != nil
+      }
     
-    for (index, viewController) in viewControllers.enumerated() {
-      viewController.view.frame = CGRect(
-        origin: CGPoint(
-          x: CGFloat(index) * pageSize,
-          y: 0
-        ),
-        size: scrollView.bounds.size
-      )
-    }
-		
-		scrollView.contentSize = contentSize
-		
-		var diff: CGFloat = 0
-		if contentOffset > pageSize * 2 {
-			diff = contentOffset - pageSize * 2
-		} else if pageSize < contentOffset, contentOffset < pageSize * 2 {
-			diff = contentOffset - pageSize
-		} else if contentOffset < pageSize, contentOffset < 0 {
-			diff = pageSize
-		}
-		
-		switch state {
-		case .empty, .single, .first:
-			contentOffset = diff
-		case .centered, .last:
-			contentOffset = diff + pageSize
-		}
+    let newViewControllers = [
+      newPreviousViewController,
+      viewController,
+      newNextViewController
+    ]
+      .filter {
+        $0 != nil
+      }
+    
+    oldViewControllers
+      .filter { !newViewControllers.contains($0) }
+      .forEach {
+        removeViewController($0!)
+      }
+    
+    newViewControllers
+      .filter { !oldViewControllers.contains($0) }
+      .forEach {
+        addViewController($0!)
+      }
+    
+    previousViewController = newPreviousViewController
+    selectedViewController = viewController
+    nextViewController = newNextViewController
+
+    layoutViewControllers()
   }
 	
-	func scrollTowardsTo(direction: PagingDirection, animated: Bool) {
+	func scrollTowards(direction: PagingDirection, animated: Bool) {
 		switch direction {
 		case .forward, .none:
 			switch state {
 			case .first:
-				scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: true)
+				scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: animated)
 			case .centered:
-				scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: true)
+				scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: animated)
 			default:
 				break
 			}
@@ -234,24 +204,24 @@ private extension PageViewController {
 		}
 	}
 	
-	func willBeginScrollTowardsTo(direction: PagingDirection) {
+	func willBeginScrollTowards(direction: PagingDirection) {
 		switch direction {
 		case .forward:
-			if let nextViewController = nextViewController,
-				 let selectedViewController = selectedViewController {
-				delegate?.pageViewController(self, willBeginScrollFrom: selectedViewController, to: nextViewController)
+			if let fromViewController = selectedViewController,
+         let toViewController = nextViewController {
+				delegate?.pageViewController(self, willBeginScrollFrom: fromViewController, to: toViewController)
 			}
 		case .reverse:
-			if let previousViewController = previousViewController,
-				 let selectedViewController = selectedViewController {
-				delegate?.pageViewController(self, willBeginScrollFrom: selectedViewController, to: previousViewController)
+			if let fromViewController = selectedViewController,
+         let toViewController = previousViewController {
+				delegate?.pageViewController(self, willBeginScrollFrom: fromViewController, to: toViewController)
 			}
 		case .none:
 			break
 		}
 	}
 	
-	func didEndScrollTowardsTo(direction: PagingDirection) {
+	func didEndScrollTowards(direction: PagingDirection) {
 		switch direction {
 		case .forward:
 			guard let oldSelectedViewController = selectedViewController,
@@ -312,23 +282,23 @@ private extension PageViewController {
 		}
 	}
 	
-	func sendScrollToDelegate(with progress: CGFloat) {
+	func sendScrollingToDelegate(with progress: CGFloat) {
 		switch direction {
 		case .forward:
-			if let selectedViewController = selectedViewController, let nextViewController = nextViewController {
+			if let fromViewController = selectedViewController, let toViewController = nextViewController {
 				delegate?.pageViewController(
 					self,
-					isScrollingFrom: selectedViewController,
-					to: nextViewController,
+					isScrollingFrom: fromViewController,
+					to: toViewController,
 					with: progress
 				)
 			}
 		case .reverse:
-			if let previousViewController = previousViewController, let selectedViewController = selectedViewController {
+			if let fromViewController = selectedViewController, let toViewController = previousViewController {
 				delegate?.pageViewController(
 					self,
-					isScrollingFrom: selectedViewController,
-					to: previousViewController,
+					isScrollingFrom: fromViewController,
+					to: toViewController,
 					with: progress
 				)
 			}
@@ -336,47 +306,64 @@ private extension PageViewController {
 			break
 		}
 	}
-	
-	func selectViewController(_ viewController: UIViewController, animated: Bool) {
-		let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
-		let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
-		
-		let oldViewControllers = [
-			previousViewController,
-			selectedViewController,
-			nextViewController
-		]
-			.filter {
-				$0 != nil
-			}
-		
-		let newViewControllers = [
-			newPreviousViewController,
-			viewController,
-			newNextViewController
-		]
-			.filter {
-				$0 != nil
-			}
-		
-		oldViewControllers
-			.filter { !newViewControllers.contains($0) }
-			.forEach {
-				removeViewController($0!)
-			}
-		
-		newViewControllers
-			.filter { !oldViewControllers.contains($0) }
-			.forEach {
-				addViewController($0!)
-			}
-		
-    previousViewController = newPreviousViewController
-    selectedViewController = viewController
-    nextViewController = newNextViewController
-
-    layoutViewControllers()
-	}
+  
+  func layoutViewControllers() {
+    var viewControllers: [UIViewController] = []
+    
+    if let previousViewController = previousViewController {
+      viewControllers.append(previousViewController)
+    }
+    if let currentViewController = selectedViewController {
+      viewControllers.append(currentViewController)
+    }
+    if let nextViewController = nextViewController {
+      viewControllers.append(nextViewController)
+    }
+    
+    view.layoutIfNeeded()
+    
+    for (index, viewController) in viewControllers.enumerated() {
+      viewController.view.frame = CGRect(
+        origin: CGPoint(
+          x: CGFloat(index) * pageSize,
+          y: 0
+        ),
+        size: scrollView.bounds.size
+      )
+    }
+    
+    scrollView.contentSize = contentSize
+    
+    var diff: CGFloat = 0
+    if contentOffset > pageSize * 2 {
+      diff = contentOffset - pageSize * 2
+    } else if pageSize < contentOffset, contentOffset < pageSize * 2 {
+      diff = contentOffset - pageSize
+    } else if contentOffset < pageSize, contentOffset < 0 {
+      diff = pageSize
+    }
+    
+    switch state {
+    case .empty, .single, .first:
+      contentOffset = diff
+    case .centered, .last:
+      contentOffset = diff + pageSize
+    }
+  }
+  
+  func addViewController(_ viewController: UIViewController) {
+    viewController.willMove(toParent: self)
+    addChild(viewController)
+    scrollView.addSubview(viewController.view)
+    viewController.didMove(toParent: self)
+  }
+  
+  func removeViewController(_ viewController: UIViewController) {
+    viewController.willMove(toParent: nil)
+    viewController.view.removeFromSuperview()
+    viewController.removeFromParent()
+    viewController.didMove(toParent: nil)
+  }
 	
 	func resetState() {
 		direction = .none
@@ -402,14 +389,14 @@ extension PageViewController: UIScrollViewDelegate {
 		switch direction {
 		case .none:
 			direction = scrollDirection
-			sendScrollToDelegate(with: progress)
-			willBeginScrollTowardsTo(direction: direction)
+      sendScrollingToDelegate(with: progress)
+			willBeginScrollTowards(direction: direction)
 		case .forward, .reverse:
-			sendScrollToDelegate(with: progress)
+      sendScrollingToDelegate(with: progress)
 		}
 		
 		if progress >= 1 || progress <= -1 {
-			didEndScrollTowardsTo(direction: scrollDirection)
+			didEndScrollTowards(direction: scrollDirection)
 		} else if progress == 0 {
 			
 		}

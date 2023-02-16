@@ -41,7 +41,7 @@ open class PagingViewController: UIViewController {
   
   public private(set) var viewControllers: [UIViewController]?
 	
-  public private(set) var itemCache: PagingMenuItemCache {
+  public private(set) var itemCache: PagingMenuItemsCache {
     didSet {
       collectionViewLayout.itemCache = itemCache
     }
@@ -63,7 +63,7 @@ open class PagingViewController: UIViewController {
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
     sizeCache = PagingMenuItemSizeCache(options: options)
-    itemCache = PagingMenuItemCache(items: [])
+    itemCache = PagingMenuItemsCache(items: [])
     state = .empty
 		super.init(nibName: nil, bundle: nil)
 		collectionView.delegate = self
@@ -88,7 +88,7 @@ open class PagingViewController: UIViewController {
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
     sizeCache = PagingMenuItemSizeCache(options: options)
-    itemCache = PagingMenuItemCache(items: [])
+    itemCache = PagingMenuItemsCache(items: [])
     state = .empty
 		super.init(coder: coder)
 		collectionView.delegate = self
@@ -196,8 +196,8 @@ public extension PagingViewController {
       break
     }
     
-    collectionView.reloadData()
-    collectionViewLayout.prepare()
+//    collectionView.reloadData()
+//    collectionViewLayout.prepare()
   }
   
   func selectIndex(_ index: Int, animated: Bool) {
@@ -241,7 +241,7 @@ public extension PagingViewController {
 private extension PagingViewController {
   func configureFiniteDataSource() {
     let items = allPagingMenuItems()
-    itemCache = PagingMenuItemCache(items: items)
+    itemCache = PagingMenuItemsCache(items: items)
     let dataSource = PagingViewControllerFiniteDataSource(items: items)
     dataSource.viewControllerForIndex = { [unowned self] index in
       self.dataSource?.pagingViewController(self, viewControllerAt: index)
@@ -260,7 +260,7 @@ private extension PagingViewController {
     }
 		
     let dataSource = PagingViewControllerStaticDataSource(viewControllers: viewControllers)
-    itemCache = PagingMenuItemCache(items: dataSource.items)
+    itemCache = PagingMenuItemsCache(items: dataSource.items)
     dataSourceReference = .static(dataSource)
     infiniteDataSource = dataSource
     
@@ -330,7 +330,7 @@ private extension PagingViewController {
 	func resetState() {
 		state = .empty
 		sizeCache.clearCahces()
-		itemCache = PagingMenuItemCache(items: [])
+		itemCache = PagingMenuItemsCache(items: [])
 		pageViewController.removeAllViewControllers()
 		collectionView.reloadData()
 	}
@@ -464,7 +464,6 @@ extension PagingViewController: PageViewControllerDelegate {
 		didEndScrollFrom startViewController: UIViewController,
 		to destinationViewController: UIViewController
 	) {
-		print("finish")
 		guard case let .scrolling(fromItem, toItem, _, _, _) = state else {
 			return
 		}

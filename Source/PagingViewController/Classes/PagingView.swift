@@ -32,7 +32,7 @@ open class PagingView: UIView {
 		addSubview(collectionView)
 		setupConstraints()
 	}
-	
+  
 	open func setupConstraints() {
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		pageView.translatesAutoresizingMaskIntoConstraints = false

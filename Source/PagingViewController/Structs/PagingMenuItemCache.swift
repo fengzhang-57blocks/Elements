@@ -34,4 +34,14 @@ public struct PagingMenuItemCache {
   public func contains(_ item: PagingMenuItem) -> Bool {
     return cachedItems[item.identifier] != nil
   }
+	
+	public func direction(from: PagingMenuItem, to: PagingMenuItem) -> PagingDirection {
+		if from.isBefore(to: to) {
+			return .forward
+		} else if to.isBefore(to: from) {
+			return .reverse
+		}
+		
+		return .none
+	}
 }

@@ -1,5 +1,5 @@
 //
-//  PageViewDirection.swift
+//  PagingDirection.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/12.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum PageViewDirection {
+public enum PagingDirection {
   case forward
   case reverse
   case none

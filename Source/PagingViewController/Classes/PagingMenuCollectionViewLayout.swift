@@ -13,7 +13,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	private let indicatorKind: String = "indicator"
 	public private(set) var indicatorLayoutAttributes: PagingMenuIndicatorLayoutAttributes?
-	open var indicatorClass: PaginMenuIndicatorView.Type {
+	open var indicatorClass: PagingMenuIndicatorView.Type {
 		set { options.indicatorClass = newValue }
 		get { return options.indicatorClass }
 	}
@@ -25,7 +25,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		return contentSize
 	}
 	
-	public var state: PagingMenuState = .empty
+	public var state: PagingState = .empty
 	
 	public var options = PagingOptions.default()
 	

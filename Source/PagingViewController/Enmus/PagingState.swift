@@ -1,5 +1,5 @@
 //
-//  PagingMenuState.swift
+//  PagingState.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/7.
@@ -7,8 +7,7 @@
 
 import Foundation
 
-public enum PagingMenuState: Equatable {
-	case empty
+public enum PagingState: Equatable {
 	case selected(item: PagingMenuItem)
 	case scrolling(
 		fromItem: PagingMenuItem,
@@ -17,9 +16,10 @@ public enum PagingMenuState: Equatable {
 		distance: CGFloat,
     progress: CGFloat
 	)
+	case empty
 }
 
-public extension PagingMenuState {
+public extension PagingState {
 	var currentPagingMenuItem: PagingMenuItem? {
 		switch self {
 		case let .selected(item):
@@ -59,8 +59,8 @@ public extension PagingMenuState {
 	}
 }
 
-public extension PagingMenuState {
-	static func == (lhs: PagingMenuState, rhs: PagingMenuState) -> Bool {
+public extension PagingState {
+	static func == (lhs: PagingState, rhs: PagingState) -> Bool {
 		switch (lhs, rhs) {
 		case
 			(let .scrolling(lhsCurrent, lhsUpcoming, lhsOffset, lhsDistance, lhsProgress),

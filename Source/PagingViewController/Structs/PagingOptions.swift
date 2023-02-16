@@ -27,7 +27,7 @@ public struct PagingOptions {
 		return menuItemSize.height + insets.top + insets.bottom
 	}
 	
-	public var indicatorClass: PaginMenuIndicatorView.Type
+	public var indicatorClass: PagingMenuIndicatorView.Type
   public var indicatorOptions: PagingMenuIndicatorBehaviour
   public var indicatorColor: UIColor
 	
@@ -36,7 +36,7 @@ public struct PagingOptions {
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
 		menuItemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
 		insets: UIEdgeInsets = .zero,
-		indicatorClass: PaginMenuIndicatorView.Type = PaginMenuIndicatorView.self,
+		indicatorClass: PagingMenuIndicatorView.Type = PagingMenuIndicatorView.self,
     indicatorOptions: PagingMenuIndicatorBehaviour = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
 		indicatorColor: UIColor = .systemBlue
 	) {

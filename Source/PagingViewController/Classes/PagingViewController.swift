@@ -9,16 +9,16 @@ import UIKit
 
 extension PagingViewController {
   enum DataSourceReference {
-    case none
     case finite(PagingViewControllerFiniteDataSource)
     case `static`(PagingViewControllerStaticDataSource)
+		case none
   }
 }
 
 open class PagingViewController: UIViewController {
   
   public private(set) var options: PagingOptions
-  public private(set) var state: PagingMenuState {
+  public private(set) var state: PagingState {
     didSet {
       collectionViewLayout.state = state
     }
@@ -113,7 +113,7 @@ open class PagingViewController: UIViewController {
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
-    
+
 		addChild(pageViewController)
     pagingView.createLayout()
 		pageViewController.didMove(toParent: self)
@@ -130,7 +130,7 @@ open class PagingViewController: UIViewController {
       switch state {
       case let .selected(item), let .scrolling(_, item?, _, _, _):
         state = .selected(item: item)
-        selectPageItem(item, animated: false)
+				selectItem(item, direction: .none, animated: false)
         collectionView.selectItem(
           at: itemCache.indexPath(for: item),
           animated: false,
@@ -163,10 +163,10 @@ public extension PagingViewController {
     switch state {
     case .empty:
       state = .selected(item: item)
-      selectPageItem(item, animated: animated)
+			selectItem(item, direction: .none, animated: false)
       collectionView.selectItem(
         at: itemCache.indexPath(for: item),
-        animated: animated,
+        animated: false,
         scrollPosition: .centeredHorizontally
       )
     case let .selected(currentSelectedItem) where !currentSelectedItem.isEqual(to: item):
@@ -178,10 +178,14 @@ public extension PagingViewController {
           distance: 0,
           progress: 0
         )
-        selectPageItem(item, animated: animated)
+				selectItem(
+					item,
+					direction: itemCache.direction(from: currentSelectedItem, to: item),
+					animated: animated
+				)
       } else {
         state = .selected(item: item)
-        selectPageItem(item, animated: animated)
+				selectItem(item, direction: .none, animated: animated)
         collectionView.selectItem(
           at: itemCache.indexPath(for: item),
           animated: animated,
@@ -221,8 +225,8 @@ public extension PagingViewController {
     }
     
     if let prevSelectedItem = state.currentPagingMenuItem {
-      if let currentSelectedItem = items.first(where: { $0.isEqual(to: prevSelectedItem) }) {
-        state = .selected(item: currentSelectedItem)
+      if let selectedItem = items.first(where: { $0.isEqual(to: prevSelectedItem) }) {
+        state = .selected(item: selectedItem)
       }
     } else if let firstItem = items.first {
       state = .selected(item: firstItem)
@@ -254,6 +258,7 @@ private extension PagingViewController {
     guard let viewControllers = viewControllers else {
       return
     }
+		
     let dataSource = PagingViewControllerStaticDataSource(viewControllers: viewControllers)
     itemCache = PagingMenuItemCache(items: dataSource.items)
     dataSourceReference = .static(dataSource)
@@ -277,22 +282,15 @@ private extension PagingViewController {
     return items
   }
   
-  func resetState() {
-    state = .empty
-    sizeCache.clearCahces()
-    itemCache = PagingMenuItemCache(items: [])
-    collectionView.reloadData()
-  }
-  
-  func pagingMenuItemBefore(_ item: PagingMenuItem) -> PagingMenuItem? {
+  func item(before item: PagingMenuItem) -> PagingMenuItem? {
     return infiniteDataSource?.pagingViewController(self, itemBefore: item)
   }
   
-  func pagingMenuItemAfter(_ item: PagingMenuItem) -> PagingMenuItem? {
+  func item(after item: PagingMenuItem) -> PagingMenuItem? {
     return infiniteDataSource?.pagingViewController(self, itemAfter: item)
   }
   
-  func selectPageItem(_ item: PagingMenuItem, animated: Bool) {
+	func selectItem(_ item: PagingMenuItem, direction: PagingDirection, animated: Bool) {
     guard let dataSource = infiniteDataSource else {
       return
     }
@@ -300,7 +298,7 @@ private extension PagingViewController {
     let viewController = dataSource.pagingViewController(self, viewControllerFor: item)
     pageViewController.selectViewController(
       viewController,
-      direction: .none,
+      direction: direction,
       animated: animated
     )
   }
@@ -328,6 +326,14 @@ private extension PagingViewController {
       collectionViewLayout.invalidateLayout(with: invalidatingContext)
     }
   }
+	
+	func resetState() {
+		state = .empty
+		sizeCache.clearCahces()
+		itemCache = PagingMenuItemCache(items: [])
+		pageViewController.removeAllViewControllers()
+		collectionView.reloadData()
+	}
 }
 
 // MARK: UICollectionViewDataSource
@@ -416,9 +422,9 @@ extension PagingViewController: PageViewControllerDelegate {
     case let .selected(currentSelectedItem):
       var toItem: PagingMenuItem?
       if progress > 0 {
-        toItem = pagingMenuItemAfter(currentSelectedItem)
+        toItem = item(after: currentSelectedItem)
       } else if progress < 0 {
-        toItem = pagingMenuItemBefore(currentSelectedItem)
+        toItem = item(before: currentSelectedItem)
       } else {
         return
       }

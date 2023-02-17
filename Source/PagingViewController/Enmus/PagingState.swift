@@ -8,10 +8,10 @@
 import Foundation
 
 public enum PagingState: Equatable {
-	case selected(item: PagingMenuItem)
+	case selected(item: PagingItem)
 	case scrolling(
-		fromItem: PagingMenuItem,
-		toItem: PagingMenuItem?,
+		fromItem: PagingItem,
+		toItem: PagingItem?,
 		initialContentOffset: CGPoint,
 		distance: CGFloat,
     progress: CGFloat
@@ -20,7 +20,7 @@ public enum PagingState: Equatable {
 }
 
 public extension PagingState {
-	var currentPagingMenuItem: PagingMenuItem? {
+	var currentItem: PagingItem? {
 		switch self {
 		case let .selected(item):
 			return item
@@ -31,7 +31,7 @@ public extension PagingState {
 		}
 	}
 	
-	var destinationPagingMenuItem: PagingMenuItem? {
+	var destinationItem: PagingItem? {
 		switch self {
 		case let .scrolling(_, toItem, _, _, _):
 			return toItem
@@ -76,7 +76,7 @@ public extension PagingState {
 				}
 			}
 			return false
-		case let (.selected(lhsItem), .selected(rhsItem)) where lhsItem.isEqual(to: rhsItem):
+		case let (.selected(lhs), .selected(rhs)) where lhs.isEqual(to: (rhs)):
 			return true
 		case (.empty, .empty):
 			return true

@@ -18,7 +18,7 @@ open class PagingMenuCellLayoutAttributes: UICollectionViewLayoutAttributes {
 	
 	open override func isEqual(_ object: Any?) -> Bool {
 		guard let rhs = object as? PagingMenuCellLayoutAttributes,
-				rhs.progress != progress else {
+					rhs.progress != progress else {
 			return false
 		}
 		

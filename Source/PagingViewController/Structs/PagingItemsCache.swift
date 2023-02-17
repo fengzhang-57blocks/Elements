@@ -1,5 +1,5 @@
 //
-//  PagingMenuItemsCache.swift
+//  PagingItemsCache.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/10.
@@ -7,19 +7,19 @@
 
 import Foundation
 
-public struct PagingMenuItemsCache {
-	let items: [PagingMenuItem]
+public struct PagingItemsCache {
+	let items: [PagingItem]
 	
-	private var cachedItems: [Int: PagingMenuItem] = [:]
+	private var cachedItems: [Int: PagingItem] = [:]
 	
-	init(items: [PagingMenuItem]) {
+	init(items: [PagingItem]) {
 		self.items = items
 		items.forEach {
 			cachedItems[$0.identifier] = $0
 		}
 	}
   
-  public func indexPath(for item: PagingMenuItem) -> IndexPath? {
+  public func indexPath(for item: PagingItem) -> IndexPath? {
     guard let index = items.firstIndex(where: { $0.isEqual(to: item) }) else {
       return nil
     }
@@ -27,15 +27,15 @@ public struct PagingMenuItemsCache {
     return IndexPath(item: index, section: 0)
   }
   
-  public func item(for indexPath: IndexPath) -> PagingMenuItem {
+  public func item(for indexPath: IndexPath) -> PagingItem {
     return items[indexPath.item]
   }
   
-  public func contains(_ item: PagingMenuItem) -> Bool {
+  public func contains(_ item: PagingItem) -> Bool {
     return cachedItems[item.identifier] != nil
   }
 	
-	public func direction(from: PagingMenuItem, to: PagingMenuItem) -> PagingDirection {
+	public func direction(from: PagingItem, to: PagingItem) -> PagingDirection {
 		if from.isBefore(to: to) {
 			return .forward
 		} else if to.isBefore(to: from) {

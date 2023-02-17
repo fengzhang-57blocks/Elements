@@ -8,24 +8,24 @@
 import UIKit
 
 class PagingViewControllerFiniteDataSource: PagingViewControllerDynamicDataSource {
-  private(set) var items: [PagingMenuItem]
+  private(set) var items: [PagingItem]
   var viewControllerForIndex: ((Int) -> UIViewController?)?
   
-  init(items: [PagingMenuItem]) {
+  init(items: [PagingItem]) {
     self.items = items
   }
   
-  func updateItems(_ items: [PagingMenuItem]) {
+  func updateItems(_ items: [PagingItem]) {
     self.items = items
   }
   
-  func itemForIndex(_ index: Int) -> PagingMenuItem {
+  func itemForIndex(_ index: Int) -> PagingItem {
     return items[index]
   }
   
   func pagingViewController(
     _ pagingViewController: PagingViewController,
-    viewControllerFor item: PagingMenuItem
+    viewControllerFor item: PagingItem
   ) -> UIViewController {
     guard let index = items.firstIndex(where: { $0.isEqual(to: item) }) else {
       fatalError("pagingViewController(_:viewControllerFor:) item not exists.")
@@ -38,16 +38,18 @@ class PagingViewControllerFiniteDataSource: PagingViewControllerDynamicDataSourc
     return viewController
   }
   
-  func pagingViewController(_ pagingViewController: PagingViewController, itemBefore item: PagingMenuItem) -> PagingMenuItem? {
-    guard let index = items.firstIndex(where: { $0.isEqual(to: item)}), index > 0 else {
+  func pagingViewController(_ pagingViewController: PagingViewController, itemBefore item: PagingItem) -> PagingItem? {
+    guard let index = items.firstIndex(where: { $0.isEqual(to: item)}),
+					index > 0 else {
       return nil
     }
     
     return items[index - 1]
   }
   
-  func pagingViewController(_ pagingViewController: PagingViewController, itemAfter item: PagingMenuItem) -> PagingMenuItem? {
-    guard let index = items.firstIndex(where: { $0.isEqual(to: item) }), index < items.count - 1 else {
+  func pagingViewController(_ pagingViewController: PagingViewController, itemAfter item: PagingItem) -> PagingItem? {
+    guard let index = items.firstIndex(where: { $0.isEqual(to: item) }),
+					index < items.count - 1 else {
       return nil
     }
     

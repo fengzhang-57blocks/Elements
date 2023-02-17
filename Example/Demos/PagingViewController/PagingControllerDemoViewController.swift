@@ -24,12 +24,12 @@ class PagingControllerDemoViewController: BaseViewController {
 }
 
 extension PagingControllerDemoViewController: PagingViewControllerDataSource {
-  func numberOfViewControllers() -> Int {
-    return 15
-  }
+	func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
+		return 15
+	}
   
-  func pagingViewController(_ pagingViewController: PagingViewController, pagingMenuItemAt index: Int) -> PagingMenuItem {
-    return PagingMenuIndexItem(index: index, title: "\(index)")
+  func pagingViewController(_ pagingViewController: PagingViewController, pagingItemAt index: Int) -> PagingItem {
+    return PagingIndexItem(index: index, title: "\(index)")
   }
   
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {

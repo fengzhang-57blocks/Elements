@@ -8,5 +8,7 @@
 import UIKit
 
 open class PagingMenuCell: UICollectionViewCell {
-  open func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingOptions) { }
+  open func setItem(_ item: PagingItem, selected: Bool, options: PagingOptions) {
+		fatalError("setItem(_:selected:options:) not implemented.")
+	}
 }

@@ -10,16 +10,16 @@ import UIKit
 public protocol PagingViewControllerDynamicDataSource: AnyObject {
   func pagingViewController(
     _ pagingViewController: PagingViewController,
-    viewControllerFor item: PagingMenuItem
+    viewControllerFor item: PagingItem
   ) -> UIViewController
   
   func pagingViewController(
     _ pagingViewController: PagingViewController,
-    itemBefore item: PagingMenuItem
-  ) -> PagingMenuItem?
+    itemBefore item: PagingItem
+  ) -> PagingItem?
   
   func pagingViewController(
     _ pagingViewController: PagingViewController,
-    itemAfter item: PagingMenuItem
-  ) -> PagingMenuItem?
+    itemAfter item: PagingItem
+  ) -> PagingItem?
 }

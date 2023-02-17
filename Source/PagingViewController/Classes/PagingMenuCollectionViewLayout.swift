@@ -11,6 +11,10 @@ import UIKit
 
 open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
+	public var state: PagingState = .empty
+	
+	public var options = PagingOptions.default()
+	
 	private let indicatorKind: String = "indicator"
 	public private(set) var indicatorLayoutAttributes: PagingMenuIndicatorLayoutAttributes?
 	open var indicatorClass: PagingMenuIndicatorView.Type {
@@ -25,14 +29,13 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		return contentSize
 	}
 	
-	public var state: PagingState = .empty
+	public var itemsCache: PagingItemsCache = PagingItemsCache(items: [])
 	
-	public var options = PagingOptions.default()
+  internal var sizeCache: PagingItemSizeCache?
 	
-  internal var sizeCahce: PagingMenuItemSizeCache?
-	public var itemCache: PagingMenuItemsCache?
-	
-	private var view: UICollectionView { return collectionView! }
+	private var view: UICollectionView {
+		return collectionView!
+	}
   
 	override init() {
 		super.init()
@@ -65,10 +68,10 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
   }
   
   open override func shouldInvalidateLayout(
-    forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
-    withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes
-  ) -> Bool {
-    return false
+		forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
+		withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes
+	) -> Bool {
+		return false
   }
   
 //  open override func invalidationContext(
@@ -89,15 +92,14 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
   
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     var layoutAttributes = Array(self.layoutAttributes.values)
-    
     for each in layoutAttributes {
-      if let cellLayoutAttributes = each as? PagingMenuCellLayoutAttributes {
-        cellLayoutAttributes.progress = progressForCellLayoutAttributes(at: cellLayoutAttributes.indexPath)
+      if let attrs = each as? PagingMenuCellLayoutAttributes {
+				attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
       }
     }
     
-    if let indicatorLayoutAttributes = layoutAttributesForDecorationView(ofKind: indicatorKind, at: IndexPath(item: 0, section: 0)) {
-      layoutAttributes.append(indicatorLayoutAttributes)
+    if let attrs = layoutAttributesForDecorationView(ofKind: indicatorKind, at: IndexPath(item: 0, section: 0)) {
+      layoutAttributes.append(attrs)
     }
     
     return layoutAttributes
@@ -118,6 +120,10 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 
 private extension PagingMenuCollectionViewLayout {
   func createCellLayoutAttributes() {
+		guard let sizeCache = sizeCache else {
+			return
+		}
+		
     var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
     
     var previousFrame: CGRect = .zero
@@ -127,13 +133,26 @@ private extension PagingMenuCollectionViewLayout {
 			
       let x = previousFrame.maxX
       let y = previousFrame.minY
-      
-      switch options.menuItemSize {
-      case let .fixed(width, height):
-        attributes.frame = CGRect(x: x, y: y, width: width, height: height)
-      case let .selfSizing(estimatedWidth, height):
-        attributes.frame = CGRect(x: x, y: y, width: estimatedWidth, height: height)
-      }
+			
+			if sizeCache.implementedSizeDelegate {
+				let item = itemsCache.item(for: indexPath)
+				var width = sizeCache.widthForItem(item)
+				// TODO: caculate width
+				if let selectedItem = state.currentItem, selectedItem.isEqual(to: item) {
+					
+				} else if let destinationItem = state.destinationItem, destinationItem.isEqual(to: item) {
+					
+				}
+				
+				attributes.frame = CGRect(x: x, y: y, width: width, height: options.menuItemSize.height)
+			} else {
+				switch options.menuItemSize {
+				case let .fixed(width, height):
+					attributes.frame = CGRect(x: x, y: y, width: width, height: height)
+				case let .selfSizing(estimatedWidth, height):
+					attributes.frame = CGRect(x: x, y: y, width: estimatedWidth, height: height)
+				}
+			}
       
 			layoutAttributes[indexPath] = attributes
       previousFrame = attributes.frame
@@ -154,15 +173,14 @@ private extension PagingMenuCollectionViewLayout {
 	}
   
   func updateIndicatorLayoutAttributes() {
-    guard let indicatorLayoutAttributes = indicatorLayoutAttributes,
-        let itemCache = itemCache else {
+    guard let indicatorLayoutAttributes = indicatorLayoutAttributes else {
       return
     }
     
     indicatorLayoutAttributes.configure(with: options)
     
-    if let fromItem = state.currentPagingMenuItem {
-      if let currentIndexPath = itemCache.indexPath(for: fromItem),
+    if let fromItem = state.currentItem {
+      if let currentIndexPath = itemsCache.indexPath(for: fromItem),
           let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
         let from = PagingMenuItemLayout(frame: indicatorFrame(for: currentIndexPath))
         let to = PagingMenuItemLayout(frame: indicatorFrame(for: upcomingInexPath))
@@ -175,12 +193,8 @@ private extension PagingMenuCollectionViewLayout {
 
 private extension PagingMenuCollectionViewLayout {
   func upcomingIndexPath(for indexPath: IndexPath) -> IndexPath? {
-		guard let itemCache = itemCache else {
-			return indexPath
-		}
-		
-		if let toItem = state.destinationPagingMenuItem,
-				let upcomingIndexPath = itemCache.indexPath(for: toItem) {
+		if let toItem = state.destinationItem,
+			 let upcomingIndexPath = itemsCache.indexPath(for: toItem) {
 			return upcomingIndexPath
     }
 		
@@ -210,7 +224,7 @@ private extension PagingMenuCollectionViewLayout {
 	}
 	
 	func progressForCellLayoutAttributes(at indexPath: IndexPath) -> CGFloat {
-		guard let _ = state.currentPagingMenuItem else {
+		guard let _ = state.currentItem else {
 			return 0
 		}
 		

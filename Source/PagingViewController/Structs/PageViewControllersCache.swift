@@ -25,7 +25,9 @@ public class PageViewControllersCache {
   }
   
   func viewController(for index: Index) -> UIViewController? {
-    return indexes[index]
+		return indexes.first {
+			$0.key == index
+		}?.value
   }
   
   func visibleViewControllers() -> [UIViewController] {

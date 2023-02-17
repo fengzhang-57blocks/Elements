@@ -8,7 +8,7 @@
 import UIKit
 
 public protocol PagingViewControllerDelegate: AnyObject {
-  func pagingViewController(_: PagingViewController, didSelectItem item: PagingMenuItem)
+  func pagingViewController(_: PagingViewController, didSelectItem item: PagingItem)
   func pagingViewController(
     _: PagingViewController,
     willBeginScrollFrom fromViewController: UIViewController,
@@ -27,7 +27,7 @@ public protocol PagingViewControllerDelegate: AnyObject {
 }
 
 extension PagingViewControllerDelegate {
-  func pagingViewController(_: PagingViewController, didSelectItem item: PagingMenuItem) {}
+  func pagingViewController(_: PagingViewController, didSelectItem item: PagingItem) {}
   
   func pagingViewController(
     _: PagingViewController,

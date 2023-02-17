@@ -12,15 +12,15 @@ open class PagingMenuTitleCell: PagingMenuCell {
   
   public override init(frame: CGRect) {
     super.init(frame: frame)
-    createLayout()
+    configure()
   }
   
   required public init?(coder: NSCoder) {
     super.init(coder: coder)
-    createLayout()
+		configure()
   }
   
-  open func createLayout() {
+  open func configure() {
     titleLabel.textAlignment = .center
     contentView.addSubview(titleLabel)
     
@@ -42,9 +42,14 @@ open class PagingMenuTitleCell: PagingMenuCell {
     )
   }
   
-  open override func setPagingMenuItem(_ item: PagingMenuItem, selected: Bool, options: PagingOptions) {
-    if let indexItem = item as? PagingMenuIndexItem {
-      titleLabel.text = "\(indexItem.title)"
-    }
-  }
+	open override func setItem(_ item: PagingItem, selected: Bool, options: PagingOptions) {
+		if let indexItem = item as? PagingIndexItem {
+			titleLabel.text = "\(indexItem.title)"
+		}
+	}
+	
+	// TODO: color transition
+	open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+		super.apply(layoutAttributes)
+	}
 }

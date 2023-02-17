@@ -8,7 +8,7 @@
 import UIKit
 
 public protocol PagingViewControllerDataSource: AnyObject {
-	func numberOfViewControllers() -> Int
-	func pagingViewController(_ pagingViewController: PagingViewController, pagingMenuItemAt index: Int) -> PagingMenuItem
+	func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int
+	func pagingViewController(_ pagingViewController: PagingViewController, pagingItemAt index: Int) -> PagingItem
 	func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController
 }

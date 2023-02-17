@@ -10,7 +10,7 @@ import UIKit
 public protocol PagingViewControllerSizeDelegate: AnyObject {
   func pagingViewController(
     _ pagingViewController: PagingViewController,
-    widthForItem item: PagingMenuItem,
+    widthForItem item: PagingItem,
     selected isSelected: Bool
   ) -> CGFloat
 }

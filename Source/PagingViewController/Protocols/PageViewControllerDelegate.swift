@@ -24,6 +24,7 @@ public protocol PageViewControllerDelegate: AnyObject {
 	func pageViewController(
 		_ pageViewController: PageViewController,
 		didEndScrollFrom startViewController: UIViewController,
-		to destinationViewController: UIViewController
+		to destinationViewController: UIViewController,
+    transitionSuccessful successful: Bool
 	)
 }

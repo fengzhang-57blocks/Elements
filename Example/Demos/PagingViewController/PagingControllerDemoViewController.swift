@@ -20,6 +20,7 @@ class PagingControllerDemoViewController: BaseViewController {
     pagingViewController.didMove(toParent: self)
     
     pagingViewController.dataSource = self
+    pagingViewController.delegate = self
 	}
 }
 
@@ -34,9 +35,40 @@ extension PagingControllerDemoViewController: PagingViewControllerDataSource {
   
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
     let viewController = PageDemoViewController()
-    viewController.label.text = "View \(index)"
-		viewController.title = "View \(index)"
+    viewController.label.text = "\(index)"
+		viewController.title = "\(index)"
     return viewController
   }
   
+}
+
+extension PagingControllerDemoViewController: PagingViewControllerDelegate {
+  func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem item: PagingItem) {
+//    print("didSelectItem")
+  }
+  
+  func pagingViewController(
+    _ pagingViewController: PagingViewController,
+    isScrollingFrom fromViewController: UIViewController,
+    to toViewController: UIViewController
+  ) {
+//    print("isScrollingFrom:to:", fromViewController.title!, toViewController.title!)
+  }
+  
+  func pagingViewController(
+    _ pagingViewController: PagingViewController,
+    willBeginScrollFrom fromViewController: UIViewController,
+    to toViewController: UIViewController
+  ) {
+//    print("willBeginScrollFrom:to:", fromViewController.title!, toViewController.title!)
+  }
+  
+  func pagingViewController(
+    _ pagingViewController: PagingViewController,
+    didEndScrollFrom fromViewController: UIViewController,
+    to toViewController: UIViewController,
+    transitionSuccessful successful: Bool
+  ) {
+//    print("didEndScrollFrom:to:transitionSuccessful:", fromViewController.title!, toViewController.title!, successful)
+  }
 }

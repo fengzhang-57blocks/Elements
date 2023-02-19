@@ -1,5 +1,5 @@
 //
-//  PageViewControllersCache.swift
+//  PageIndexCache.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/16.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public class PageViewControllersCache {
+public class SubpageIndexCache {
   enum Index {
     case before
     case selected

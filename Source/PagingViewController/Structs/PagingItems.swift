@@ -1,5 +1,5 @@
 //
-//  PagingItemsCache.swift
+//  PagingItems.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/10.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct PagingItemsCache {
+public struct PagingItems {
 	let items: [PagingItem]
 	
 	private var cachedItems: [Int: PagingItem] = [:]

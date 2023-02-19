@@ -12,9 +12,10 @@ public struct PagingOptions {
   
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
   
-  public var menuItemSize: PagingMenuItemSize
+  public var itemSize: PagingMenuItemSize
+  public var itemSpacing: CGFloat
   public var estimatedItemWidth: CGFloat {
-    switch menuItemSize {
+    switch itemSize {
     case let .fixed(width, _):
       return width
     case let .selfSizing(estimatedWidth, _):
@@ -24,7 +25,7 @@ public struct PagingOptions {
 	
 	public var insets: UIEdgeInsets
 	public var height: CGFloat {
-		return menuItemSize.height + insets.top + insets.bottom
+		return itemSize.height + insets.top + insets.bottom
 	}
 	
 	public var indicatorClass: PagingMenuIndicatorView.Type
@@ -34,7 +35,8 @@ public struct PagingOptions {
 	public init(
 		position: PagingMenuPosition = .top,
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
-		menuItemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
+    itemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
+    itemSpacing: CGFloat = 0,
 		insets: UIEdgeInsets = .zero,
 		indicatorClass: PagingMenuIndicatorView.Type = PagingMenuIndicatorView.self,
     indicatorOptions: PagingMenuIndicatorBehaviour = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
@@ -42,7 +44,8 @@ public struct PagingOptions {
 	) {
 		self.position = position
     self.menuTransitionBehaviour = menuTransitionBehaviour
-    self.menuItemSize = menuItemSize
+    self.itemSpacing = itemSpacing
+    self.itemSize = itemSize
 		
 		self.insets = insets
 		

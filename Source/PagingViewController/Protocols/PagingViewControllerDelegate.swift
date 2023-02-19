@@ -8,29 +8,30 @@
 import UIKit
 
 public protocol PagingViewControllerDelegate: AnyObject {
-  func pagingViewController(_: PagingViewController, didSelectItem item: PagingItem)
+  func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem item: PagingItem)
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     willBeginScrollFrom fromViewController: UIViewController,
     to toViewController: UIViewController
   )
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     isScrollingFrom fromViewController: UIViewController,
     to toViewController: UIViewController
   )
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     didEndScrollFrom fromViewController: UIViewController,
-    to toViewController: UIViewController
+    to toViewController: UIViewController,
+    transitionSuccessful successful: Bool
   )
 }
 
 extension PagingViewControllerDelegate {
-  func pagingViewController(_: PagingViewController, didSelectItem item: PagingItem) {}
+  func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem item: PagingItem) {}
   
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     willBeginScrollFrom fromViewController: UIViewController,
     to toViewController: UIViewController
   ) {
@@ -38,7 +39,7 @@ extension PagingViewControllerDelegate {
   }
   
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     isScrollingFrom fromViewController: UIViewController,
     to toViewController: UIViewController
   ) {
@@ -46,9 +47,10 @@ extension PagingViewControllerDelegate {
   }
   
   func pagingViewController(
-    _: PagingViewController,
+    _ pagingViewController: PagingViewController,
     didEndScrollFrom fromViewController: UIViewController,
-    to toViewController: UIViewController
+    to toViewController: UIViewController,
+    transitionSuccessful successful: Bool
   ) {
     
   }

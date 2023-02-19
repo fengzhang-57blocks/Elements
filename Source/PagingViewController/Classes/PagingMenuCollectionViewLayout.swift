@@ -29,7 +29,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		return contentSize
 	}
 	
-	public var itemsCache: PagingItemsCache = PagingItemsCache(items: [])
+	public var visibleItems: PagingItems = PagingItems(items: [])
 	
   internal var sizeCache: PagingItemSizeCache?
 	
@@ -135,7 +135,7 @@ private extension PagingMenuCollectionViewLayout {
       let y = previousFrame.minY
 			
 			if sizeCache.implementedSizeDelegate {
-				let item = itemsCache.item(for: indexPath)
+				let item = visibleItems.item(for: indexPath)
 				var width = sizeCache.widthForItem(item)
 				// TODO: caculate width
 				if let selectedItem = state.currentItem, selectedItem.isEqual(to: item) {
@@ -144,9 +144,9 @@ private extension PagingMenuCollectionViewLayout {
 					
 				}
 				
-				attributes.frame = CGRect(x: x, y: y, width: width, height: options.menuItemSize.height)
+				attributes.frame = CGRect(x: x, y: y, width: width, height: options.itemSize.height)
 			} else {
-				switch options.menuItemSize {
+				switch options.itemSize {
 				case let .fixed(width, height):
 					attributes.frame = CGRect(x: x, y: y, width: width, height: height)
 				case let .selfSizing(estimatedWidth, height):
@@ -180,7 +180,7 @@ private extension PagingMenuCollectionViewLayout {
     indicatorLayoutAttributes.configure(with: options)
     
     if let fromItem = state.currentItem {
-      if let currentIndexPath = itemsCache.indexPath(for: fromItem),
+      if let currentIndexPath = visibleItems.indexPath(for: fromItem),
           let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
         let from = PagingMenuItemLayout(frame: indicatorFrame(for: currentIndexPath))
         let to = PagingMenuItemLayout(frame: indicatorFrame(for: upcomingInexPath))
@@ -194,7 +194,7 @@ private extension PagingMenuCollectionViewLayout {
 private extension PagingMenuCollectionViewLayout {
   func upcomingIndexPath(for indexPath: IndexPath) -> IndexPath? {
 		if let toItem = state.destinationItem,
-			 let upcomingIndexPath = itemsCache.indexPath(for: toItem) {
+			 let upcomingIndexPath = visibleItems.indexPath(for: toItem) {
 			return upcomingIndexPath
     }
 		

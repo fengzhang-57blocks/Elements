@@ -38,7 +38,7 @@ open class PagingView: UIView {
 		pageView.translatesAutoresizingMaskIntoConstraints = false
 
     let metrics = [
-      "height": options.menuItemSize.height
+      "height": options.itemSize.height
     ]
     let views = [
       "collectionView": collectionView,

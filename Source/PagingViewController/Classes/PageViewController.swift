@@ -8,6 +8,8 @@
 import UIKit
 
 public final class PageViewController: UIViewController {
+  
+  // MARK: Public Props
 	
 	public private(set) var options: PagingOptions
   
@@ -33,29 +35,34 @@ public final class PageViewController: UIViewController {
       return .centered
     }
   }
+  
+  public private(set) lazy var scrollView: UIScrollView = {
+    let scrollView = UIScrollView()
+    scrollView.isPagingEnabled = true
+    scrollView.contentInsetAdjustmentBehavior = .never
+    scrollView.translatesAutoresizingMaskIntoConstraints = true
+//    scrollView.showsHorizontalScrollIndicator = false
+//    scrollView.showsVerticalScrollIndicator = false
+    scrollView.autoresizingMask = [
+      .flexibleTopMargin,
+      .flexibleRightMargin,
+      .flexibleBottomMargin,
+      .flexibleLeftMargin,
+    ]
+    scrollView.bounces = true
+    return scrollView
+  }()
 	
 	public var pageSize: CGFloat {
 		return scrollView.bounds.width
 	}
 	
-	public private(set) lazy var scrollView: UIScrollView = {
-		let scrollView = UIScrollView()
-		scrollView.autoresizingMask = [
-			.flexibleTopMargin,
-			.flexibleRightMargin,
-			.flexibleBottomMargin,
-			.flexibleLeftMargin,
-		]
-		scrollView.isPagingEnabled = true
-    scrollView.contentInsetAdjustmentBehavior = .never
-		scrollView.translatesAutoresizingMaskIntoConstraints = true
-    scrollView.showsHorizontalScrollIndicator = false
-    scrollView.showsVerticalScrollIndicator = false
-		scrollView.bounces = true
-		return scrollView
-	}()
-	
 	// MARK: Private Props
+  
+  private var direction: PagingDirection = .none
+  private var directionRestored: Bool = false
+  
+  private var transitionSource: PagingTransitionSource = .page
   
   private var contentSize: CGSize {
     return CGSize(
@@ -65,13 +72,15 @@ public final class PageViewController: UIViewController {
   }
 	
 	private var contentOffset: CGFloat {
-		set { scrollView.contentOffset = CGPoint(x: newValue, y: 0) }
-		get { return scrollView.contentOffset.x }
+		set {
+      scrollView.contentOffset = CGPoint(x: newValue, y: 0)
+    }
+    get {
+      return scrollView.contentOffset.x
+    }
 	}
   
-	private var direction: PagingDirection = .none
-	
-	private var isScrollFinished: Bool = false
+  private var appearanceState: PageAppearanceState = .didDisappear
 	
 	public required init(options: PagingOptions) {
 		self.options = options
@@ -92,14 +101,62 @@ public final class PageViewController: UIViewController {
 	public override func viewWillLayoutSubviews() {
 		super.viewWillLayoutSubviews()
 		scrollView.frame = view.bounds
-		layoutViewControllers()
+    layoutPages()
 	}
+  
+  public override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    appearanceState = .willAppear(animated: animated)
+    if let selectedViewController = selectedViewController {
+      beginAppearanceTransition(for: selectedViewController, isAppearing: true, animated: animated)
+    }
+    
+    switch state {
+    case .single, .first, .centered, .last:
+      layoutPages()
+    default:
+      break
+    }
+  }
+  
+  public override func viewDidAppear(_ animated: Bool) {
+    super.viewDidAppear(animated)
+    appearanceState = .didDisappear
+    if let selectedViewController = selectedViewController {
+      endAppearanceTransition(for: selectedViewController)
+    }
+  }
+  
+  public override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    appearanceState = .willDisappear(animated: animated)
+    if let selectedViewController = selectedViewController {
+      beginAppearanceTransition(for: selectedViewController, isAppearing: false, animated: animated)
+    }
+  }
+  
+  public override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(animated)
+    appearanceState = .didDisappear
+    if let selectedViewController = selectedViewController {
+      endAppearanceTransition(for: selectedViewController)
+    }
+  }
+  
+  public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    coordinator.animate { _ in
+//      self.layoutPages()
+    }
+  }
 }
 
 // MARK: Public Functions
 
 public extension PageViewController {
   func selectViewController(_ viewController: UIViewController, direction: PagingDirection, animated: Bool) {
+    transitionSource = .menu
+    
     if state == .empty || !animated {
       selectViewController(viewController, animated: animated)
       return
@@ -110,19 +167,19 @@ public extension PageViewController {
     switch direction {
     case .forward, .none:
       if let nextViewController = nextViewController {
-        removeViewController(nextViewController)
+        removeSubpage(nextViewController)
       }
-      addViewController(viewController)
+      addSubpage(viewController)
       nextViewController = viewController
-      layoutViewControllers()
     case .reverse:
       if let previousViewController = previousViewController {
-        removeViewController(previousViewController)
+        removeSubpage(previousViewController)
       }
-      addViewController(viewController)
+      addSubpage(viewController)
       previousViewController = viewController
-      layoutViewControllers()
     }
+    
+    layoutPages()
     
     scrollTowards(direction: direction, animated: animated)
   }
@@ -131,26 +188,26 @@ public extension PageViewController {
 		let oldSelectedViewController = selectedViewController
 		
 		if let selectedViewController = selectedViewController {
-			selectedViewController.beginAppearanceTransition(false, animated: false)
-			removeViewController(selectedViewController)
+      beginAppearanceTransition(for: selectedViewController, isAppearing: false, animated: false)
+      removeSubpage(selectedViewController)
 		}
 		
 		if let previousViewController = previousViewController {
-			removeViewController(previousViewController)
+      removeSubpage(previousViewController)
 		}
 		
 		if let nextViewController = nextViewController {
-			removeViewController(nextViewController)
+      removeSubpage(nextViewController)
 		}
 		
 		previousViewController = nil
 		selectedViewController = nil
 		nextViewController = nil
 		
-		layoutViewControllers()
+    layoutPages()
 		
 		if let oldSelectedViewController = oldSelectedViewController {
-			oldSelectedViewController.endAppearanceTransition()
+      endAppearanceTransition(for: oldSelectedViewController)
 		}
 	}
 }
@@ -158,219 +215,28 @@ public extension PageViewController {
 // MARK: Private Functions
 
 private extension PageViewController {
-  func selectViewController(_ viewController: UIViewController, animated: Bool) {
-    let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
-    let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
-		
-		let oldSelectedViewController = selectedViewController
-		
-		if let oldSelectedViewController = oldSelectedViewController,
-			 viewController != oldSelectedViewController {
-			oldSelectedViewController.beginAppearanceTransition(false, animated: animated)
-		}
-		
-		if viewController != selectedViewController {
-			viewController.beginAppearanceTransition(true, animated: animated)
-		}
-    
-    let oldViewControllers = [
-      previousViewController,
-      selectedViewController,
-      nextViewController
-    ]
-      .filter {
-        $0 != nil
-      }
-    
-    let newViewControllers = [
-      newPreviousViewController,
-      viewController,
-      newNextViewController
-    ]
-      .filter {
-        $0 != nil
-      }
-    
-    oldViewControllers
-      .filter { !newViewControllers.contains($0) }
-      .forEach {
-        removeViewController($0!)
-      }
-    
-    newViewControllers
-      .filter { !oldViewControllers.contains($0) }
-      .forEach {
-        addViewController($0!)
-      }
-    
-    previousViewController = newPreviousViewController
-    selectedViewController = viewController
-    nextViewController = newNextViewController
-
-    layoutViewControllers()
-		
-		if let oldSelectedViewController = oldSelectedViewController,
-			 viewController != oldSelectedViewController {
-			oldSelectedViewController.endAppearanceTransition()
-		}
-		
-		if viewController != oldSelectedViewController {
-			viewController.endAppearanceTransition()
-		}
+  func addSubpage(_ viewController: UIViewController) {
+    viewController.willMove(toParent: self)
+    addChild(viewController)
+    scrollView.addSubview(viewController.view)
+    viewController.didMove(toParent: self)
   }
-	
-	func scrollTowards(direction: PagingDirection, animated: Bool) {
-		switch direction {
-		case .forward, .none:
-			switch state {
-			case .first:
-				scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: animated)
-			case .centered:
-				scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: animated)
-			default:
-				break
-			}
-		case .reverse:
-			switch state {
-			case .last, .centered:
-				scrollView.setContentOffset(.zero, animated: animated)
-			default:
-				break
-			}
-		}
-	}
-	
-	func willBeginScrollTowards(direction: PagingDirection) {
-		switch direction {
-		case .forward:
-			if let fromViewController = selectedViewController,
-         let toViewController = nextViewController {
-				fromViewController.beginAppearanceTransition(false, animated: true)
-				toViewController.beginAppearanceTransition(true, animated: true)
-				delegate?.pageViewController(
-					self,
-					willBeginScrollFrom: fromViewController,
-					to: toViewController
-				)
-			}
-		case .reverse:
-			if let fromViewController = selectedViewController,
-         let toViewController = previousViewController {
-				fromViewController.beginAppearanceTransition(false, animated: true)
-				toViewController.beginAppearanceTransition(true, animated: true)
-				delegate?.pageViewController(
-					self,
-					willBeginScrollFrom: fromViewController,
-					to: toViewController
-				)
-			}
-		case .none:
-			break
-		}
-	}
-	
-	func didEndScrollTowards(direction: PagingDirection) {
-		switch direction {
-		case .forward:
-			guard let oldSelectedViewController = selectedViewController,
-						let oldNextViewController = nextViewController else {
-				return
-			}
-			
-			delegate?.pageViewController(
-				self,
-				didEndScrollFrom: oldSelectedViewController,
-				to: oldNextViewController
-			)
-			
-			let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldNextViewController)
-			
-			if let newNextViewController = newNextViewController,
-				 newNextViewController != previousViewController {
-				addViewController(newNextViewController)
-				if let oldPreviousViewController = previousViewController {
-					removeViewController(oldPreviousViewController)
-				}
-			}
-			
-			previousViewController = oldSelectedViewController
-			selectedViewController = oldNextViewController
-			nextViewController = newNextViewController
-			
-			layoutViewControllers()
-			
-			oldSelectedViewController.endAppearanceTransition()
-			oldNextViewController.endAppearanceTransition()
-		case .reverse:
-			guard let oldPreviousViewController = previousViewController,
-						let oldSelectedViewController = selectedViewController else {
-				return
-			}
-			
-			delegate?.pageViewController(
-				self,
-				didEndScrollFrom: oldSelectedViewController,
-				to: oldPreviousViewController
-			)
-			
-			let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: oldPreviousViewController)
-			
-			if let newPreviousViewController = newPreviousViewController,
-				 newPreviousViewController != nextViewController {
-				addViewController(newPreviousViewController)
-				if let oldNextViewController = nextViewController {
-					removeViewController(oldNextViewController)
-				}
-			}
-
-			previousViewController = newPreviousViewController
-			selectedViewController = oldPreviousViewController
-			nextViewController = oldSelectedViewController
-			
-			layoutViewControllers()
-			
-			oldSelectedViewController.endAppearanceTransition()
-			oldPreviousViewController.endAppearanceTransition()
-		case .none:
-			break
-		}
-	}
-	
-	func sendScrollingToDelegate(with progress: CGFloat) {
-		switch direction {
-		case .forward:
-			if let fromViewController = selectedViewController,
-				 let toViewController = nextViewController {
-				delegate?.pageViewController(
-					self,
-					isScrollingFrom: fromViewController,
-					to: toViewController,
-					with: progress
-				)
-			}
-		case .reverse:
-			if let fromViewController = selectedViewController,
-				 let toViewController = previousViewController {
-				delegate?.pageViewController(
-					self,
-					isScrollingFrom: fromViewController,
-					to: toViewController,
-					with: progress
-				)
-			}
-		case .none:
-			break
-		}
-	}
   
-  func layoutViewControllers() {
+  func removeSubpage(_ viewController: UIViewController) {
+    viewController.willMove(toParent: nil)
+    viewController.view.removeFromSuperview()
+    viewController.removeFromParent()
+    viewController.didMove(toParent: nil)
+  }
+  
+  func layoutPages() {
     var viewControllers: [UIViewController] = []
     
     if let previousViewController = previousViewController {
       viewControllers.append(previousViewController)
     }
-    if let currentViewController = selectedViewController {
-      viewControllers.append(currentViewController)
+    if let selectedViewController = selectedViewController {
+      viewControllers.append(selectedViewController)
     }
     if let nextViewController = nextViewController {
       viewControllers.append(nextViewController)
@@ -407,28 +273,318 @@ private extension PageViewController {
     }
   }
   
-  func addViewController(_ viewController: UIViewController) {
-    viewController.willMove(toParent: self)
-    addChild(viewController)
-    scrollView.addSubview(viewController.view)
-    viewController.didMove(toParent: self)
+  func willBeginScrollTowards(direction: PagingDirection) {
+    switch direction {
+    case .forward:
+      if let fromViewController = selectedViewController,
+         let toViewController = nextViewController {
+        beginAppearanceTransition(for: fromViewController, isAppearing: false, animated: true)
+        beginAppearanceTransition(for: toViewController, isAppearing: true, animated: true)
+        delegate?.pageViewController(
+          self,
+          willBeginScrollFrom: fromViewController,
+          to: toViewController
+        )
+      }
+    case .reverse:
+      if let fromViewController = selectedViewController,
+         let toViewController = previousViewController {
+        beginAppearanceTransition(for: fromViewController, isAppearing: false, animated: true)
+        beginAppearanceTransition(for: toViewController, isAppearing: true, animated: true)
+        delegate?.pageViewController(
+          self,
+          willBeginScrollFrom: fromViewController,
+          to: toViewController
+        )
+      }
+    case .none:
+      break
+    }
   }
   
-  func removeViewController(_ viewController: UIViewController) {
-    viewController.willMove(toParent: nil)
-    viewController.view.removeFromSuperview()
-    viewController.removeFromParent()
-    viewController.didMove(toParent: nil)
+  func scrollTowards(direction: PagingDirection, animated: Bool) {
+    switch direction {
+    case .forward, .none:
+      switch state {
+      case .first:
+        scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: animated)
+      case .centered:
+        scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: animated)
+      default:
+        break
+      }
+    case .reverse:
+      switch state {
+      case .last, .centered:
+        scrollView.setContentOffset(.zero, animated: animated)
+      default:
+        break
+      }
+    }
+  }
+  
+  func didEndScrollTowards(direction: PagingDirection) {
+    switch direction {
+    case .forward:
+      guard let oldSelectedViewController = selectedViewController,
+            let oldNextViewController = nextViewController else {
+        return
+      }
+      
+      delegate?.pageViewController(
+        self,
+        didEndScrollFrom: oldSelectedViewController,
+        to: oldNextViewController,
+        transitionSuccessful: true
+      )
+      
+      let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldNextViewController)
+      
+      if let oldPreviousViewController = previousViewController,
+         oldPreviousViewController !== newNextViewController {
+        removeSubpage(oldPreviousViewController)
+      }
+      
+      if let newNextViewController = newNextViewController,
+         newNextViewController !== previousViewController {
+        addSubpage(newNextViewController)
+      }
+      
+      switch transitionSource {
+      case .menu:
+        let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: oldNextViewController)
+        if let oldSelectedViewController = selectedViewController {
+          removeSubpage(oldSelectedViewController)
+        }
+        if let newPreviousViewController = newPreviousViewController {
+          addSubpage(newPreviousViewController)
+        }
+        previousViewController = newPreviousViewController
+      case .page:
+        previousViewController = oldSelectedViewController
+      }
+      
+      selectedViewController = oldNextViewController
+      nextViewController = newNextViewController
+      
+      layoutPages()
+      
+      endAppearanceTransition(for: oldSelectedViewController)
+      endAppearanceTransition(for: oldNextViewController)
+    case .reverse:
+      guard let oldPreviousViewController = previousViewController,
+            let oldSelectedViewController = selectedViewController else {
+        return
+      }
+      
+      delegate?.pageViewController(
+        self,
+        didEndScrollFrom: oldSelectedViewController,
+        to: oldPreviousViewController,
+        transitionSuccessful: true
+      )
+      
+      let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: oldPreviousViewController)
+      
+      if let oldNextViewController = nextViewController,
+         oldNextViewController !== newPreviousViewController {
+        removeSubpage(oldNextViewController)
+      }
+      
+      if let newPreviousViewController = newPreviousViewController,
+         newPreviousViewController !== nextViewController {
+        addSubpage(newPreviousViewController)
+      }
+      
+      switch transitionSource {
+      case .menu:
+        let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldPreviousViewController)
+        if let oldSelectedViewController = selectedViewController {
+          removeSubpage(oldSelectedViewController)
+        }
+        if let newNextViewController = newNextViewController {
+          addSubpage(newNextViewController)
+        }
+        nextViewController = newNextViewController
+      case .page:
+        nextViewController = oldSelectedViewController
+      }
+
+      previousViewController = newPreviousViewController
+      selectedViewController = oldPreviousViewController
+      
+      layoutPages()
+      
+      endAppearanceTransition(for: oldSelectedViewController)
+      endAppearanceTransition(for: oldPreviousViewController)
+    case .none:
+      break
+    }
+  }
+  
+  func onPageScroll(with progress: CGFloat) {
+//    print("🟢 ", direction)
+    switch direction {
+    case .forward:
+      if let fromViewController = selectedViewController,
+         let toViewController = nextViewController {
+        delegate?.pageViewController(
+          self,
+          isScrollingFrom: fromViewController,
+          to: toViewController,
+          with: progress
+        )
+      }
+    case .reverse:
+      if let fromViewController = selectedViewController,
+         let toViewController = previousViewController {
+        delegate?.pageViewController(
+          self,
+          isScrollingFrom: fromViewController,
+          to: toViewController,
+          with: progress
+        )
+      }
+    case .none:
+      break
+    }
+  }
+  
+  func cancelScrollTowards(direction: PagingDirection) {
+    guard let selectedViewController = selectedViewController else {
+      return
+    }
+    
+    switch direction {
+    case .forward:
+      let oldNextViewController = nextViewController
+      if let oldNextViewController = oldNextViewController {
+        beginAppearanceTransition(for: selectedViewController, isAppearing: true, animated: true)
+        beginAppearanceTransition(for: oldNextViewController, isAppearing: false, animated: true)
+      }
+      
+      if let oldNextViewController = oldNextViewController {
+        endAppearanceTransition(for: selectedViewController)
+        endAppearanceTransition(for: oldNextViewController)
+        delegate?.pageViewController(
+          self,
+          didEndScrollFrom: selectedViewController,
+          to: oldNextViewController,
+          transitionSuccessful: false
+        )
+      }
+    case .reverse:
+      let oldPreviousViewController = previousViewController
+      if let oldPreviousViewController = oldPreviousViewController {
+        beginAppearanceTransition(for: selectedViewController, isAppearing: true, animated: true)
+        beginAppearanceTransition(for: oldPreviousViewController, isAppearing: false, animated: true)
+      }
+      
+      if let oldPreviousViewController = oldPreviousViewController {
+        endAppearanceTransition(for: selectedViewController)
+        endAppearanceTransition(for: oldPreviousViewController)
+        delegate?.pageViewController(
+          self,
+          didEndScrollFrom: selectedViewController,
+          to: oldPreviousViewController,
+          transitionSuccessful: false
+        )
+      }
+    default:
+      break
+    }
+  }
+  
+  func selectViewController(_ viewController: UIViewController, animated: Bool) {
+    let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
+    let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
+    
+    let oldSelectedViewController = selectedViewController
+    
+    if let oldSelectedViewController = oldSelectedViewController {
+      beginAppearanceTransition(for: oldSelectedViewController, isAppearing: false, animated: animated)
+    }
+    
+    if viewController !== selectedViewController {
+      beginAppearanceTransition(for: viewController, isAppearing: true, animated: animated)
+    }
+    
+    let oldViewControllers = [
+      previousViewController,
+      selectedViewController,
+      nextViewController
+    ]
+      .filter {
+        $0 != nil
+      }
+    
+    let newViewControllers = [
+      newPreviousViewController,
+      viewController,
+      newNextViewController
+    ]
+      .filter {
+        $0 != nil
+      }
+    
+    oldViewControllers
+      .filter { !newViewControllers.contains($0) }
+      .forEach {
+        removeSubpage($0!)
+      }
+    
+    newViewControllers
+      .filter { !oldViewControllers.contains($0) }
+      .forEach {
+        addSubpage($0!)
+      }
+    
+    previousViewController = newPreviousViewController
+    selectedViewController = viewController
+    nextViewController = newNextViewController
+
+    layoutPages()
+    
+    if let oldSelectedViewController = oldSelectedViewController {
+      endAppearanceTransition(for: oldSelectedViewController)
+    }
+    
+    if viewController !== oldSelectedViewController {
+      endAppearanceTransition(for: viewController)
+    }
+  }
+  
+  func beginAppearanceTransition(
+    for viewController: UIViewController,
+    isAppearing: Bool,
+    animated: Bool
+  ) {
+    switch appearanceState {
+    case let .willAppear(animated):
+      viewController.beginAppearanceTransition(isAppearing, animated: animated)
+    case .didAppear:
+      viewController.beginAppearanceTransition(isAppearing, animated: animated)
+    case let .willDisappear(animated):
+      viewController.beginAppearanceTransition(false, animated: animated)
+    default:
+      break
+    }
+  }
+  
+  func endAppearanceTransition(for viewController: UIViewController) {
+    guard case .didAppear = appearanceState else {
+      return
+    }
+    
+    viewController.endAppearanceTransition()
   }
 	
 	func resetState() {
 		defer {
-			print("defer")
-			isScrollFinished = false
+      directionRestored = false
 		}
 		
-		if isScrollFinished {
-			print("reset")
+		if directionRestored {
 			direction = .none
 		}
 	}
@@ -438,7 +594,7 @@ private extension PageViewController {
 
 extension PageViewController: UIScrollViewDelegate {
 	public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-    let distance = view.bounds.width
+    let distance = pageSize
     var progress: CGFloat
     
     switch state {
@@ -448,32 +604,49 @@ extension PageViewController: UIScrollViewDelegate {
       progress = (contentOffset - distance) / distance
     }
     
-    let scrollDirection = PagingDirection(progress: progress)
-		
-		print(progress)
-		
-		switch direction {
-		case .none:
-			direction = scrollDirection
-      sendScrollingToDelegate(with: progress)
-			willBeginScrollTowards(direction: direction)
-		case .forward, .reverse:
-      sendScrollingToDelegate(with: progress)
-		}
-		
-		if !isScrollFinished {
-			if progress >= 1 || progress <= -1 {
-				isScrollFinished = true
-				didEndScrollTowards(direction: scrollDirection)
-			} else if progress == 0 {
-				// TODO: cancel scroll
-				print("cancel")
-			}
-		}
+    let currentDirection = PagingDirection(progress: progress)
+    
+    switch direction {
+    case .forward, .reverse:
+      if transitionSource == .menu {
+        switch (direction, currentDirection) {
+        case (.forward, .reverse),
+          (.reverse, .forward):
+          cancelScrollTowards(direction: direction)
+          direction = currentDirection
+          willBeginScrollTowards(direction: currentDirection)
+        default:
+          break
+        }
+      }
+    case .none:
+      direction = currentDirection
+      willBeginScrollTowards(direction: direction)
+    }
+    
+    onPageScroll(with: progress)
+    
+    if !directionRestored {
+      if progress >= 1 || progress <= -1 {
+        directionRestored = true
+        didEndScrollTowards(direction: direction)
+      } else if progress == 0 {
+        print("❌")
+        switch direction {
+        case .forward, .reverse:
+          directionRestored = true
+          cancelScrollTowards(direction: direction)
+        default:
+          break
+        }
+      }
+    }
 	}
   
   public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
     resetState()
+
+    transitionSource = .page
   }
   
   public func scrollViewWillEndDragging(

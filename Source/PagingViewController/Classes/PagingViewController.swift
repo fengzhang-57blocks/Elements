@@ -126,7 +126,7 @@ open class PagingViewController: UIViewController {
       switch state {
       case let .selected(item), let .scrolling(_, item?, _, _, _):
         state = .selected(item: item)
-//        reloadItems(around: item)
+        reloadItems(around: item)
 				selectItem(item, direction: .none, animated: false)
         collectionView.selectItem(
           at: visibleItems.indexPath(for: item),
@@ -160,7 +160,7 @@ public extension PagingViewController {
     switch state {
     case .empty:
       state = .selected(item: item)
-//      reloadItems(around: item)
+      reloadItems(around: item)
 			selectItem(item, direction: .none, animated: false)
       collectionView.selectItem(
         at: visibleItems.indexPath(for: item),
@@ -183,7 +183,7 @@ public extension PagingViewController {
 				)
       } else {
         state = .selected(item: item)
-//        reloadItems(around: item)
+        reloadItems(around: item)
 				selectItem(item, direction: .none, animated: animated)
         collectionView.selectItem(
           at: visibleItems.indexPath(for: item),
@@ -321,7 +321,7 @@ private extension PagingViewController {
       let invalidationContext = PagingMenuInvalidationContext()
       if let _ = toItem {
         if collectionView.contentSize.width > collectionView.bounds.width,
-           progress != 0 {
+					 state.progress != 0 {
           print(initialContentOffset.x + distance * abs(progress))
           collectionView.setContentOffset(
             CGPoint(
@@ -342,16 +342,17 @@ private extension PagingViewController {
   
   func reloadItems(around item: PagingItem) {
     var items = generateItems(around: item)
-    
+		print(items.count)
+
     let prevContentOffset = collectionView.contentOffset
-    
+
     visibleItems = PagingItems(items: items)
     
     collectionView.reloadData()
     collectionViewLayout.prepare()
     
     var offset: CGFloat = 0
-    
+
     collectionView.setContentOffset(
       CGPoint(
         x: prevContentOffset.x + offset,
@@ -359,12 +360,12 @@ private extension PagingViewController {
       ),
       animated: false
     )
-    
+
     collectionView.layoutIfNeeded()
-    
+
     if case let .scrolling(fromItem, toItem, _, distance, progress) = state {
       var contentOffset: CGPoint = .zero
-      
+
       state = .scrolling(
         fromItem: fromItem,
         toItem: toItem,
@@ -389,7 +390,7 @@ private extension PagingViewController {
   }
   
   func generateItems(around item: PagingItem) -> [PagingItem] {
-    var items: [PagingItem] = []
+    var items: [PagingItem] = [item]
 
     let menuWidth = collectionView.bounds.width
     var prevBeforeItem = item
@@ -554,7 +555,9 @@ extension PagingViewController: PageViewControllerDelegate {
       } else {
         return
       }
-      
+			
+			// FIXME: calculate content offset
+
       updateScrollingState(
         fromItem: currentItem,
         toItem: toItem,
@@ -597,7 +600,7 @@ extension PagingViewController: PageViewControllerDelegate {
         state = .selected(item: toItem)
         
         if !collectionView.isDragging {
-//          reloadItems(around: toItem)
+          reloadItems(around: toItem)
           collectionView.selectItem(
             at: visibleItems.indexPath(for: toItem),
             animated: options.menuTransitionBehaviour == .scrollAlongside,

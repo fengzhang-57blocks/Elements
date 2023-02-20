@@ -322,7 +322,7 @@ private extension PagingViewController {
       if let _ = toItem {
         if collectionView.contentSize.width > collectionView.bounds.width,
 					 state.progress != 0 {
-          print(initialContentOffset.x + distance * abs(progress))
+//          print(initialContentOffset.x + distance * abs(progress))
           collectionView.setContentOffset(
             CGPoint(
               x: initialContentOffset.x + distance * abs(progress),
@@ -338,6 +338,36 @@ private extension PagingViewController {
       }
       collectionViewLayout.invalidateLayout(with: invalidationContext)
     }
+  }
+  
+  func calculateTransitionDistance(from fromItem: PagingItem, to item: PagingItem?) -> PagingTransitionDistance {
+    guard let toItem = item else {
+      return PagingTransitionDistance(contentOffset: .zero, distance: 0)
+    }
+    
+    let distance = PagingDistance(
+      fromItem: fromItem,
+      toItem: toItem,
+      collectionView: collectionView,
+      layoutAttributes: collectionViewLayout.layoutAttributes,
+      sizeCache: sizeCache,
+      visibleItems: visibleItems
+    )
+    
+    return PagingTransitionDistance(contentOffset: collectionView.contentOffset, distance: distance?.calculate() ?? 0)
+  }
+  
+  func itemsForFiniteDataSource() -> [PagingItem] {
+    guard let dataSource = dataSource else {
+      return []
+    }
+    
+    var items: [PagingItem] = []
+    for index in 0..<dataSource.numberOfViewControllers(in: self) {
+      items.append(dataSource.pagingViewController(self, pagingItemAt: index))
+    }
+    
+    return items
   }
   
   func reloadItems(around item: PagingItem) {
@@ -374,19 +404,6 @@ private extension PagingViewController {
         progress: progress
       )
     }
-  }
-  
-  func itemsForFiniteDataSource() -> [PagingItem] {
-    guard let dataSource = dataSource else {
-      return []
-    }
-    
-    var items: [PagingItem] = []
-    for index in 0..<dataSource.numberOfViewControllers(in: self) {
-      items.append(dataSource.pagingViewController(self, pagingItemAt: index))
-    }
-    
-    return items
   }
   
   func generateItems(around item: PagingItem) -> [PagingItem] {
@@ -557,12 +574,14 @@ extension PagingViewController: PageViewControllerDelegate {
       }
 			
 			// FIXME: calculate content offset
+      
+      let transitionDistance = calculateTransitionDistance(from: currentItem, to: toItem)
 
       updateScrollingState(
         fromItem: currentItem,
         toItem: toItem,
-        initialContentOffset: .zero,
-        distance: 0,
+        initialContentOffset: transitionDistance.contentOffset,
+        distance: transitionDistance.distance,
         progress: progress
       )
     case let .scrolling(fromItem, toItem, initialContentOffset, distance, prevProgress):

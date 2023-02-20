@@ -53,6 +53,8 @@
 		B26CCE7A296C4D0C0077B697 /* PhotonActionSheetSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */; };
 		B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7C296C4FA30077B697 /* UIImage.swift */; };
 		B26CCE80296C50B30077B697 /* PhotonActionSheetDemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */; };
+		B281726E29A3A4E2007DA73B /* PagingTransitionDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281726D29A3A4E2007DA73B /* PagingTransitionDistance.swift */; };
+		B281727029A3AFD6007DA73B /* PagingDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = B281726F29A3AFD6007DA73B /* PagingDistance.swift */; };
 		B2924FF1296A80EB00704131 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2924FF0296A80EB00704131 /* AppDelegate.swift */; };
 		B2924FF3296A80EB00704131 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2924FF2296A80EB00704131 /* SceneDelegate.swift */; };
 		B2924FF8296A80EB00704131 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B2924FF6296A80EB00704131 /* Main.storyboard */; };
@@ -139,6 +141,8 @@
 		B26CCE79296C4D0C0077B697 /* PhotonActionSheetSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetSeparator.swift; sourceTree = "<group>"; };
 		B26CCE7C296C4FA30077B697 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		B26CCE7F296C50B30077B697 /* PhotonActionSheetDemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotonActionSheetDemoViewController.swift; sourceTree = "<group>"; };
+		B281726D29A3A4E2007DA73B /* PagingTransitionDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingTransitionDistance.swift; sourceTree = "<group>"; };
+		B281726F29A3AFD6007DA73B /* PagingDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingDistance.swift; sourceTree = "<group>"; };
 		B2924FED296A80EB00704131 /* SwiftElements.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftElements.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2924FF0296A80EB00704131 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2924FF2296A80EB00704131 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -269,6 +273,8 @@
 				B2F2158A29953E52004F7DD7 /* PagingItemSizeCache.swift */,
 				7E9CCCB42995E46000C494D2 /* PagingItems.swift */,
 				B23F515B299E74F400C0A176 /* SubpageIndexCache.swift */,
+				B281726F29A3AFD6007DA73B /* PagingDistance.swift */,
+				B281726D29A3A4E2007DA73B /* PagingTransitionDistance.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -561,8 +567,10 @@
 				7E9CCCC1299635B100C494D2 /* PageViewControllerDataSource.swift in Sources */,
 				7E9CCCBB29961C2700C494D2 /* PageViewController.swift in Sources */,
 				7EE35F02299F1417000236BE /* PagingMenuBorderView.swift in Sources */,
+				B281727029A3AFD6007DA73B /* PagingDistance.swift in Sources */,
 				B292503B296A821400704131 /* PagingMenu.swift in Sources */,
 				7E9CCCB92996122400C494D2 /* PagingViewControllerDataSource.swift in Sources */,
+				B281726E29A3A4E2007DA73B /* PagingTransitionDistance.swift in Sources */,
 				B26CCE7D296C4FA30077B697 /* UIImage.swift in Sources */,
 				7E9CCCC3299635BA00C494D2 /* PageViewControllerDelegate.swift in Sources */,
 				7E9CCCBF299635A800C494D2 /* PagingViewControllerDelegate.swift in Sources */,

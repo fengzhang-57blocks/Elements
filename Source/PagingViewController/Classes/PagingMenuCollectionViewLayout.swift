@@ -22,7 +22,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 		get { return options.indicatorClass }
 	}
 	
-	public private(set) var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
+	public private(set) var layoutAttributes: [IndexPath: PagingMenuCellLayoutAttributes] = [:]
 	
 	private var contentSize: CGSize = .zero
 	open override var collectionViewContentSize: CGSize {
@@ -91,7 +91,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	}
   
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
-    var layoutAttributes = Array(self.layoutAttributes.values)
+    var layoutAttributes: [UICollectionViewLayoutAttributes] = Array(self.layoutAttributes.values)
     for each in layoutAttributes {
       if let attrs = each as? PagingMenuCellLayoutAttributes {
 				attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
@@ -124,12 +124,12 @@ private extension PagingMenuCollectionViewLayout {
 			return
 		}
 		
-    var layoutAttributes: [IndexPath: UICollectionViewLayoutAttributes] = [:]
+    var layoutAttributes: [IndexPath: PagingMenuCellLayoutAttributes] = [:]
     
     var previousFrame: CGRect = .zero
     for index in 0..<view.numberOfItems(inSection: 0) {
       let indexPath = IndexPath(item: index, section: 0)
-			let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+			let attributes = PagingMenuCellLayoutAttributes(forCellWith: indexPath)
 			
       let x = previousFrame.maxX
       let y = previousFrame.minY

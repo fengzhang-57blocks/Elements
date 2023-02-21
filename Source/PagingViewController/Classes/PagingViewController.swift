@@ -340,12 +340,12 @@ private extension PagingViewController {
     }
   }
   
-  func calculateTransitionDistance(from fromItem: PagingItem, to item: PagingItem?) -> PagingTransitionDistance {
+  func calculateTransitionDistance(from fromItem: PagingItem, to item: PagingItem?) -> PagingTransitionLayout? {
     guard let toItem = item else {
-      return PagingTransitionDistance(contentOffset: .zero, distance: 0)
+      return nil
     }
-    
-    let distance = PagingDistance(
+
+    let distance = PagingTransitionLayout(
       fromItem: fromItem,
       toItem: toItem,
       collectionView: collectionView,
@@ -354,7 +354,9 @@ private extension PagingViewController {
       visibleItems: visibleItems
     )
     
-    return PagingTransitionDistance(contentOffset: collectionView.contentOffset, distance: distance?.calculate() ?? 0)
+    return distance
+
+//    return PagingTransitionDistance(contentOffset: collectionView.contentOffset, distance: distance?.calculate() ?? 0)
   }
   
   func itemsForFiniteDataSource() -> [PagingItem] {
@@ -576,12 +578,14 @@ extension PagingViewController: PageViewControllerDelegate {
 			// FIXME: calculate content offset
       
       let transitionDistance = calculateTransitionDistance(from: currentItem, to: toItem)
+      
+      print("-----> ", transitionDistance?.contentOffset ?? .zero, transitionDistance?.distance ?? 0)
 
       updateScrollingState(
         fromItem: currentItem,
         toItem: toItem,
-        initialContentOffset: transitionDistance.contentOffset,
-        distance: transitionDistance.distance,
+        initialContentOffset: transitionDistance?.contentOffset ?? .zero,
+        distance: transitionDistance?.distance ?? 0,
         progress: progress
       )
     case let .scrolling(fromItem, toItem, initialContentOffset, distance, prevProgress):

@@ -1,5 +1,5 @@
 //
-//  PagingDistance.swift
+//  PagingTransitionLayout.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/20.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct PagingDistance {
+struct PagingTransitionLayout {
   private let fromItem: PagingItem
   private let toItem: PagingItem
   private let collectionView: UICollectionView
@@ -17,6 +17,14 @@ struct PagingDistance {
   
   private let fromItemLayoutAttributes: PagingMenuCellLayoutAttributes?
   private let toItemLayoutAttributes: PagingMenuCellLayoutAttributes
+  
+  var contentOffset: CGPoint {
+    return collectionView.contentOffset
+  }
+  
+  var distance: CGFloat {
+    return calculate()
+  }
   
   init?(
     fromItem: PagingItem,
@@ -54,11 +62,13 @@ struct PagingDistance {
   func calculate() -> CGFloat {
     var distance: CGFloat = 0
     
-    distance = toItemCenter().x - collectionView.bounds.midX
+    distance = toItemLayoutAttributes.center.x - collectionView.bounds.midX
     
-    if toItemCenter().x
-    
-    print(distance)
+    if collectionView.closeTo(edge: .left, offset: -distance) {
+      distance = -(contentOffset.x + collectionView.contentInset.left)
+    } else if collectionView.closeTo(edge: .right, offset: distance) {
+      distance = collectionView.contentSize.width - (collectionView.contentOffset.x + collectionView.bounds.width)
+    }
     
     return distance
   }

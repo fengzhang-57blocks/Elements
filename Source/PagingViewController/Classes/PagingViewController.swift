@@ -466,7 +466,7 @@ private extension PagingViewController {
   }
   
   func removeContent() {
-    pageViewController.removeAllViewControllers()
+    pageViewController.removeAllPages()
   }
 	
 	func resetState() {

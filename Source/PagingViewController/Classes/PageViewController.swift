@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Foundation
 
 public final class PageViewController: UIViewController {
   
@@ -108,7 +109,11 @@ public final class PageViewController: UIViewController {
     super.viewWillAppear(animated)
     appearanceState = .willAppear(animated: animated)
     if let selectedViewController = selectedViewController {
-      beginAppearanceTransition(for: selectedViewController, isAppearing: true, animated: animated)
+      beginAppearanceTransition(
+        for: selectedViewController,
+        isAppearing: true,
+        animated: animated
+      )
     }
     
     switch state {
@@ -131,7 +136,11 @@ public final class PageViewController: UIViewController {
     super.viewWillDisappear(animated)
     appearanceState = .willDisappear(animated: animated)
     if let selectedViewController = selectedViewController {
-      beginAppearanceTransition(for: selectedViewController, isAppearing: false, animated: animated)
+      beginAppearanceTransition(
+        for: selectedViewController,
+        isAppearing: false,
+        animated: animated
+      )
     }
   }
   
@@ -184,7 +193,7 @@ public extension PageViewController {
     scrollTowards(direction: direction, animated: animated)
   }
 	
-	func removeAllViewControllers() {
+	func removeAllPages() {
 		let oldSelectedViewController = selectedViewController
 		
 		if let selectedViewController = selectedViewController {
@@ -227,6 +236,14 @@ private extension PageViewController {
     viewController.view.removeFromSuperview()
     viewController.removeFromParent()
     viewController.didMove(toParent: nil)
+  }
+  
+  func viewController(before viewController: UIViewController) -> UIViewController? {
+    return dataSource?.pageViewController(self, viewControllerBefore: viewController)
+  }
+  
+  func viewController(after viewController: UIViewController) -> UIViewController? {
+    return dataSource?.pageViewController(self, viewControllerAfter: viewController)
   }
   
   func layoutPages() {
@@ -338,7 +355,7 @@ private extension PageViewController {
         transitionSuccessful: true
       )
       
-      let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldNextViewController)
+      let newNextViewController = viewController(after: oldNextViewController)
       
       if let oldPreviousViewController = previousViewController,
          oldPreviousViewController !== newNextViewController {
@@ -352,7 +369,7 @@ private extension PageViewController {
       
       switch transitionSource {
       case .menu:
-        let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: oldNextViewController)
+        let newPreviousViewController = viewController(before: oldNextViewController)
         if let oldSelectedViewController = selectedViewController {
           removeSubpage(oldSelectedViewController)
         }
@@ -384,7 +401,7 @@ private extension PageViewController {
         transitionSuccessful: true
       )
       
-      let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: oldPreviousViewController)
+      let newPreviousViewController = viewController(before: oldPreviousViewController)
       
       if let oldNextViewController = nextViewController,
          oldNextViewController !== newPreviousViewController {
@@ -398,7 +415,7 @@ private extension PageViewController {
       
       switch transitionSource {
       case .menu:
-        let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: oldPreviousViewController)
+        let newNextViewController = viewController(after: oldPreviousViewController)
         if let oldSelectedViewController = selectedViewController {
           removeSubpage(oldSelectedViewController)
         }
@@ -496,13 +513,17 @@ private extension PageViewController {
   }
   
   func selectViewController(_ viewController: UIViewController, animated: Bool) {
-    let newPreviousViewController = dataSource?.pageViewController(self, viewControllerBefore: viewController)
-    let newNextViewController = dataSource?.pageViewController(self, viewControllerAfter: viewController)
+    let newPreviousViewController = self.viewController(before: viewController)
+    let newNextViewController = self.viewController(after: viewController)
     
     let oldSelectedViewController = selectedViewController
     
     if let oldSelectedViewController = oldSelectedViewController {
-      beginAppearanceTransition(for: oldSelectedViewController, isAppearing: false, animated: animated)
+      beginAppearanceTransition(
+        for: oldSelectedViewController,
+        isAppearing: false,
+        animated: animated
+      )
     }
     
     if viewController !== selectedViewController {

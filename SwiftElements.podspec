@@ -9,13 +9,13 @@ Pod::Spec.new do |spec|
   spec.ios.deployment_target = '13.0'
   spec.source = { :git => 'https://github.com/fengzhang-57blocks/SwiftElements.git', :tag => '0.0.18' }
 
-  spec.subspec 'PagingMenu' do |s|
-    s.source_files = 'Source/PagingMenu/**.swift', 'Source/PagingMenu/Cell/**.swift', 'Source/PagingMenu/Extensions/**.swift'
+  spec.subspec 'PagingViewController' do |s|
+    s.source_files = 'SwiftElements/Sources/PagingViewController/*/**.swift'
   end
 
   spec.subspec 'PhotonActionSheet' do |s|
-    s.source_files = 'Source/PhotonActionSheet/**.swift', 'Source/PhotonActionSheet/Extensions/**.swift'
-    s.resource = 'Source/PhotonActionSheet/Resource/*.bundle'
+    s.source_files = 'SwiftElements/Sources/PhotonActionSheet/*/**.swift'
+    s.resource = 'SwiftElements/Sources/PhotonActionSheet/Resources/*.bundle'
   end
 
   spec.swift_versions = ['5.0']

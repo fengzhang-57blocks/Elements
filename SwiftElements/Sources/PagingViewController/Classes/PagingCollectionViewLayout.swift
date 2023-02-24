@@ -25,15 +25,18 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 	public private(set) var layoutAttributes: [IndexPath: PagingCellLayoutAttributes] = [:]
 	
 	private var contentSize: CGSize = .zero
+  public private(set) var contentInsets: UIEdgeInsets = .zero
 	open override var collectionViewContentSize: CGSize {
 		return contentSize
 	}
 	
 	public var visibleItems: PagingItems = PagingItems(items: [])
-  
-  public private(set) var contentInsets: UIEdgeInsets = .zero
 	
   internal var sizeCache: PagingItemSizeCache?
+  
+  private var itemsRange: Range<Int> {
+    return 0..<view.numberOfItems(inSection: 0)
+  }
 	
 	private var view: UICollectionView {
 		return collectionView!
@@ -51,7 +54,7 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 	
 	open override func prepare() {
 		super.prepare()
-		UICollectionViewFlowLayout().scrollDirection = .horizontal
+
 //    layoutAttributes = [:]
 //    indicatorLayoutAttributes = nil
 		
@@ -129,7 +132,7 @@ private extension PagingCollectionViewLayout {
     var layoutAttributes: [IndexPath: PagingCellLayoutAttributes] = [:]
     
     var previousFrame: CGRect = .zero
-    for index in 0..<view.numberOfItems(inSection: 0) {
+    for index in itemsRange {
       let indexPath = IndexPath(item: index, section: 0)
 			let attributes = PagingCellLayoutAttributes(forCellWith: indexPath)
 			

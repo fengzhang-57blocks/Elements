@@ -289,7 +289,7 @@ private extension PagingViewController {
     return infiniteDataSource?.pagingViewController(self, itemAfter: item)
   }
   
-	func selectItem(_ item: PagingItem, direction: PagingDirection, animated: Bool) {
+	func selectItem(_ item: PagingItem, direction: PagingTransitionDirection, animated: Bool) {
     guard let dataSource = infiniteDataSource else {
       return
     }

@@ -35,7 +35,7 @@ public struct PagingItems {
     return cachedItems[item.identifier] != nil
   }
 	
-	public func direction(from: PagingItem, to: PagingItem) -> PagingDirection {
+	public func direction(from: PagingItem, to: PagingItem) -> PagingTransitionDirection {
 		if from.isBefore(to: to) {
 			return .forward
 		} else if to.isBefore(to: from) {

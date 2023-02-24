@@ -9,7 +9,9 @@ import UIKit
 
 public struct PagingOptions {
   public var position: PagingMenuPosition
-  
+	
+  public var pageScrollDirection: PageScrollDirection
+	
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
   
   public var itemSize: PagingMenuItemSize
@@ -34,6 +36,7 @@ public struct PagingOptions {
 	
 	public init(
 		position: PagingMenuPosition = .top,
+		pageScrollDirection: PageScrollDirection = .horizontal,
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
     itemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
     itemSpacing: CGFloat = 0,
@@ -43,6 +46,8 @@ public struct PagingOptions {
 		indicatorColor: UIColor = .systemBlue
 	) {
 		self.position = position
+		self.pageScrollDirection = pageScrollDirection
+		
     self.menuTransitionBehaviour = menuTransitionBehaviour
     self.itemSpacing = itemSpacing
     self.itemSize = itemSize

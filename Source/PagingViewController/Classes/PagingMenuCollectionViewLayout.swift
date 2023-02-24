@@ -49,7 +49,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	
 	open override func prepare() {
 		super.prepare()
-    
+		UICollectionViewFlowLayout().scrollDirection = .horizontal
 //    layoutAttributes = [:]
 //    indicatorLayoutAttributes = nil
 		

@@ -54,30 +54,52 @@ public final class PageViewController: UIViewController {
     return scrollView
   }()
 	
+	public var scrollDirection: PageScrollDirection {
+		return options.pageScrollDirection
+	}
+	
 	public var pageSize: CGFloat {
-		return scrollView.bounds.width
+		switch scrollDirection {
+		case .horizontal:
+			return scrollView.bounds.width
+		case .vertical:
+			return scrollView.bounds.height
+		}
 	}
 	
 	// MARK: Private Props
   
-  private var direction: PagingDirection = .none
-  private var directionRestored: Bool = false
+  private var transitionDirection: PagingTransitionDirection = .none
+	private var shouldRestoreTransitionDireciton: Bool = false
   
   private var transitionSource: PagingTransitionSource = .page
   
   private var contentSize: CGSize {
-    return CGSize(
-      width: view.bounds.width * CGFloat(state.proposedPageCount),
-      height: view.bounds.height
-    )
+		switch scrollDirection {
+		case .horizontal:
+			return CGSize(
+				width: view.bounds.width * CGFloat(state.proposedPageCount),
+				height: view.bounds.height
+			)
+		case .vertical:
+			return CGSize(
+				width: view.bounds.width,
+				height: view.bounds.height * CGFloat(state.proposedPageCount)
+			)
+		}
   }
 	
 	private var contentOffset: CGFloat {
 		set {
-      scrollView.contentOffset = CGPoint(x: newValue, y: 0)
+			scrollView.contentOffset = point(from: newValue)
     }
     get {
-      return scrollView.contentOffset.x
+			switch scrollDirection {
+			case .horizontal:
+				return scrollView.contentOffset.x
+			case .vertical:
+				return scrollView.contentOffset.y
+			}
     }
 	}
   
@@ -155,7 +177,7 @@ public final class PageViewController: UIViewController {
   public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
     super.viewWillTransition(to: size, with: coordinator)
     coordinator.animate { _ in
-//      self.layoutPages()
+      self.layoutPages()
     }
   }
 }
@@ -163,7 +185,7 @@ public final class PageViewController: UIViewController {
 // MARK: Public Functions
 
 public extension PageViewController {
-  func selectViewController(_ viewController: UIViewController, direction: PagingDirection, animated: Bool) {
+  func selectViewController(_ viewController: UIViewController, direction: PagingTransitionDirection, animated: Bool) {
     transitionSource = .menu
     
     if state == .empty || !animated {
@@ -262,13 +284,10 @@ private extension PageViewController {
     view.layoutIfNeeded()
     
     for (index, viewController) in viewControllers.enumerated() {
-      viewController.view.frame = CGRect(
-        origin: CGPoint(
-          x: CGFloat(index) * pageSize,
-          y: 0
-        ),
-        size: scrollView.bounds.size
-      )
+			viewController.view.frame = CGRect(
+				origin: point(from: CGFloat(index) * pageSize),
+				size: scrollView.bounds.size
+			)
     }
     
     scrollView.contentSize = contentSize
@@ -289,8 +308,12 @@ private extension PageViewController {
       contentOffset = diff + pageSize
     }
   }
+	
+	func setContentOffset(_ value: CGFloat, animated: Bool) {
+		scrollView.setContentOffset(point(from: value), animated: animated)
+	}
   
-  func willBeginScrollTowards(direction: PagingDirection) {
+  func willBeginScrollTowards(direction: PagingTransitionDirection) {
     switch direction {
     case .forward:
       if let fromViewController = selectedViewController,
@@ -319,28 +342,28 @@ private extension PageViewController {
     }
   }
   
-  func scrollTowards(direction: PagingDirection, animated: Bool) {
+  func scrollTowards(direction: PagingTransitionDirection, animated: Bool) {
     switch direction {
     case .forward, .none:
       switch state {
       case .first:
-        scrollView.setContentOffset(CGPoint(x: pageSize, y: 0), animated: animated)
+        setContentOffset(pageSize, animated: animated)
       case .centered:
-        scrollView.setContentOffset(CGPoint(x: pageSize * 2, y: 0), animated: animated)
+				setContentOffset(pageSize * 2, animated: animated)
       default:
         break
       }
     case .reverse:
       switch state {
       case .last, .centered:
-        scrollView.setContentOffset(.zero, animated: animated)
+				setContentOffset(.zero, animated: animated)
       default:
         break
       }
     }
   }
   
-  func didEndScrollTowards(direction: PagingDirection) {
+  func didEndScrollTowards(direction: PagingTransitionDirection) {
     switch direction {
     case .forward:
       guard let oldSelectedViewController = selectedViewController,
@@ -440,8 +463,7 @@ private extension PageViewController {
   }
   
   func onPageScroll(with progress: CGFloat) {
-//    print("🟢 ", direction)
-    switch direction {
+    switch transitionDirection {
     case .forward:
       if let fromViewController = selectedViewController,
          let toViewController = nextViewController {
@@ -467,7 +489,7 @@ private extension PageViewController {
     }
   }
   
-  func cancelScrollTowards(direction: PagingDirection) {
+  func cancelScrollTowards(direction: PagingTransitionDirection) {
     guard let selectedViewController = selectedViewController else {
       return
     }
@@ -530,20 +552,12 @@ private extension PageViewController {
       beginAppearanceTransition(for: viewController, isAppearing: true, animated: animated)
     }
     
-    let oldViewControllers = [
-      previousViewController,
-      selectedViewController,
-      nextViewController
-    ]
+    let oldViewControllers = [previousViewController, selectedViewController, nextViewController]
       .filter {
         $0 != nil
       }
     
-    let newViewControllers = [
-      newPreviousViewController,
-      viewController,
-      newNextViewController
-    ]
+    let newViewControllers = [newPreviousViewController, viewController, newNextViewController]
       .filter {
         $0 != nil
       }
@@ -600,13 +614,22 @@ private extension PageViewController {
     viewController.endAppearanceTransition()
   }
 	
+	func point(from value: CGFloat) -> CGPoint {
+		switch scrollDirection {
+		case .horizontal:
+			return CGPoint(x: value, y: 0)
+		case .vertical:
+			return CGPoint(x: 0, y: value)
+		}
+	}
+	
 	func resetState() {
 		defer {
-      directionRestored = false
+			shouldRestoreTransitionDireciton = false
 		}
 		
-		if directionRestored {
-			direction = .none
+		if shouldRestoreTransitionDireciton {
+			transitionDirection = .none
 		}
 	}
 }
@@ -625,38 +648,38 @@ extension PageViewController: UIScrollViewDelegate {
       progress = (contentOffset - distance) / distance
     }
     
-    let currentDirection = PagingDirection(progress: progress)
+    let currentDirection = PagingTransitionDirection(progress: progress)
     
-    switch direction {
+    switch transitionDirection {
     case .forward, .reverse:
       if transitionSource == .menu {
-        switch (direction, currentDirection) {
+        switch (transitionDirection, currentDirection) {
         case (.forward, .reverse),
           (.reverse, .forward):
-          cancelScrollTowards(direction: direction)
-          direction = currentDirection
+          cancelScrollTowards(direction: transitionDirection)
+					transitionDirection = currentDirection
           willBeginScrollTowards(direction: currentDirection)
         default:
           break
         }
       }
     case .none:
-      direction = currentDirection
-      willBeginScrollTowards(direction: direction)
+			transitionDirection = currentDirection
+      willBeginScrollTowards(direction: transitionDirection)
     }
     
     onPageScroll(with: progress)
     
-    if !directionRestored {
+    if !shouldRestoreTransitionDireciton {
       if progress >= 1 || progress <= -1 {
-        directionRestored = true
-        didEndScrollTowards(direction: direction)
+				shouldRestoreTransitionDireciton = true
+        didEndScrollTowards(direction: transitionDirection)
       } else if progress == 0 {
         print("❌")
-        switch direction {
+        switch transitionDirection {
         case .forward, .reverse:
-          directionRestored = true
-          cancelScrollTowards(direction: direction)
+					shouldRestoreTransitionDireciton = true
+          cancelScrollTowards(direction: transitionDirection)
         default:
           break
         }

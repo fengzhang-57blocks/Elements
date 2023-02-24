@@ -56,10 +56,10 @@ open class PagingViewController: UIViewController {
       collectionViewLayout.sizeCache = sizeCache
     }
   }
+	
+	private var dataSourceReference: DataSourceReference = .none
   
   private var didLayoutSubviews: Bool = false
-  
-  private var dataSourceReference: DataSourceReference = .none
 	
 	public init(options: PagingOptions = PagingOptions()) {
 		self.options = options
@@ -194,9 +194,6 @@ public extension PagingViewController {
     default:
       break
     }
-    
-//    collectionView.reloadData()
-    collectionViewLayout.prepare()
   }
   
   func selectIndex(_ index: Int, animated: Bool) {
@@ -322,7 +319,6 @@ private extension PagingViewController {
       if let _ = toItem {
         if collectionView.contentSize.width > collectionView.bounds.width,
 					 state.progress != 0 {
-//          print(initialContentOffset.x + distance * abs(progress))
           collectionView.setContentOffset(
             CGPoint(
               x: initialContentOffset.x + distance * abs(progress),
@@ -345,18 +341,14 @@ private extension PagingViewController {
       return nil
     }
 
-    let distance = PagingTransitionLayout(
-      fromItem: fromItem,
-      toItem: toItem,
-      collectionView: collectionView,
-      layoutAttributes: collectionViewLayout.layoutAttributes,
-      sizeCache: sizeCache,
-      visibleItems: visibleItems
-    )
-    
-    return distance
-
-//    return PagingTransitionDistance(contentOffset: collectionView.contentOffset, distance: distance?.calculate() ?? 0)
+		return PagingTransitionLayout(
+			fromItem: fromItem,
+			toItem: toItem,
+			collectionView: collectionView,
+			layoutAttributes: collectionViewLayout.layoutAttributes,
+			sizeCache: sizeCache,
+			visibleItems: visibleItems
+		)
   }
   
   func itemsForFiniteDataSource() -> [PagingItem] {
@@ -373,8 +365,7 @@ private extension PagingViewController {
   }
   
   func reloadItems(around item: PagingItem) {
-    var items = generateItems(around: item)
-		print(items.count)
+    let items = generateItems(around: item)
 
     let prevContentOffset = collectionView.contentOffset
 
@@ -382,8 +373,10 @@ private extension PagingViewController {
     
     collectionView.reloadData()
     collectionViewLayout.prepare()
+		
+		// FIXME: offset
     
-    var offset: CGFloat = 0
+    let offset: CGFloat = 0
 
     collectionView.setContentOffset(
       CGPoint(
@@ -396,12 +389,16 @@ private extension PagingViewController {
     collectionView.layoutIfNeeded()
 
     if case let .scrolling(fromItem, toItem, _, distance, progress) = state {
-      var contentOffset: CGPoint = .zero
-
+			let contentOffset = collectionView.contentOffset
+			let transitionDistance = calculateTransitionDistance(from: fromItem, to: toItem)?.distance ?? .zero
+			let newContentOffset = CGPoint(
+				x: contentOffset.x - (distance - transitionDistance),
+				y: 0
+			)
       state = .scrolling(
         fromItem: fromItem,
         toItem: toItem,
-        initialContentOffset: contentOffset,
+        initialContentOffset: newContentOffset,
         distance: distance,
         progress: progress
       )
@@ -578,8 +575,6 @@ extension PagingViewController: PageViewControllerDelegate {
 			// FIXME: calculate content offset
       
       let transitionDistance = calculateTransitionDistance(from: currentItem, to: toItem)
-      
-      print("-----> ", transitionDistance?.contentOffset ?? .zero, transitionDistance?.distance ?? 0)
 
       updateScrollingState(
         fromItem: currentItem,

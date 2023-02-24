@@ -82,7 +82,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 //  }
 	
 	open override func layoutAttributesForItem(at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-		guard let layoutAttributes = self.layoutAttributes[indexPath] as? PagingMenuCellLayoutAttributes else {
+		guard let layoutAttributes = self.layoutAttributes[indexPath] else {
 			return nil
 		}
 		
@@ -136,7 +136,7 @@ private extension PagingMenuCollectionViewLayout {
 			
 			if sizeCache.implementedSizeDelegate {
 				let item = visibleItems.item(for: indexPath)
-				var width = sizeCache.widthForItem(item)
+				let width = sizeCache.widthForItem(item)
 				// TODO: caculate width
 				if let selectedItem = state.currentItem, selectedItem.isEqual(to: item) {
 					

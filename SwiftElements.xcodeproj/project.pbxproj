@@ -45,7 +45,6 @@
 		B2297C1529974D3A00C162B0 /* PagingViewControllerDynamicDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2297C1429974D3A00C162B0 /* PagingViewControllerDynamicDataSource.swift */; };
 		B2297C192997503400C162B0 /* PagingViewControllerFiniteDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2297C182997503400C162B0 /* PagingViewControllerFiniteDataSource.swift */; };
 		B2297C1B2997569600C162B0 /* PagingViewControllerStaticDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2297C1A2997569600C162B0 /* PagingViewControllerStaticDataSource.swift */; };
-		B23F515C299E74F400C0A176 /* SubpageIndexCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23F515B299E74F400C0A176 /* SubpageIndexCache.swift */; };
 		B24D396C299683A7000011D0 /* PagingMenuTitleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24D396B299683A7000011D0 /* PagingMenuTitleCell.swift */; };
 		B24D396E299683E7000011D0 /* PagingIndexItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24D396D299683E7000011D0 /* PagingIndexItem.swift */; };
 		B24D39702996A07C000011D0 /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24D396F2996A07C000011D0 /* UIView+constraints.swift */; };
@@ -134,7 +133,6 @@
 		B2297C1429974D3A00C162B0 /* PagingViewControllerDynamicDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerDynamicDataSource.swift; sourceTree = "<group>"; };
 		B2297C182997503400C162B0 /* PagingViewControllerFiniteDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerFiniteDataSource.swift; sourceTree = "<group>"; };
 		B2297C1A2997569600C162B0 /* PagingViewControllerStaticDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerStaticDataSource.swift; sourceTree = "<group>"; };
-		B23F515B299E74F400C0A176 /* SubpageIndexCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubpageIndexCache.swift; sourceTree = "<group>"; };
 		B24D396B299683A7000011D0 /* PagingMenuTitleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingMenuTitleCell.swift; sourceTree = "<group>"; };
 		B24D396D299683E7000011D0 /* PagingIndexItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingIndexItem.swift; sourceTree = "<group>"; };
 		B24D396F2996A07C000011D0 /* UIView+constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
@@ -275,7 +273,6 @@
 				B2F2158829953B35004F7DD7 /* PagingMenuItemLayout.swift */,
 				B2F2158A29953E52004F7DD7 /* PagingItemSizeCache.swift */,
 				7E9CCCB42995E46000C494D2 /* PagingItems.swift */,
-				B23F515B299E74F400C0A176 /* SubpageIndexCache.swift */,
 				B281726F29A3AFD6007DA73B /* PagingTransitionLayout.swift */,
 			);
 			path = Structs;
@@ -583,7 +580,6 @@
 				7ECFD42D296BA1D4007C893D /* PhotonActionSheet.swift in Sources */,
 				B2924FF1296A80EB00704131 /* AppDelegate.swift in Sources */,
 				7ECFD430296BA436007C893D /* PhotonActionSheetCell.swift in Sources */,
-				B23F515C299E74F400C0A176 /* SubpageIndexCache.swift in Sources */,
 				7ECFD42C296BA1D4007C893D /* PhotonAction.swift in Sources */,
 				7E98DC3E2990D31F0093543E /* PagingMenuIndicatorView.swift in Sources */,
 				7EE35F05299F1F89000236BE /* Distance.swift in Sources */,

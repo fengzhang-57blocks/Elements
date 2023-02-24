@@ -166,8 +166,8 @@
 		7EACD0DF29A89F83007F3D7D /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				7EACD0E029A89F83007F3D7D /* PhotonActionSheet */,
 				7EACD0EC29A89F83007F3D7D /* PagingViewController */,
+				7EACD0E029A89F83007F3D7D /* PhotonActionSheet */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -204,7 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				7EACD0ED29A89F83007F3D7D /* Classes */,
-				7EACD0FD29A89F83007F3D7D /* Enmus */,
+				7EACD0FD29A89F83007F3D7D /* Enums */,
 				7EACD10929A89F83007F3D7D /* Extensions */,
 				7EACD10E29A89F83007F3D7D /* Structs */,
 				7EACD11429A89F83007F3D7D /* Protocols */,
@@ -234,7 +234,7 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
-		7EACD0FD29A89F83007F3D7D /* Enmus */ = {
+		7EACD0FD29A89F83007F3D7D /* Enums */ = {
 			isa = PBXGroup;
 			children = (
 				7EACD0FE29A89F83007F3D7D /* PagingMenuTransitionBehaviour.swift */,
@@ -249,7 +249,7 @@
 				7EACD10729A89F83007F3D7D /* PagingState.swift */,
 				7EACD10829A89F83007F3D7D /* PagingMenuIndicatorBehaviour.swift */,
 			);
-			path = Enmus;
+			path = Enums;
 			sourceTree = "<group>";
 		};
 		7EACD10929A89F83007F3D7D /* Extensions */ = {

@@ -1,5 +1,5 @@
 //
-//  PagingMenuTitleCell.swift
+//  PagingTitleCell.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/10.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class PagingMenuTitleCell: PagingMenuCell {
+open class PagingTitleCell: PagingCell {
   public let titleLabel: UILabel = UILabel()
   
   public override init(frame: CGRect) {

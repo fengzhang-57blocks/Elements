@@ -14,7 +14,7 @@ public struct PagingOptions {
 	
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
   
-  public var itemSize: PagingMenuItemSize
+  public var itemSize: PagingItemSize
   public var itemSpacing: CGFloat
   public var estimatedItemWidth: CGFloat {
     switch itemSize {
@@ -30,19 +30,19 @@ public struct PagingOptions {
 		return itemSize.height + insets.top + insets.bottom
 	}
 	
-	public var indicatorClass: PagingMenuIndicatorView.Type
-  public var indicatorOptions: PagingMenuIndicatorBehaviour
+	public var indicatorClass: PagingIndicatorView.Type
+  public var indicatorOptions: PagingIndicatorBehaviour
   public var indicatorColor: UIColor
 	
 	public init(
 		position: PagingMenuPosition = .top,
 		pageScrollDirection: PageScrollDirection = .horizontal,
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
-    itemSize: PagingMenuItemSize = .fixed(width: 50, height: 50),
+    itemSize: PagingItemSize = .fixed(width: 50, height: 50),
     itemSpacing: CGFloat = 0,
 		insets: UIEdgeInsets = .zero,
-		indicatorClass: PagingMenuIndicatorView.Type = PagingMenuIndicatorView.self,
-    indicatorOptions: PagingMenuIndicatorBehaviour = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
+		indicatorClass: PagingIndicatorView.Type = PagingIndicatorView.self,
+    indicatorOptions: PagingIndicatorBehaviour = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
 		indicatorColor: UIColor = .systemBlue
 	) {
 		self.position = position

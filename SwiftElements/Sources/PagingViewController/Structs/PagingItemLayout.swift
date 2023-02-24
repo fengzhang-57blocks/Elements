@@ -1,5 +1,5 @@
 //
-//  PagingMenuItemLayout.swift
+//  PagingItemLayout.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/9.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-public struct PagingMenuItemLayout {
+public struct PagingItemLayout {
   let frame: CGRect
   
   init(frame: CGRect) {
@@ -15,7 +15,7 @@ public struct PagingMenuItemLayout {
   }
 }
 
-extension PagingMenuItemLayout {
+extension PagingItemLayout {
   var x: CGFloat {
     return frame.origin.x
   }

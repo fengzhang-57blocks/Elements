@@ -7,6 +7,6 @@
 
 import UIKit
 
-open class PagingMenuInvalidationContext: UICollectionViewLayoutInvalidationContext {
+open class PagingInvalidationContext: UICollectionViewLayoutInvalidationContext {
   var invalidateSize: Bool = false
 }

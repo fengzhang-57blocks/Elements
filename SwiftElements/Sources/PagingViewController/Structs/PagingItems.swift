@@ -9,15 +9,15 @@ import Foundation
 
 public struct PagingItems {
 	let items: [PagingItem]
-	
+  
 	private var cachedItems: [Int: PagingItem] = [:]
 	
-	init(items: [PagingItem]) {
-		self.items = items
-		items.forEach {
-			cachedItems[$0.identifier] = $0
-		}
-	}
+  init(items: [PagingItem]) {
+    self.items = items
+    items.forEach {
+      cachedItems[$0.identifier] = $0
+    }
+  }
   
   public func indexPath(for item: PagingItem) -> IndexPath? {
     guard let index = items.firstIndex(where: { $0.isEqual(to: item) }) else {

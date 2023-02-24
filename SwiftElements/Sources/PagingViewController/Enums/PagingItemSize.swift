@@ -1,5 +1,5 @@
 //
-//  PagingMenuItemSize.swift
+//  PagingItemSize.swift
 //  SwiftElements
 //
 //  Created by feng.zhang on 2023/2/6.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-public enum PagingMenuItemSize {
+public enum PagingItemSize {
   case fixed(width: CGFloat, height: CGFloat)
   case selfSizing(estimatedWidth: CGFloat, height: CGFloat)
 }
 
-public extension PagingMenuItemSize {
+public extension PagingItemSize {
 	var width: CGFloat {
     switch self {
     case let .fixed(width, _):

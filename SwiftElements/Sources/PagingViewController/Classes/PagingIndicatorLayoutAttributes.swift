@@ -1,5 +1,5 @@
 //
-//  PagingMenuIndicatorLayoutAttributes.swift
+//  PagingIndicatorLayoutAttributes.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/6.
@@ -7,17 +7,17 @@
 
 import UIKit
 
-open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
+open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
 	open var backgroundColor: UIColor?
 	
 	open override func copy(with zone: NSZone? = nil) -> Any {
-		let copy = super.copy(with: zone) as! PagingMenuIndicatorLayoutAttributes
+		let copy = super.copy(with: zone) as! PagingIndicatorLayoutAttributes
 		copy.backgroundColor = backgroundColor
 		return copy
 	}
 	
 	open override func isEqual(_ object: Any?) -> Bool {
-		guard let rhs = object as? PagingMenuIndicatorLayoutAttributes,
+		guard let rhs = object as? PagingIndicatorLayoutAttributes,
 				rhs.backgroundColor != backgroundColor else {
 			return false
 		}
@@ -43,7 +43,7 @@ open class PagingMenuIndicatorLayoutAttributes: UICollectionViewLayoutAttributes
     zIndex = zindex
   }
   
-  func updateSize(from: PagingMenuItemLayout, to: PagingMenuItemLayout, progress: CGFloat) {
+  func updateSize(from: PagingItemLayout, to: PagingItemLayout, progress: CGFloat) {
 		frame.origin.x = distance(
 			from: from.x,
 			to: to.x,

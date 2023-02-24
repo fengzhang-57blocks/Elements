@@ -1,5 +1,5 @@
 //
-//  PagingMenuCollectionViewLayout.swift
+//  PagingCollectionViewLayout.swift
 //  SwiftElements
 //
 //  Created by 57block on 2023/2/6.
@@ -9,20 +9,20 @@ import UIKit
 
 // https://developer.apple.com/documentation/uikit/uicollectionviewlayout
 
-open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
+open class PagingCollectionViewLayout: UICollectionViewLayout {
 	
 	public var state: PagingState = .empty
 	
 	public var options = PagingOptions.default()
 	
 	private let indicatorKind: String = "indicator"
-	public private(set) var indicatorLayoutAttributes: PagingMenuIndicatorLayoutAttributes?
-	open var indicatorClass: PagingMenuIndicatorView.Type {
+	public private(set) var indicatorLayoutAttributes: PagingIndicatorLayoutAttributes?
+	open var indicatorClass: PagingIndicatorView.Type {
 		set { options.indicatorClass = newValue }
 		get { return options.indicatorClass }
 	}
 	
-	public private(set) var layoutAttributes: [IndexPath: PagingMenuCellLayoutAttributes] = [:]
+	public private(set) var layoutAttributes: [IndexPath: PagingCellLayoutAttributes] = [:]
 	
 	private var contentSize: CGSize = .zero
 	open override var collectionViewContentSize: CGSize {
@@ -30,6 +30,8 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	}
 	
 	public var visibleItems: PagingItems = PagingItems(items: [])
+  
+  public private(set) var contentInsets: UIEdgeInsets = .zero
 	
   internal var sizeCache: PagingItemSizeCache?
 	
@@ -93,7 +95,7 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     var layoutAttributes: [UICollectionViewLayoutAttributes] = Array(self.layoutAttributes.values)
     for each in layoutAttributes {
-      if let attrs = each as? PagingMenuCellLayoutAttributes {
+      if let attrs = each as? PagingCellLayoutAttributes {
 				attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
       }
     }
@@ -118,18 +120,18 @@ open class PagingMenuCollectionViewLayout: UICollectionViewLayout {
 	}
 }
 
-private extension PagingMenuCollectionViewLayout {
+private extension PagingCollectionViewLayout {
   func createCellLayoutAttributes() {
 		guard let sizeCache = sizeCache else {
 			return
 		}
 		
-    var layoutAttributes: [IndexPath: PagingMenuCellLayoutAttributes] = [:]
+    var layoutAttributes: [IndexPath: PagingCellLayoutAttributes] = [:]
     
     var previousFrame: CGRect = .zero
     for index in 0..<view.numberOfItems(inSection: 0) {
       let indexPath = IndexPath(item: index, section: 0)
-			let attributes = PagingMenuCellLayoutAttributes(forCellWith: indexPath)
+			let attributes = PagingCellLayoutAttributes(forCellWith: indexPath)
 			
       let x = previousFrame.maxX
       let y = previousFrame.minY
@@ -165,7 +167,7 @@ private extension PagingMenuCollectionViewLayout {
 	
 	func createIndicatorLayoutAttributes() {
 		if case .visible = options.indicatorOptions, indicatorLayoutAttributes == nil {
-			indicatorLayoutAttributes = PagingMenuIndicatorLayoutAttributes(
+			indicatorLayoutAttributes = PagingIndicatorLayoutAttributes(
 				forDecorationViewOfKind: indicatorKind,
 				with: IndexPath(item: 0, section: 0)
 			)
@@ -182,8 +184,8 @@ private extension PagingMenuCollectionViewLayout {
     if let fromItem = state.currentItem {
       if let currentIndexPath = visibleItems.indexPath(for: fromItem),
           let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
-        let from = PagingMenuItemLayout(frame: indicatorFrame(for: currentIndexPath))
-        let to = PagingMenuItemLayout(frame: indicatorFrame(for: upcomingInexPath))
+        let from = PagingItemLayout(frame: indicatorFrame(for: currentIndexPath))
+        let to = PagingItemLayout(frame: indicatorFrame(for: upcomingInexPath))
         let progress = abs(state.progress)
         indicatorLayoutAttributes.updateSize(from: from, to: to, progress: progress)
       }
@@ -191,7 +193,7 @@ private extension PagingMenuCollectionViewLayout {
   }
 }
 
-private extension PagingMenuCollectionViewLayout {
+private extension PagingCollectionViewLayout {
   func upcomingIndexPath(for indexPath: IndexPath) -> IndexPath? {
 		if let toItem = state.destinationItem,
 			 let upcomingIndexPath = visibleItems.indexPath(for: toItem) {
@@ -218,7 +220,7 @@ private extension PagingMenuCollectionViewLayout {
 	}
 }
 
-private extension PagingMenuCollectionViewLayout {
+private extension PagingCollectionViewLayout {
 	func configure() {
 		register(indicatorClass.self, forDecorationViewOfKind: indicatorKind)
 	}

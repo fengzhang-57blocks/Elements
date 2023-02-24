@@ -37,9 +37,7 @@ open class PagingViewController: UIViewController {
   
 	public private(set) var pageViewController: PageViewController
 	
-  public private(set) var collectionViewLayout: PagingMenuCollectionViewLayout
-  
-  public let collectionView: UICollectionView
+  public private(set) var collectionViewLayout: PagingCollectionViewLayout
   
   public private(set) var viewControllers: [UIViewController]?
 	
@@ -48,6 +46,8 @@ open class PagingViewController: UIViewController {
       collectionViewLayout.visibleItems = visibleItems
     }
   }
+  
+  public let collectionView: UICollectionView
   
   // MARK: Private Props
   
@@ -66,13 +66,13 @@ open class PagingViewController: UIViewController {
 		state = .empty
     visibleItems = PagingItems(items: [])
 		sizeCache = PagingItemSizeCache(options: options)
-		collectionViewLayout = PagingMenuCollectionViewLayout()
+		collectionViewLayout = PagingCollectionViewLayout()
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
 		super.init(nibName: nil, bundle: nil)
 		configure()
     
-    register(PagingMenuTitleCell.self, for: PagingIndexItem.self)
+    register(PagingTitleCell.self, for: PagingIndexItem.self)
 	}
   
   public convenience init(
@@ -88,13 +88,13 @@ open class PagingViewController: UIViewController {
 		state = .empty
     visibleItems = PagingItems(items: [])
 		sizeCache = PagingItemSizeCache(options: options)
-		collectionViewLayout = PagingMenuCollectionViewLayout()
+		collectionViewLayout = PagingCollectionViewLayout()
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
 		super.init(coder: coder)
 		configure()
     
-    register(PagingMenuTitleCell.self, for: PagingIndexItem.self)
+    register(PagingTitleCell.self, for: PagingIndexItem.self)
 	}
 	
 	open var pagingView: PagingView {
@@ -250,7 +250,6 @@ private extension PagingViewController {
 	
   func configureFiniteDataSource() {
     let items = itemsForFiniteDataSource()
-    visibleItems = PagingItems(items: items)
     let dataSource = PagingViewControllerFiniteDataSource(items: items)
     dataSource.viewControllerForIndex = { [unowned self] index in
       self.dataSource?.pagingViewController(self, viewControllerAt: index)
@@ -269,7 +268,6 @@ private extension PagingViewController {
     }
 		
     let dataSource = PagingViewControllerStaticDataSource(viewControllers: viewControllers)
-    visibleItems = PagingItems(items: dataSource.items)
     dataSourceReference = .static(dataSource)
     infiniteDataSource = dataSource
     
@@ -315,7 +313,7 @@ private extension PagingViewController {
     )
     
     if .scrollAlongside == options.menuTransitionBehaviour {
-      let invalidationContext = PagingMenuInvalidationContext()
+      let invalidationContext = PagingInvalidationContext()
       if let _ = toItem {
         if collectionView.contentSize.width > collectionView.bounds.width,
 					 state.progress != 0 {
@@ -486,7 +484,7 @@ extension PagingViewController: UICollectionViewDataSource {
     let item = visibleItems.item(for: indexPath)
     let cell = collectionView.dequeueReusableCell(
       withReuseIdentifier: String(describing: type(of: item)),
-      for: indexPath) as! PagingMenuCell
+      for: indexPath) as! PagingCell
     var isSelected = false
     if let currentItem = state.currentItem {
       isSelected = currentItem.isEqual(to: item)
@@ -512,6 +510,19 @@ extension PagingViewController: UIScrollViewDelegate {
   public func scrollViewDidScroll(_ scrollView: UIScrollView) {
     guard !collectionView.indexPathsForVisibleItems.isEmpty else {
       return
+    }
+    
+    let contentInsets = collectionViewLayout.contentInsets
+    if collectionView.closeTo(edge: .left, offset: contentInsets.left) {
+      if let firstItem = visibleItems.items.first,
+         let _ = item(before: firstItem) {
+        reloadItems(around: firstItem)
+      }
+    } else if collectionView.closeTo(edge: .right, offset: contentInsets.right) {
+      if let lastItem = visibleItems.items.last,
+         let _ = item(after: lastItem) {
+        reloadItems(around: lastItem)
+      }
     }
   }
 }

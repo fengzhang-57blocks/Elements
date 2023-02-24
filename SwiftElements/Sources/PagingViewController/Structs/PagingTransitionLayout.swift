@@ -11,12 +11,12 @@ struct PagingTransitionLayout {
   private let fromItem: PagingItem
   private let toItem: PagingItem
   private let collectionView: UICollectionView
-  private let layoutAttributes: [IndexPath: PagingMenuCellLayoutAttributes]
+  private let layoutAttributes: [IndexPath: PagingCellLayoutAttributes]
   private let sizeCache: PagingItemSizeCache
   private let visibleItems: PagingItems
   
-  private let fromItemLayoutAttributes: PagingMenuCellLayoutAttributes?
-  private let toItemLayoutAttributes: PagingMenuCellLayoutAttributes
+  private let fromItemLayoutAttributes: PagingCellLayoutAttributes?
+  private let toItemLayoutAttributes: PagingCellLayoutAttributes
   
   var contentOffset: CGPoint {
     return collectionView.contentOffset
@@ -30,7 +30,7 @@ struct PagingTransitionLayout {
     fromItem: PagingItem,
     toItem: PagingItem,
     collectionView: UICollectionView,
-    layoutAttributes: [IndexPath : PagingMenuCellLayoutAttributes],
+    layoutAttributes: [IndexPath : PagingCellLayoutAttributes],
     sizeCache: PagingItemSizeCache,
     visibleItems: PagingItems
   ) {

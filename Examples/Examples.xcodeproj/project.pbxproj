@@ -170,8 +170,8 @@
 		7EACD19529A8A7AB007F3D7D /* Examples */ = {
 			isa = PBXGroup;
 			children = (
-				7EACD19629A8A7AB007F3D7D /* PhotonActionSheet */,
 				7EACD19829A8A7AB007F3D7D /* PagingViewController */,
+				7EACD19629A8A7AB007F3D7D /* PhotonActionSheet */,
 			);
 			path = Examples;
 			sourceTree = "<group>";

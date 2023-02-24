@@ -28,10 +28,10 @@ public class PagingMenu: UIView {
 	}
 
 	private func setupSubviews() {
-		let layout = PagingMenuCollectionViewLayout()
+		let layout = PagingCollectionViewLayout()
 		
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-		collectionView.register(PagingMenuCell.self, forCellWithReuseIdentifier: "cell")
+		collectionView.register(PagingCell.self, forCellWithReuseIdentifier: "cell")
 		collectionView.dataSource = self
 		collectionView.delegate = self
 
@@ -54,7 +54,7 @@ extension PagingMenu: UICollectionViewDataSource {
 
 	public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let identifier = "cell"
-		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PagingMenuCell
+		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as! PagingCell
 
 		return cell
 	}

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public enum PagingIndicatorBehaviour {
+public enum PagingIndicatorOptions {
 	case hidden
 	case visible(
     height: CGFloat,

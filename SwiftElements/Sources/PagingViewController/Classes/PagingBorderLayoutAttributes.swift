@@ -8,6 +8,7 @@
 import UIKit
 
 open class PagingBorderLayoutAttributes: UICollectionViewLayoutAttributes {
+  open var insets: UIEdgeInsets = .zero
 	open var backgroundColor: UIColor?
 	
 	open override func copy(with zone: NSZone? = nil) -> Any {
@@ -24,4 +25,29 @@ open class PagingBorderLayoutAttributes: UICollectionViewLayoutAttributes {
 		
 		return super.isEqual(rhs)
 	}
+  
+  func configure(with options: PagingOptions) {
+    guard case let .visible(height, insets, zIndex) = options.borderOptions else {
+      return
+    }
+    
+    self.insets = insets
+    backgroundColor = options.borderColor
+    
+    frame.size.height = height
+    
+    switch options.menuPosition {
+    case .top:
+      frame.origin.y = options.menuHeight - height
+    case .bottom:
+      frame.origin.y = 0
+    }
+    
+    self.zIndex = zIndex
+  }
+  
+  func update(from bounds: CGRect, contentSize: CGSize) {
+    frame.origin.x = insets.left
+    frame.size.width = max(bounds.width, contentSize.width) - insets.horizontal
+  }
 }

@@ -5,4 +5,13 @@
 //  Created by feng.zhang on 2023/2/26.
 //
 
-import Foundation
+import UIKit
+
+public enum PagingBorderOptions {
+  case hidden
+  case visible(
+    height: CGFloat,
+    insets: UIEdgeInsets,
+    zIndex: Int
+  )
+}

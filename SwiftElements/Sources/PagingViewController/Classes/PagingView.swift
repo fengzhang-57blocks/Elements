@@ -65,7 +65,7 @@ open class PagingView: UIView {
     )
 		
     var verticalVisualFormat: String
-		switch options.position {
+		switch options.menuPosition {
 		case .top:
       verticalVisualFormat = "V:|[collectionView(==height)][pageView]|"
 		case .bottom:

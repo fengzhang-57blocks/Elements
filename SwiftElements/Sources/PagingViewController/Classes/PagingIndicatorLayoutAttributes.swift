@@ -33,9 +33,9 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
     backgroundColor = options.indicatorColor
     frame.size.height = height
     
-    switch options.position {
+    switch options.menuPosition {
     case .top:
-      frame.origin.y = options.height - height - insets.bottom + insets.top
+      frame.origin.y = options.menuHeight - height - insets.bottom + insets.top
     case .bottom:
       frame.origin.y = insets.bottom
     }
@@ -43,7 +43,7 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
     zIndex = zindex
   }
   
-  func updateSize(from: PagingItemLayout, to: PagingItemLayout, progress: CGFloat) {
+  func update(from: PagingItemLayout, to: PagingItemLayout, progress: CGFloat) {
 		frame.origin.x = distance(
 			from: from.x,
 			to: to.x,

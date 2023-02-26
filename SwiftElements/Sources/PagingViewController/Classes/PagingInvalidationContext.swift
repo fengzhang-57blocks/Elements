@@ -8,5 +8,5 @@
 import UIKit
 
 open class PagingInvalidationContext: UICollectionViewLayoutInvalidationContext {
-  var invalidateSize: Bool = false
+  var invalidateSizes: Bool = false
 }

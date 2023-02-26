@@ -8,7 +8,7 @@
 import UIKit
 
 public struct PagingOptions {
-  public var position: PagingMenuPosition
+  public var menuPosition: PagingMenuPosition
 	
   public var pageScrollDirection: PageScrollDirection
 	
@@ -26,26 +26,34 @@ public struct PagingOptions {
   }
 	
 	public var insets: UIEdgeInsets
-	public var height: CGFloat {
+	public var menuHeight: CGFloat {
 		return itemSize.height + insets.top + insets.bottom
 	}
 	
 	public var indicatorClass: PagingIndicatorView.Type
-  public var indicatorOptions: PagingIndicatorBehaviour
+  public var indicatorOptions: PagingIndicatorOptions
   public var indicatorColor: UIColor
+  
+  public var borderClass: PagingBorderView.Type
+  public var borderOptions: PagingBorderOptions
+  public var borderColor: UIColor
 	
 	public init(
-		position: PagingMenuPosition = .top,
+    menuPosition: PagingMenuPosition = .top,
 		pageScrollDirection: PageScrollDirection = .horizontal,
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
     itemSize: PagingItemSize = .fixed(width: 50, height: 50),
     itemSpacing: CGFloat = 0,
 		insets: UIEdgeInsets = .zero,
 		indicatorClass: PagingIndicatorView.Type = PagingIndicatorView.self,
-    indicatorOptions: PagingIndicatorBehaviour = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
-		indicatorColor: UIColor = .systemBlue
+    indicatorOptions: PagingIndicatorOptions = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
+		indicatorColor: UIColor = .systemBlue,
+    
+    borderClass: PagingBorderView.Type = PagingBorderView.self,
+    borderOptions: PagingBorderOptions = .visible(height: 1, insets: .zero, zIndex: Int.max - 1),
+    borderColor: UIColor = UIColor(white: 0.9, alpha: 1)
 	) {
-		self.position = position
+		self.menuPosition = menuPosition
 		self.pageScrollDirection = pageScrollDirection
 		
     self.menuTransitionBehaviour = menuTransitionBehaviour
@@ -57,9 +65,9 @@ public struct PagingOptions {
 		self.indicatorClass = indicatorClass
     self.indicatorOptions = indicatorOptions
 		self.indicatorColor = indicatorColor
-	}
-	
-	public static func `default`() -> PagingOptions {
-		return PagingOptions()
+    
+    self.borderClass = borderClass
+    self.borderOptions = borderOptions
+    self.borderColor = borderColor
 	}
 }

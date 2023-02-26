@@ -1,0 +1,20 @@
+PODS:
+  - SwiftElements (0.0.18):
+    - SwiftElements/PagingViewController (= 0.0.18)
+    - SwiftElements/PhotonActionSheet (= 0.0.18)
+  - SwiftElements/PagingViewController (0.0.18)
+  - SwiftElements/PhotonActionSheet (0.0.18)
+
+DEPENDENCIES:
+  - SwiftElements (from `../`)
+
+EXTERNAL SOURCES:
+  SwiftElements:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SwiftElements: 452ce86480ac657f6183a0959f982de8fae9da27
+
+PODFILE CHECKSUM: 2f0d3eed471ce4bd6bba01b3d3c5c8e5281f16ce
+
+COCOAPODS: 1.11.3

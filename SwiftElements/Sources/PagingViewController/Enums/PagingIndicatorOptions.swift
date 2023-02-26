@@ -17,7 +17,9 @@ public enum PagingIndicatorOptions {
   )
 	// TODO: Worm for indicator scrolling
 //	case worm(
+//    height: CGFloat,
 //		dampingRatio: CGFloat,
-//		velocity: CGFloat
+//		velocity: CGFloat,
+//    zIndex: Int
 //	)
 }

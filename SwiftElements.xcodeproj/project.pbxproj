@@ -36,7 +36,6 @@
 		7EACD13729A89F83007F3D7D /* PagingTransitionSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10129A89F83007F3D7D /* PagingTransitionSource.swift */; };
 		7EACD13829A89F83007F3D7D /* PagingItemSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10229A89F83007F3D7D /* PagingItemSize.swift */; };
 		7EACD13929A89F83007F3D7D /* PagingMenuPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10329A89F83007F3D7D /* PagingMenuPosition.swift */; };
-		7EACD13A29A89F83007F3D7D /* PagingMenuFollowBehaviour.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10429A89F83007F3D7D /* PagingMenuFollowBehaviour.swift */; };
 		7EACD13B29A89F83007F3D7D /* PageAppearanceState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10529A89F83007F3D7D /* PageAppearanceState.swift */; };
 		7EACD13C29A89F83007F3D7D /* PageScrollDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10629A89F83007F3D7D /* PageScrollDirection.swift */; };
 		7EACD13D29A89F83007F3D7D /* PagingState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD10729A89F83007F3D7D /* PagingState.swift */; };
@@ -106,7 +105,6 @@
 		7EACD10129A89F83007F3D7D /* PagingTransitionSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingTransitionSource.swift; sourceTree = "<group>"; };
 		7EACD10229A89F83007F3D7D /* PagingItemSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingItemSize.swift; sourceTree = "<group>"; };
 		7EACD10329A89F83007F3D7D /* PagingMenuPosition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuPosition.swift; sourceTree = "<group>"; };
-		7EACD10429A89F83007F3D7D /* PagingMenuFollowBehaviour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingMenuFollowBehaviour.swift; sourceTree = "<group>"; };
 		7EACD10529A89F83007F3D7D /* PageAppearanceState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageAppearanceState.swift; sourceTree = "<group>"; };
 		7EACD10629A89F83007F3D7D /* PageScrollDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageScrollDirection.swift; sourceTree = "<group>"; };
 		7EACD10729A89F83007F3D7D /* PagingState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingState.swift; sourceTree = "<group>"; };
@@ -247,7 +245,6 @@
 				7EACD10129A89F83007F3D7D /* PagingTransitionSource.swift */,
 				7EACD10229A89F83007F3D7D /* PagingItemSize.swift */,
 				7EACD10329A89F83007F3D7D /* PagingMenuPosition.swift */,
-				7EACD10429A89F83007F3D7D /* PagingMenuFollowBehaviour.swift */,
 				7EACD10529A89F83007F3D7D /* PageAppearanceState.swift */,
 				7EACD10629A89F83007F3D7D /* PageScrollDirection.swift */,
 				7EACD10729A89F83007F3D7D /* PagingState.swift */,
@@ -377,7 +374,6 @@
 				7EACD11E29A89F83007F3D7D /* PhotonActionSheetSeparator.swift in Sources */,
 				7EACD13C29A89F83007F3D7D /* PageScrollDirection.swift in Sources */,
 				7EACD14629A89F83007F3D7D /* PagingTransitionLayout.swift in Sources */,
-				7EACD13A29A89F83007F3D7D /* PagingMenuFollowBehaviour.swift in Sources */,
 				B2CDA61C29AB4778004CEE17 /* PagingBorderOptions.swift in Sources */,
 				7EACD13729A89F83007F3D7D /* PagingTransitionSource.swift in Sources */,
 				7EACD14429A89F83007F3D7D /* PagingItems.swift in Sources */,

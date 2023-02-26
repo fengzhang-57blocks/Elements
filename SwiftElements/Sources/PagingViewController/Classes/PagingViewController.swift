@@ -327,7 +327,7 @@ private extension PagingViewController {
         }
        
         if sizeCache.implementedSizeDelegate {
-          invalidationContext.invalidateSize = true
+          invalidationContext.invalidateSizes = true
         }
       }
       collectionViewLayout.invalidateLayout(with: invalidationContext)

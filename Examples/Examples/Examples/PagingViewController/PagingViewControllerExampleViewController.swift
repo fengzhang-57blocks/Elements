@@ -10,10 +10,29 @@ import SwiftElements
 
 class PagingViewControllerExampleViewController: BaseViewController {
   
-  lazy var pagingViewController: PagingViewController = PagingViewController()
+  private let movies = [
+    "The Godfather",
+    "The Shawshank Redemption",
+    "Schindler's List",
+    "Raging Bull",
+    "Casablanca",
+    "Citizen Kane",
+    "Gone with the Wind",
+    "The Wizard of Oz",
+    "One Flew Over the Cuckoo's Nest",
+    "Lawrence of Arabia",
+    "Vertigo",
+    "Psycho",
+    "The Godfather Part II",
+  ]
   
 	override func viewDidLoad() {
 		super.viewDidLoad()
+    
+    var options = PagingOptions()
+    options.itemSize = .selfSizing(estimatedWidth: 100, height: 40)
+    
+    lazy var pagingViewController = PagingViewController(options: options)
     
     addChild(pagingViewController)
     view.addSubview(pagingViewController.view)
@@ -27,17 +46,17 @@ class PagingViewControllerExampleViewController: BaseViewController {
 
 extension PagingViewControllerExampleViewController: PagingViewControllerDataSource {
 	func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
-		return 15
+    return movies.count
 	}
   
   func pagingViewController(_ pagingViewController: PagingViewController, pagingItemAt index: Int) -> PagingItem {
-    return PagingIndexItem(index: index, title: "\(index)")
+    return PagingIndexItem(index: index, title: movies[index])
   }
   
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
     let viewController = PagingContentViewController()
-    viewController.label.text = "\(index)"
-		viewController.title = "\(index)"
+    viewController.label.text = movies[index]
+		viewController.title = movies[index]
     return viewController
   }
   

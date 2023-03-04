@@ -1,9 +1,9 @@
 PODS:
-  - SwiftElements (0.0.18):
-    - SwiftElements/PagingViewController (= 0.0.18)
-    - SwiftElements/PhotonActionSheet (= 0.0.18)
-  - SwiftElements/PagingViewController (0.0.18)
-  - SwiftElements/PhotonActionSheet (0.0.18)
+  - SwiftElements (0.0.19):
+    - SwiftElements/PagingViewController (= 0.0.19)
+    - SwiftElements/PhotonActionSheet (= 0.0.19)
+  - SwiftElements/PagingViewController (0.0.19)
+  - SwiftElements/PhotonActionSheet (0.0.19)
 
 DEPENDENCIES:
   - SwiftElements (from `../`)
@@ -13,7 +13,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  SwiftElements: 452ce86480ac657f6183a0959f982de8fae9da27
+  SwiftElements: 198460f38c3411152402b29242ba89ac73ef4683
 
 PODFILE CHECKSUM: 2f0d3eed471ce4bd6bba01b3d3c5c8e5281f16ce
 

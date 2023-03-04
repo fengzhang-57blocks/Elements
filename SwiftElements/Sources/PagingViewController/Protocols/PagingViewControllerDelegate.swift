@@ -27,7 +27,7 @@ public protocol PagingViewControllerDelegate: AnyObject {
   )
 }
 
-extension PagingViewControllerDelegate {
+public extension PagingViewControllerDelegate {
   func pagingViewController(_ pagingViewController: PagingViewController, didSelectItem item: PagingItem) {}
   
   func pagingViewController(

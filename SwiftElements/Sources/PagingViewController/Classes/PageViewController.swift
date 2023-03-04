@@ -12,7 +12,7 @@ public final class PageViewController: UIViewController {
   
   // MARK: Public Props
 	
-	public private(set) var options: PagingOptions
+	public var options: PagingOptions
   
   public weak var dataSource: PageViewControllerDataSource?
   public weak var delegate: PageViewControllerDelegate?

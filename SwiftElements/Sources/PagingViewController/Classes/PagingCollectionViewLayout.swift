@@ -44,6 +44,7 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 	public var visibleItems: PagingItems = PagingItems(items: [])
 
   internal var sizeCache: PagingItemSizeCache?
+  private var preferredSizeCache: [Int: CGFloat] = [:]
   
   private var invalidateKind: PagingInvalidateKind = .nothing
 
@@ -102,7 +103,17 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 		forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes,
 		withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes
 	) -> Bool {
-		return false
+    switch options.itemSize {
+    case .selfSizing where originalAttributes is PagingCellLayoutAttributes:
+      if originalAttributes.frame.width != preferredAttributes.frame.width {
+        let item = visibleItems.item(for: originalAttributes.indexPath)
+        preferredSizeCache[item.identifier] = preferredAttributes.frame.width
+        return true
+      }
+      return false
+    default:
+      return false
+    }
   }
 
   open override func invalidationContext(
@@ -170,18 +181,19 @@ private extension PagingCollectionViewLayout {
     for index in range {
       let indexPath = IndexPath(item: index, section: 0)
 			let attributes = PagingCellLayoutAttributes(forCellWith: indexPath)
+      
+      let item = visibleItems.item(for: indexPath)
 
       let x = previousFrame.maxX
       let y = previousFrame.minY
 
 			if sizeCache.implementedSizeDelegate {
-				let item = visibleItems.item(for: indexPath)
-				let width = sizeCache.widthForItem(item)
-				// TODO: caculate width
+				var width = sizeCache.widthForItem(item)
+        let selectedWidth = sizeCache.widthForSelectedItem(item)
 				if let selectedItem = state.currentItem, selectedItem.isEqual(to: item) {
-
+          width = distance(from: selectedWidth, to: width, percentage: abs(state.progress))
 				} else if let destinationItem = state.destinationItem, destinationItem.isEqual(to: item) {
-
+          width = distance(from: width, to: selectedWidth, percentage: abs(state.progress))
 				}
 
 				attributes.frame = CGRect(x: x, y: y, width: width, height: options.itemSize.height)
@@ -189,8 +201,14 @@ private extension PagingCollectionViewLayout {
 				switch options.itemSize {
 				case let .fixed(width, height):
 					attributes.frame = CGRect(x: x, y: y, width: width, height: height)
+        case let .sizeToFit(minWidth, height):
+          attributes.frame = CGRect(x: x, y: y, width: minWidth, height: height)
 				case let .selfSizing(estimatedWidth, height):
-					attributes.frame = CGRect(x: x, y: y, width: estimatedWidth, height: height)
+          if let actualSize = preferredSizeCache[item.identifier] {
+            attributes.frame = CGRect(x: x, y: y, width: actualSize, height: height)
+          } else {
+            attributes.frame = CGRect(x: x, y: y, width: estimatedWidth, height: height)
+          }
 				}
 			}
 

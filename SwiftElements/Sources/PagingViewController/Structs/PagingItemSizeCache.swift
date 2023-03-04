@@ -10,7 +10,7 @@ import Foundation
 class PagingItemSizeCache {
   var options: PagingOptions
   var implementedSizeDelegate: Bool = false
-  var sizeForPagingMenuItem: ((PagingItem, Bool) -> CGFloat?)?
+  var sizeForPagingItem: ((PagingItem, Bool) -> CGFloat?)?
   
   private var cachedSize: [Int: CGFloat] = [:]
   private var selectedCachedSize: [Int: CGFloat] = [:]
@@ -29,7 +29,7 @@ class PagingItemSizeCache {
       return size
     }
     
-    let size = sizeForPagingMenuItem?(item, false)
+    let size = sizeForPagingItem?(item, false)
     cachedSize[item.identifier] = size
     return size ?? options.estimatedItemWidth
   }
@@ -39,7 +39,7 @@ class PagingItemSizeCache {
       return size
     }
     
-    let size = sizeForPagingMenuItem?(item, false)
+    let size = sizeForPagingItem?(item, false)
     cachedSize[item.identifier] = size
     return size ?? options.estimatedItemWidth
   }

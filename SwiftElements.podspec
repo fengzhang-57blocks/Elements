@@ -10,11 +10,11 @@ Pod::Spec.new do |spec|
   spec.source = { :git => 'https://github.com/fengzhang-57blocks/SwiftElements.git', :tag => '0.0.19' }
 
   spec.subspec 'PagingViewController' do |s|
-    s.source_files = 'SwiftElements/Sources/PagingViewController/*/**.swift'
+    s.source_files = 'SwiftElements/Sources/PagingViewController/Classes/**.swift', 'SwiftElements/Sources/PagingViewController/Enums/**.swift', 'SwiftElements/Sources/PagingViewController/Extensions/**.swift', 'SwiftElements/Sources/PagingViewController/Structs/**.swift', 'SwiftElements/Sources/PagingViewController/Protocols/**.swift'
   end
 
   spec.subspec 'PhotonActionSheet' do |s|
-    s.source_files = 'SwiftElements/Sources/PhotonActionSheet/*/**.swift'
+    s.source_files = 'SwiftElements/Sources/PhotonActionSheet/Classes/**.swift', 'SwiftElements/Sources/PhotonActionSheet/Structs/**.swift', 'SwiftElements/Sources/PhotonActionSheet/Extensions/**.swift'
     s.resource = 'SwiftElements/Sources/PhotonActionSheet/Resources/*.bundle'
   end
 

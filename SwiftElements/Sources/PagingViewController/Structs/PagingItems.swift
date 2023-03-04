@@ -8,7 +8,7 @@
 import Foundation
 
 public struct PagingItems {
-	let items: [PagingItem]
+	public let items: [PagingItem]
   
 	private var cachedItems: [Int: PagingItem] = [:]
 	

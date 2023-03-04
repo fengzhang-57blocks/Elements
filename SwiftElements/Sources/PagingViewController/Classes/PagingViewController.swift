@@ -19,7 +19,13 @@ open class PagingViewController: UIViewController {
   
   // MARK: Public Props
   
-  public private(set) var options: PagingOptions
+  public private(set) var options: PagingOptions {
+    didSet {
+      collectionViewLayout.options = options
+      pageViewController.options = options
+      pagingView.options = options
+    }
+  }
   public private(set) var state: PagingState {
     didSet {
       collectionViewLayout.state = state
@@ -70,6 +76,7 @@ open class PagingViewController: UIViewController {
 		collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
 		pageViewController = PageViewController(options: options)
 		super.init(nibName: nil, bundle: nil)
+    collectionViewLayout.options = options
 		configure()
     
     register(PagingTitleCell.self, for: PagingIndexItem.self)
@@ -365,16 +372,30 @@ private extension PagingViewController {
   func reloadItems(around item: PagingItem) {
     let items = generateItems(around: item)
 
+    let prevLayoutAttributes = collectionViewLayout.layoutAttributes
     let prevContentOffset = collectionView.contentOffset
+    let prevItems = visibleItems
+    
+    configureSizeDelegate()
 
     visibleItems = PagingItems(items: items)
     
     collectionView.reloadData()
     collectionViewLayout.prepare()
 		
-		// FIXME: offset
+    var offset: CGFloat = 0
     
-    let offset: CGFloat = 0
+    let diff = PagingItemsDiff(previous: prevItems, new: visibleItems)
+    
+    for indexPath in diff.added() {
+      offset += collectionViewLayout.layoutAttributes[indexPath]?.bounds.width ?? 0
+      offset += options.itemSpacing
+    }
+    
+    for indexPath in diff.removed() {
+      offset -= prevLayoutAttributes[indexPath]?.bounds.width ?? 0
+      offset -= options.itemSpacing
+    }
 
     collectionView.setContentOffset(
       CGPoint(
@@ -413,7 +434,7 @@ private extension PagingViewController {
     var widthBefore = menuWidth
     while widthBefore > 0 {
       if let beforeItem = infiniteDataSource?.pagingViewController(self, itemBefore: prevBeforeItem) {
-        widthBefore -= itemWidth(for: beforeItem)
+        widthBefore -= width(forItem: beforeItem)
         widthBefore -= options.itemSpacing
         items.insert(beforeItem, at: 0)
         prevBeforeItem = beforeItem
@@ -425,7 +446,7 @@ private extension PagingViewController {
     var widthAfter = menuWidth + widthBefore
     while widthAfter > 0 {
       if let afterItem = infiniteDataSource?.pagingViewController(self, itemAfter: prevAfterItem) {
-        widthAfter -= itemWidth(for: afterItem)
+        widthAfter -= width(forItem: afterItem)
         widthAfter -= options.itemSpacing
         items.append(afterItem)
         prevAfterItem = afterItem
@@ -437,7 +458,7 @@ private extension PagingViewController {
     var remainingWidth = widthAfter
     while remainingWidth > 0 {
       if let beforeItem = infiniteDataSource?.pagingViewController(self, itemBefore: prevBeforeItem) {
-        remainingWidth -= itemWidth(for: beforeItem)
+        remainingWidth -= width(forItem: beforeItem)
         items.insert(beforeItem, at: 0)
         prevBeforeItem = beforeItem
       } else {
@@ -448,7 +469,20 @@ private extension PagingViewController {
     return items
   }
   
-  func itemWidth(for item: PagingItem) -> CGFloat {
+  func configureSizeDelegate() {
+    if sizeDelegate != nil {
+      sizeCache.implementedSizeDelegate = true
+      sizeCache.sizeForPagingItem = { [weak self] item, isSelected in
+        self?.width(forItem: item, isSelected: isSelected)
+      }
+    }
+  }
+  
+  func width(forItem item: PagingItem, isSelected: Bool) -> CGFloat {
+    return sizeDelegate?.pagingViewController(self, widthForItem: item, selected: isSelected) ?? 0
+  }
+  
+  func width(forItem item: PagingItem) -> CGFloat {
     guard let currentItem = state.currentItem else {
       return options.estimatedItemWidth
     }

@@ -9,6 +9,7 @@ import Foundation
 
 public enum PagingItemSize {
   case fixed(width: CGFloat, height: CGFloat)
+  case sizeToFit(minWidth: CGFloat, height: CGFloat)
   case selfSizing(estimatedWidth: CGFloat, height: CGFloat)
 }
 
@@ -17,6 +18,8 @@ public extension PagingItemSize {
     switch self {
     case let .fixed(width, _):
       return width
+    case let .sizeToFit(minWidth, _):
+      return minWidth
     case let .selfSizing(estimatedWidth, _):
       return estimatedWidth
     }
@@ -25,6 +28,8 @@ public extension PagingItemSize {
 	var height: CGFloat {
     switch self {
     case let .fixed(_, height):
+      return height
+    case let .sizeToFit(_, height):
       return height
     case let .selfSizing(_, height):
       return height

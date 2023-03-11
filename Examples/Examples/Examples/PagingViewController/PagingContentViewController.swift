@@ -15,6 +15,12 @@ class PagingContentViewController: BaseViewController {
     return label
   }()
   
+  override var title: String? {
+    didSet {
+      label.text = title
+    }
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     view.addSubview(label)

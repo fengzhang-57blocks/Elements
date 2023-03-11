@@ -136,8 +136,8 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 
   open override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     var layoutAttributes: [UICollectionViewLayoutAttributes] = Array(self.layoutAttributes.values)
-    for each in layoutAttributes {
-      if let attrs = each as? PagingCellLayoutAttributes {
+    for attrs in layoutAttributes {
+      if let attrs = attrs as? PagingCellLayoutAttributes {
 				attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
       }
     }
@@ -274,12 +274,12 @@ private extension PagingCollectionViewLayout {
 			return upcomingIndexPath
     }
 
-		if indexPath.item == (0..<view.numberOfSections).lowerBound {
-			return IndexPath(item: indexPath.item + 1, section: 0)
+		if indexPath.item == range.lowerBound {
+			return IndexPath(item: indexPath.item - 1, section: 0)
 		}
 
-		if indexPath.item == (0..<view.numberOfSections).upperBound {
-			return IndexPath(item: indexPath.item - 1, section: 0)
+		if indexPath.item == range.upperBound - 1 {
+			return IndexPath(item: indexPath.item + 1, section: 0)
 		}
 
     return indexPath
@@ -325,10 +325,25 @@ private extension PagingCollectionViewLayout {
   }
 
   func progressForCellLayoutAttributes(at indexPath: IndexPath) -> CGFloat {
-    guard let _ = state.currentItem else {
+    guard let currentItem = state.currentItem else {
       return 0
     }
-
+    
+    let currentIndexPath = visibleItems.indexPath(for: currentItem)
+    
+    if let currentIndexPath = currentIndexPath {
+      if currentIndexPath.item == indexPath.item {
+        return 1 - abs(state.progress)
+      }
+    }
+    
+    if let currentIndexPath = currentIndexPath,
+       let upcomingIndexPath = upcomingIndexPath(for: currentIndexPath) {
+      if upcomingIndexPath.item == indexPath.item {
+        return abs(state.progress)
+      }
+    }
+    
     return 0
   }
 }

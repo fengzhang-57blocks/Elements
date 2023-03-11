@@ -17,10 +17,13 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
 	}
 	
 	open override func isEqual(_ object: Any?) -> Bool {
-		guard let rhs = object as? PagingIndicatorLayoutAttributes,
-				rhs.backgroundColor != backgroundColor else {
+		guard let rhs = object as? PagingIndicatorLayoutAttributes else {
 			return false
 		}
+    
+    if rhs.backgroundColor != backgroundColor {
+      return false
+    }
 		
 		return super.isEqual(object)
 	}

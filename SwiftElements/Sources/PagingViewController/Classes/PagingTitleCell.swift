@@ -10,6 +10,8 @@ import UIKit
 open class PagingTitleCell: PagingCell {
   public let titleLabel: UILabel = UILabel()
   
+  public private(set) var options: PagingOptions?
+  
   private lazy var horizontalConstaints: [NSLayoutConstraint] = {
     return NSLayoutConstraint.constraints(
       withVisualFormat: "H:|[titleLabel]|",
@@ -51,6 +53,8 @@ open class PagingTitleCell: PagingCell {
   }
   
 	open override func setItem(_ item: PagingItem, selected: Bool, options: PagingOptions) {
+    self.options = options
+    
 		if let indexItem = item as? PagingIndexItem {
 			titleLabel.text = "\(indexItem.title)"
 		}
@@ -80,5 +84,25 @@ open class PagingTitleCell: PagingCell {
 	// TODO: color transition
 	open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
 		super.apply(layoutAttributes)
+    
+    guard let attr = layoutAttributes as? PagingCellLayoutAttributes else {
+      return
+    }
+    
+    guard let options = options else {
+      return
+    }
+    
+    titleLabel.textColor = UIColor.interpolate(
+      from: options.textColor,
+      to: options.selectedTextColor,
+      percentage: attr.progress
+    )
+    
+    backgroundColor = UIColor.interpolate(
+      from: options.backgroundColor,
+      to: options.selectedBackgroundColor,
+      percentage: attr.progress
+    )
 	}
 }

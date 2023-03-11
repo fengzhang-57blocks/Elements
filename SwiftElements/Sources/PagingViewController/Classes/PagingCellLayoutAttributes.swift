@@ -17,10 +17,13 @@ open class PagingCellLayoutAttributes: UICollectionViewLayoutAttributes {
 	}
 	
 	open override func isEqual(_ object: Any?) -> Bool {
-		guard let rhs = object as? PagingCellLayoutAttributes,
-					rhs.progress != progress else {
+		guard let rhs = object as? PagingCellLayoutAttributes else {
 			return false
 		}
+    
+    if rhs.progress != progress {
+      return false
+    }
 		
 		return super.isEqual(object)
 	}

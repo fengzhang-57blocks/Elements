@@ -24,14 +24,6 @@ open class PagingViewController: UIViewController {
     set { options.pageScrollDirection = newValue }
   }
   
-  public var contentInteraction: PagingInteraction {
-    get { return options.contentInteraction }
-    set {
-      options.contentInteraction = newValue
-      configureContentInteraction()
-    }
-  }
-  
   public var menuPosition: PagingMenuPosition {
     get { return options.menuPosition }
     set { options.menuPosition = newValue }
@@ -68,6 +60,14 @@ open class PagingViewController: UIViewController {
   public var menuBackgroundColor: UIColor {
     get { return options.menuBackgroundColor }
     set { options.menuBackgroundColor = newValue }
+  }
+  
+  public var contentInteraction: PagingInteraction {
+    get { return options.contentInteraction }
+    set {
+      options.contentInteraction = newValue
+      configureContentInteraction()
+    }
   }
   
   public var itemSize: PagingItemSize {
@@ -254,6 +254,7 @@ open class PagingViewController: UIViewController {
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
+    pageViewController.willMove(toParent: self)
 		addChild(pageViewController)
     pagingView.createLayout()
 		pageViewController.didMove(toParent: self)

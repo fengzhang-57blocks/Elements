@@ -215,6 +215,31 @@ private extension PagingCollectionViewLayout {
 			layoutAttributes[indexPath] = attributes
       previousFrame = attributes.frame
     }
+    
+    if previousFrame.maxX - options.menuInsets.left < view.bounds.width {
+      switch options.itemSize {
+      case let .sizeToFit(_, height) where sizeCache.implementedSizeDelegate == false:
+        previousFrame = .zero
+        previousFrame.origin.x = options.menuInsets.left
+        let width = (view.bounds.width - options.menuInsets.horizontal - options.itemSpacing * CGFloat(range.upperBound - 1)) / CGFloat(range.upperBound)
+        for attrs in layoutAttributes.values.sorted(by: { $0.indexPath < $1.indexPath }) {
+          attrs.frame = CGRect(
+            x: previousFrame.maxX + options.itemSpacing,
+            y: options.menuInsets.top,
+            width: width,
+            height: height
+          )
+          previousFrame = attrs.frame
+        }
+      default:
+        if case .centeredHorizontally = options.menuScrollPosition {
+          for attrs in layoutAttributes.values.sorted(by: { $0.indexPath < $1.indexPath }) {
+            let offset = (view.bounds.width - previousFrame.maxX - options.menuInsets.left) / 2
+            attrs.frame = attrs.frame.offsetBy(dx: offset, dy: 0)
+          }
+        }
+      }
+    }
 
 		contentSize = CGSize(width: previousFrame.maxX, height: view.bounds.height)
 
@@ -248,7 +273,7 @@ private extension PagingCollectionViewLayout {
 
     if let fromItem = state.currentItem {
       if let currentIndexPath = visibleItems.indexPath(for: fromItem),
-          let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
+         let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
         let from = PagingItemLayout(frame: indicatorFrame(for: currentIndexPath))
         let to = PagingItemLayout(frame: indicatorFrame(for: upcomingInexPath))
         let progress = abs(state.progress)

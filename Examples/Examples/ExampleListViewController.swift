@@ -31,8 +31,8 @@ class ExampleListViewController: UITableViewController {
 	
 	func getDemos() -> [Demo] {
 		return [
-      Demo(title: "PhotonActionSheet", ViewController: PhotonActionSheetExampleViewController.self),
       Demo(title: "PagingViewController", ViewController: PagingViewControllerExampleViewController.self),
+      Demo(title: "PhotonActionSheet", ViewController: PhotonActionSheetExampleViewController.self),
 		]
 	}
 

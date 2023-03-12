@@ -10,8 +10,6 @@ import UIKit
 public struct PagingOptions {
   public var pageScrollDirection: PageScrollDirection
   
-  public var contentInteraction: PagingInteraction
-  
   public var menuPosition: PagingMenuPosition
   public var menuInteraction: PagingInteraction
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
@@ -22,6 +20,8 @@ public struct PagingOptions {
     return itemSize.height + menuInsets.top + menuInsets.bottom
   }
   public var menuBackgroundColor: UIColor
+  
+  public var contentInteraction: PagingInteraction
   
   public var itemSize: PagingItemSize
   public var itemSpacing: CGFloat
@@ -54,7 +54,6 @@ public struct PagingOptions {
   
 	public init(
     pageScrollDirection: PageScrollDirection = .horizontal,
-    contentInteraction: PagingInteraction = .scrolling,
     
     menuPosition: PagingMenuPosition = .top,
     menuInteraction: PagingInteraction = .scrolling,
@@ -63,6 +62,8 @@ public struct PagingOptions {
     menuAlignment: PagingMenuAlignment = .left,
     menuInsets: UIEdgeInsets = .zero,
     menuBackgroundColor: UIColor = .white,
+    
+    contentInteraction: PagingInteraction = .scrolling,
     
     itemSize: PagingItemSize = .sizeToFit(minWidth: 150, height: 40),
     itemSpacing: CGFloat = 0,
@@ -84,7 +85,6 @@ public struct PagingOptions {
     selectedTextColor: UIColor = .systemBlue
 	) {
     self.pageScrollDirection = pageScrollDirection
-    self.contentInteraction = contentInteraction
     
 		self.menuPosition = menuPosition
     self.menuInteraction = menuInteraction
@@ -93,6 +93,8 @@ public struct PagingOptions {
     self.menuAlignment = menuAlignment
     self.menuInsets = menuInsets
     self.menuBackgroundColor = menuBackgroundColor
+    
+    self.contentInteraction = contentInteraction
     
     self.itemSize = itemSize
     self.itemSpacing = itemSpacing

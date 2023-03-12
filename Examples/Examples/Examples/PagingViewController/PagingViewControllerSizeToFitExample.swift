@@ -1,5 +1,5 @@
 //
-//  PagingViewControllerSelfSizingExample.swift
+//  PagingViewControllerSizeToFitExample.swift
 //  Examples
 //
 //  Created by feng.zhang on 2023/3/11.
@@ -12,10 +12,10 @@ class PagingViewControllerSizeToFitExample: BaseViewController {
   
   private let movies = [
 //    "The Godfather",
-//    "The Shawshank Redemption",
+    "The Shawshank Redemption",
 //    "Schindler's List",
     "Raging Bull",
-    "Casablanca",
+//    "Casablanca",
 //    "Citizen Kane",
 //    "Gone with the Wind",
 //    "The Wizard of Oz",

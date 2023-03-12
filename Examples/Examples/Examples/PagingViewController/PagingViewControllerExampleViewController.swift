@@ -33,7 +33,7 @@ extension PagingViewControllerExampleViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch examples[indexPath.row] {
     case "Self Sizing":
-      navigationController?.pushViewController(PagingViewControllerSelfSizingExample(), animated: true)
+      navigationController?.pushViewController(PagingViewControllerSizeToFitExample(), animated: true)
     case "Navigation Bar Title View":
       navigationController?.pushViewController(PagingViewControllerTitleViewExample(), animated: true)
     default:

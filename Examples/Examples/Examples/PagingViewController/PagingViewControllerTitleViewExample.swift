@@ -46,11 +46,11 @@ class TitleViewPagingViewController: PagingViewController {
 
 class PagingViewControllerTitleViewExample: BaseViewController {
   let pagingOptions = PagingOptions(
+    backgroundColor: .clear,
+    selectedBackgroundColor: .clear,
     indicatorOptions: .hidden,
     borderOptions: .hidden,
-    textColor: .white,
-    backgroundColor: .clear,
-    selectedBackgroundColor: .clear
+    textColor: .white
   )
   
   lazy var pagingViewController: TitleViewPagingViewController = {

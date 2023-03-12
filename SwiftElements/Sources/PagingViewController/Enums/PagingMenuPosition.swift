@@ -7,7 +7,11 @@
 
 import Foundation
 
+// TODO: left & right position for menu
+
 public enum PagingMenuPosition {
   case top
+  // case right
   case bottom
+  // case left
 }

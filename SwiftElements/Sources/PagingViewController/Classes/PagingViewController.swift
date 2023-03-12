@@ -17,6 +17,134 @@ extension PagingViewController {
 
 open class PagingViewController: UIViewController {
   
+  // MARK: Override Options Props
+  
+  public var pageScrollDirection: PageScrollDirection {
+    get { return options.pageScrollDirection }
+    set { options.pageScrollDirection = newValue }
+  }
+  
+  public var contentInteraction: PagingInteraction {
+    get { return options.contentInteraction }
+    set {
+      options.contentInteraction = newValue
+      configureContentInteraction()
+    }
+  }
+  
+  public var menuPosition: PagingMenuPosition {
+    get { return options.menuPosition }
+    set { options.menuPosition = newValue }
+  }
+  
+  public var menuInteraction: PagingInteraction {
+    get { return options.menuInteraction }
+    set {
+      options.menuInteraction = newValue
+      configureMenuInteraction()
+    }
+  }
+  
+  public var menuTransitionBehaviour: PagingMenuTransitionBehaviour {
+    get { return options.menuTransitionBehaviour }
+    set { options.menuTransitionBehaviour = newValue }
+  }
+  
+  public var menuScrollPosition: PagingMenuScrollPosition {
+    get { return options.menuScrollPosition }
+    set { options.menuScrollPosition = newValue }
+  }
+  
+  public var menuAlignment: PagingMenuAlignment {
+    get { return options.menuAlignment }
+    set { options.menuAlignment = newValue }
+  }
+  
+  public var menuInsets: UIEdgeInsets {
+    get { return options.menuInsets }
+    set { options.menuInsets = newValue }
+  }
+  
+  public var menuBackgroundColor: UIColor {
+    get { return options.menuBackgroundColor }
+    set { options.menuBackgroundColor = newValue }
+  }
+  
+  public var itemSize: PagingItemSize {
+    get { return options.itemSize }
+    set { options.itemSize = newValue }
+  }
+  
+  public var itemSpacing: CGFloat {
+    get { return options.itemSpacing }
+    set { options.itemSpacing = newValue }
+  }
+  
+  public var itemLabelInsets: UIEdgeInsets {
+    get { return options.itemLabelInsets }
+    set { options.itemLabelInsets = newValue }
+  }
+  
+  public var backgroundColor: UIColor {
+    get { return options.backgroundColor }
+    set { options.backgroundColor = newValue }
+  }
+  
+  public var selectedBackgroundColor: UIColor {
+    get { return options.selectedBackgroundColor }
+    set { options.selectedBackgroundColor = newValue }
+  }
+  
+  public var indicatorClass: PagingIndicatorView.Type {
+    get { return options.indicatorClass }
+    set { options.indicatorClass = newValue }
+  }
+  
+  public var indicatorOptions: PagingIndicatorOptions {
+    get { return options.indicatorOptions }
+    set { options.indicatorOptions = newValue }
+  }
+  
+  public var indicatorColor: UIColor {
+    get { return options.indicatorColor }
+    set { options.indicatorColor = newValue }
+  }
+  
+  public var borderClass: PagingBorderView.Type {
+    get { return options.borderClass }
+    set { options.borderClass = newValue }
+  }
+  
+  public var borderOptions: PagingBorderOptions {
+    get { return options.borderOptions }
+    set { options.borderOptions = newValue }
+  }
+  
+  public var borderColor: UIColor {
+    get { return options.borderColor }
+    set { options.borderColor = newValue }
+  }
+  
+  public var font: UIFont {
+    get { return options.font }
+    set { options.font = newValue }
+  }
+  
+  public var selectedFont: UIFont {
+    get { return options.selectedFont }
+    set { options.selectedFont = newValue }
+  }
+  
+  public var textColor: UIColor {
+    get { return options.textColor }
+    set { options.textColor = newValue }
+  }
+  
+  public var selectedTextColor: UIColor {
+    get { return options.selectedTextColor }
+    set { options.selectedTextColor = newValue }
+  }
+  
   // MARK: Public Props
   
   public private(set) var options: PagingOptions {
@@ -24,8 +152,16 @@ open class PagingViewController: UIViewController {
       collectionViewLayout.options = options
       pageViewController.options = options
       pagingView.options = options
+      sizeCache.options = options
+      
+      if options.menuInteraction != oldValue.menuInteraction {
+        configureMenuInteraction()
+      }
+      
+      collectionViewLayout.invalidateLayout()
     }
   }
+  
   public private(set) var state: PagingState {
     didSet {
       collectionViewLayout.state = state
@@ -124,6 +260,9 @@ open class PagingViewController: UIViewController {
     
     pageViewController.delegate = self
 		pageViewController.dataSource = self
+    
+    configureMenuInteraction()
+    configureContentInteraction()
 	}
   
   open override func viewDidLayoutSubviews() {
@@ -249,6 +388,7 @@ private extension PagingViewController {
 		collectionViewLayout.state = state
 		collectionViewLayout.sizeCache = sizeCache
 		
+    collectionView.backgroundColor = options.backgroundColor
 		collectionView.contentInsetAdjustmentBehavior = .never
 
 		collectionView.delegate = self
@@ -280,6 +420,24 @@ private extension PagingViewController {
     
     if let firstItem = dataSource.items.first {
       selectItem(firstItem, animated: false)
+    }
+  }
+  
+  func configureMenuInteraction() {
+    switch options.menuInteraction {
+    case .scrolling:
+      pageViewController.scrollView.isScrollEnabled = true
+    case .none:
+      pageViewController.scrollView.isScrollEnabled = false
+    }
+  }
+  
+  func configureContentInteraction() {
+    switch options.contentInteraction {
+    case .scrolling:
+      collectionView.isScrollEnabled = true
+    case .none:
+      collectionView.isScrollEnabled = false
     }
   }
   
@@ -617,8 +775,6 @@ extension PagingViewController: PageViewControllerDelegate {
         return
       }
 			
-			// FIXME: calculate content offset
-      
       let transitionDistance = calculateTransitionDistance(from: currentItem, to: toItem)
 
       updateScrollingState(

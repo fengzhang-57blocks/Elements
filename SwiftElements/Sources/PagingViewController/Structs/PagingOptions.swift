@@ -8,11 +8,20 @@
 import UIKit
 
 public struct PagingOptions {
-  public var menuPosition: PagingMenuPosition
-	
   public var pageScrollDirection: PageScrollDirection
-	
+  
+  public var contentInteraction: PagingInteraction
+  
+  public var menuPosition: PagingMenuPosition
+  public var menuInteraction: PagingInteraction
   public var menuTransitionBehaviour: PagingMenuTransitionBehaviour
+  public var menuScrollPosition: PagingMenuScrollPosition
+  public var menuAlignment: PagingMenuAlignment
+  public var menuInsets: UIEdgeInsets
+  public var menuHeight: CGFloat {
+    return itemSize.height + menuInsets.top + menuInsets.bottom
+  }
+  public var menuBackgroundColor: UIColor
   
   public var itemSize: PagingItemSize
   public var itemSpacing: CGFloat
@@ -27,11 +36,8 @@ public struct PagingOptions {
       return minWidth
     }
   }
-	
-	public var menuInsets: UIEdgeInsets
-	public var menuHeight: CGFloat {
-		return itemSize.height + menuInsets.top + menuInsets.bottom
-	}
+  public var backgroundColor: UIColor
+  public var selectedBackgroundColor: UIColor
 	
 	public var indicatorClass: PagingIndicatorView.Type
   public var indicatorOptions: PagingIndicatorOptions
@@ -46,18 +52,23 @@ public struct PagingOptions {
   public var textColor: UIColor
   public var selectedTextColor: UIColor
   
-  public var backgroundColor: UIColor
-  public var selectedBackgroundColor: UIColor
-	
 	public init(
+    pageScrollDirection: PageScrollDirection = .horizontal,
+    contentInteraction: PagingInteraction = .scrolling,
+    
     menuPosition: PagingMenuPosition = .top,
-		pageScrollDirection: PageScrollDirection = .horizontal,
+    menuInteraction: PagingInteraction = .scrolling,
 		menuTransitionBehaviour: PagingMenuTransitionBehaviour = .scrollAlongside,
+    menuScrollPosition: PagingMenuScrollPosition = .centeredHorizontally,
+    menuAlignment: PagingMenuAlignment = .left,
+    menuInsets: UIEdgeInsets = .zero,
+    menuBackgroundColor: UIColor = .white,
     
     itemSize: PagingItemSize = .sizeToFit(minWidth: 150, height: 40),
     itemSpacing: CGFloat = 0,
     itemLabelInsets: UIEdgeInsets = UIEdgeInsets(horizontal: 15),
-    menuInsets: UIEdgeInsets = .zero,
+    backgroundColor: UIColor = .white,
+    selectedBackgroundColor: UIColor = .white,
     
 		indicatorClass: PagingIndicatorView.Type = PagingIndicatorView.self,
     indicatorOptions: PagingIndicatorOptions = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
@@ -70,20 +81,22 @@ public struct PagingOptions {
     font: UIFont = .systemFont(ofSize: 15, weight: .medium),
     selectedFont: UIFont = .systemFont(ofSize: 15, weight: .medium),
     textColor: UIColor = .black,
-    selectedTextColor: UIColor = .systemBlue,
-    
-    backgroundColor: UIColor = .white,
-    selectedBackgroundColor: UIColor = .white
+    selectedTextColor: UIColor = .systemBlue
 	) {
+    self.pageScrollDirection = pageScrollDirection
+    self.contentInteraction = contentInteraction
+    
 		self.menuPosition = menuPosition
-		self.pageScrollDirection = pageScrollDirection
+    self.menuInteraction = menuInteraction
     self.menuTransitionBehaviour = menuTransitionBehaviour
+    self.menuScrollPosition = menuScrollPosition
+    self.menuAlignment = menuAlignment
+    self.menuInsets = menuInsets
+    self.menuBackgroundColor = menuBackgroundColor
     
     self.itemSize = itemSize
     self.itemSpacing = itemSpacing
     self.itemLabelInsets = itemLabelInsets
-		
-		self.menuInsets = menuInsets
 		
 		self.indicatorClass = indicatorClass
     self.indicatorOptions = indicatorOptions

@@ -130,7 +130,7 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 			return nil
 		}
 
-    attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
+    attrs.progress = progressForLayoutAttributes(at: attrs.indexPath)
 		return attrs
 	}
 
@@ -138,7 +138,7 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
     var layoutAttributes: [UICollectionViewLayoutAttributes] = Array(self.layoutAttributes.values)
     for attrs in layoutAttributes {
       if let attrs = attrs as? PagingCellLayoutAttributes {
-				attrs.progress = progressForCellLayoutAttributes(at: attrs.indexPath)
+				attrs.progress = progressForLayoutAttributes(at: attrs.indexPath)
       }
     }
 
@@ -274,8 +274,8 @@ private extension PagingCollectionViewLayout {
     if let fromItem = state.currentItem {
       if let currentIndexPath = visibleItems.indexPath(for: fromItem),
          let upcomingInexPath = upcomingIndexPath(for: currentIndexPath) {
-        let from = PagingItemLayout(frame: indicatorFrame(for: currentIndexPath))
-        let to = PagingItemLayout(frame: indicatorFrame(for: upcomingInexPath))
+        let from = PagingIndicatorMetric(options: options.indicatorOptions, frame: indicatorFrameForIndex(at: currentIndexPath.item))
+        let to = PagingIndicatorMetric(options: options.indicatorOptions, frame: indicatorFrameForIndex(at: upcomingInexPath.item))
         let progress = abs(state.progress)
         attrs.update(from: from, to: to, progress: progress)
       }
@@ -327,29 +327,8 @@ private extension PagingCollectionViewLayout {
       invalidateLayout()
     }
   }
-
-	func indicatorFrame(for indexPath: IndexPath) -> CGRect {
-		guard let attributes = self.layoutAttributes[indexPath] else {
-			return .zero
-		}
-
-		return attributes.frame
-	}
   
-  func configure() {
-    registerIndicatorClass()
-    registerBorderClass()
-  }
-  
-  func registerIndicatorClass() {
-    register(indicatorClass.self, forDecorationViewOfKind: indicatorKind)
-  }
-  
-  func registerBorderClass() {
-    register(borderClass.self, forDecorationViewOfKind: borderKind)
-  }
-
-  func progressForCellLayoutAttributes(at indexPath: IndexPath) -> CGFloat {
+  func progressForLayoutAttributes(at indexPath: IndexPath) -> CGFloat {
     guard let currentItem = state.currentItem else {
       return 0
     }
@@ -370,5 +349,52 @@ private extension PagingCollectionViewLayout {
     }
     
     return 0
+  }
+
+	func indicatorFrameForIndex(at index: Int) -> CGRect {
+    if index < range.lowerBound {
+      let frame = frameForIndex(at: 0)
+      return frame.offsetBy(dx: -frame.width, dy: 0)
+    } else if index > range.upperBound - 1 {
+      let frame = frameForIndex(at: visibleItems.items.count - 1)
+      return frame.offsetBy(dx: -frame.width, dy: 0)
+    }
+
+    return frameForIndex(at: index)
+	}
+  
+  func frameForIndex(at index: Int) -> CGRect {
+    let indexPath = IndexPath(item: index, section: 0)
+    guard let sizeCache = sizeCache,
+          let attrs = self.layoutAttributes[indexPath] else {
+      return .zero
+    }
+    
+    var frame = CGRect(
+      x: attrs.center.x - attrs.bounds.midX,
+      y: attrs.center.y - attrs.bounds.midY,
+      width: attrs.bounds.width,
+      height: attrs.bounds.height
+    )
+
+    if sizeCache.implementedSizeDelegate {
+      let item = visibleItems.item(for: indexPath)
+      frame.size.width = sizeCache.widthForItem(item)
+    }
+    
+    return frame
+  }
+  
+  func registerIndicatorClass() {
+    register(indicatorClass.self, forDecorationViewOfKind: indicatorKind)
+  }
+  
+  func registerBorderClass() {
+    register(borderClass.self, forDecorationViewOfKind: borderKind)
+  }
+  
+  func configure() {
+    registerIndicatorClass()
+    registerBorderClass()
   }
 }

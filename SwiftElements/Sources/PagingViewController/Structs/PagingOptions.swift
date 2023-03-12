@@ -72,7 +72,7 @@ public struct PagingOptions {
     selectedBackgroundColor: UIColor = .white,
     
 		indicatorClass: PagingIndicatorView.Type = PagingIndicatorView.self,
-    indicatorOptions: PagingIndicatorOptions = .visible(height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
+    indicatorOptions: PagingIndicatorOptions = .visible(width: .flexible, height: 3, spacing: .zero, insets: .zero, zIndex: Int.max),
 		indicatorColor: UIColor = .systemBlue,
     
     borderClass: PagingBorderView.Type = PagingBorderView.self,

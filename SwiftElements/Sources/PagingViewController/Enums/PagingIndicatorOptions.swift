@@ -7,9 +7,15 @@
 
 import UIKit
 
+public enum PagingIndicatorWidth {
+  case flexible
+  case fixed(CGFloat)
+}
+
 public enum PagingIndicatorOptions {
 	case hidden
 	case visible(
+    width: PagingIndicatorWidth,
     height: CGFloat,
     spacing: UIEdgeInsets,
     insets: UIEdgeInsets,

@@ -29,7 +29,7 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
 	}
   
   func configure(with options: PagingOptions) {
-    guard case let .visible(height, _, insets, zindex) = options.indicatorOptions else {
+    guard case let .visible(width, height, _, insets, zindex) = options.indicatorOptions else {
       return
     }
     
@@ -43,19 +43,27 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
       frame.origin.y = insets.bottom
     }
     
+    switch width {
+    case let .fixed(size):
+      frame.size.width = size
+    case .flexible:
+      break
+    }
+    
     zIndex = zindex
   }
   
-  func update(from: PagingItemLayout, to: PagingItemLayout, progress: CGFloat) {
+  func update(from: PagingIndicatorMetric, to: PagingIndicatorMetric, progress: CGFloat) {
 		frame.origin.x = distance(
 			from: from.x,
 			to: to.x,
 			percentage: progress
 		)
-		frame.size.width = distance(
-			from: from.width,
-			to: to.width,
-			percentage: progress
-		)
+    
+    frame.size.width = distance(
+      from: from.width,
+      to: to.width,
+      percentage: progress
+    )
   }
 }

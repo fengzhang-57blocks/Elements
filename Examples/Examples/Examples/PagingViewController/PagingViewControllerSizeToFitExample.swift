@@ -11,28 +11,27 @@ import SwiftElements
 class PagingViewControllerSizeToFitExample: BaseViewController {
   
   private let movies = [
-//    "The Godfather",
+    "The Godfather",
     "The Shawshank Redemption",
-//    "Schindler's List",
+    "Schindler's List",
     "Raging Bull",
-//    "Casablanca",
-//    "Citizen Kane",
-//    "Gone with the Wind",
-//    "The Wizard of Oz",
-//    "One Flew Over the Cuckoo's Nest",
-//    "Lawrence of Arabia",
-//    "Vertigo",
-//    "Psycho",
-//    "The Godfather Part II",
+    "Casablanca",
+    "Citizen Kane",
+    "Gone with the Wind",
+    "The Wizard of Oz",
+    "One Flew Over the Cuckoo's Nest",
+    "Lawrence of Arabia",
+    "Vertigo",
+    "Psycho",
+    "The Godfather Part II",
   ]
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    var options = PagingOptions()
-    options.itemSize = .sizeToFit(minWidth: 100, height: 40)
+    lazy var pagingViewController = PagingViewController()
     
-    lazy var pagingViewController = PagingViewController(options: options)
+    pagingViewController.itemSize = .selfSizing(estimatedWidth: 150, height: 40)
     
     pagingViewController.willMove(toParent: self)
     addChild(pagingViewController)

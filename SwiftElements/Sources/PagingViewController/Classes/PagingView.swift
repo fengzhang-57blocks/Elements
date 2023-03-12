@@ -12,7 +12,12 @@ open class PagingView: UIView {
 	public let collectionView: UICollectionView
 	public let pageView: UIView
 	
-	public var options: PagingOptions
+  public var options: PagingOptions {
+    didSet {
+      collectionView.backgroundColor = options.menuBackgroundColor
+      setupConstraints()
+    }
+  }
   
   private var heightConstraint: NSLayoutConstraint?
 	
@@ -36,9 +41,14 @@ open class PagingView: UIView {
 	open func setupConstraints() {
 		collectionView.translatesAutoresizingMaskIntoConstraints = false
 		pageView.translatesAutoresizingMaskIntoConstraints = false
+    
+    if !constraints.isEmpty {
+      NSLayoutConstraint.deactivate(constraints)
+      heightConstraint = nil
+    }
 
     let metrics = [
-      "height": options.itemSize.height
+      "height": options.menuHeight
     ]
     let views = [
       "collectionView": collectionView,

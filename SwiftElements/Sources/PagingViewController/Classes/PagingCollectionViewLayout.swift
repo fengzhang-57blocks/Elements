@@ -38,8 +38,24 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 	private var contentSize: CGSize = .zero
   public private(set) var contentInsets: UIEdgeInsets = .zero
 	open override var collectionViewContentSize: CGSize {
-		return contentSize
-	}
+    return contentSize
+  }
+  
+  private var menuInsets: UIEdgeInsets {
+    return UIEdgeInsets(
+      top: options.menuInsets.top,
+      left: options.menuInsets.left + safeAreaInsets.left,
+      bottom: options.menuInsets.bottom,
+      right: options.menuInsets.right + safeAreaInsets.right
+    )
+  }
+  
+  private var safeAreaInsets: UIEdgeInsets {
+    if #available(iOS 11.0, *) {
+      return view.safeAreaInsets
+    }
+    return .zero
+  }
 
 	public var visibleItems: PagingItems = PagingItems(items: [])
 
@@ -74,11 +90,11 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
       layoutAttributes = [:]
       indicatorLayoutAttributes = nil
       borderLayoutAttributes = nil
-      createCellLayoutAttributes()
+      createLayoutAttributes()
       createDecorationLayoutAttributes()
     case .size:
       layoutAttributes = [:]
-      createCellLayoutAttributes()
+      createLayoutAttributes()
     case .nothing:
       break
     }
@@ -170,7 +186,7 @@ open class PagingCollectionViewLayout: UICollectionViewLayout {
 }
 
 private extension PagingCollectionViewLayout {
-  func createCellLayoutAttributes() {
+  func createLayoutAttributes() {
 		guard let sizeCache = sizeCache else {
 			return
 		}
@@ -178,6 +194,9 @@ private extension PagingCollectionViewLayout {
     var layoutAttributes: [IndexPath: PagingCellLayoutAttributes] = [:]
 
     var previousFrame: CGRect = .zero
+    previousFrame.origin.x = menuInsets.left + safeAreaInsets.left
+    previousFrame.origin.y = menuInsets.top
+    
     for index in range {
       let indexPath = IndexPath(item: index, section: 0)
 			let attributes = PagingCellLayoutAttributes(forCellWith: indexPath)
@@ -216,16 +235,16 @@ private extension PagingCollectionViewLayout {
       previousFrame = attributes.frame
     }
     
-    if previousFrame.maxX - options.menuInsets.left < view.bounds.width {
+    if previousFrame.maxX - menuInsets.left < view.bounds.width {
       switch options.itemSize {
       case let .sizeToFit(_, height) where sizeCache.implementedSizeDelegate == false:
         previousFrame = .zero
-        previousFrame.origin.x = options.menuInsets.left
-        let width = (view.bounds.width - options.menuInsets.horizontal - options.itemSpacing * CGFloat(range.upperBound - 1)) / CGFloat(range.upperBound)
+        previousFrame.origin.x = menuInsets.left
+        let width = (view.bounds.width - menuInsets.horizontal - options.itemSpacing * CGFloat(range.upperBound - 1)) / CGFloat(range.upperBound)
         for attrs in layoutAttributes.values.sorted(by: { $0.indexPath < $1.indexPath }) {
           attrs.frame = CGRect(
             x: previousFrame.maxX + options.itemSpacing,
-            y: options.menuInsets.top,
+            y: menuInsets.top,
             width: width,
             height: height
           )
@@ -234,14 +253,17 @@ private extension PagingCollectionViewLayout {
       default:
         if case .centeredHorizontally = options.menuScrollPosition {
           for attrs in layoutAttributes.values.sorted(by: { $0.indexPath < $1.indexPath }) {
-            let offset = (view.bounds.width - previousFrame.maxX - options.menuInsets.left) / 2
+            let offset = (view.bounds.width - previousFrame.maxX - menuInsets.left) / 2
             attrs.frame = attrs.frame.offsetBy(dx: offset, dy: 0)
           }
         }
       }
     }
 
-		contentSize = CGSize(width: previousFrame.maxX, height: view.bounds.height)
+    contentSize = CGSize(
+      width: previousFrame.maxX + menuInsets.right,
+      height: view.bounds.height
+    )
 
 		self.layoutAttributes = layoutAttributes
   }

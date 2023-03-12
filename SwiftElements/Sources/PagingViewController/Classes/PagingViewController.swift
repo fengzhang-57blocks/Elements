@@ -254,6 +254,7 @@ open class PagingViewController: UIViewController {
 	
 	open override func viewDidLoad() {
 		super.viewDidLoad()
+    
     pageViewController.willMove(toParent: self)
 		addChild(pageViewController)
     pagingView.createLayout()
@@ -278,7 +279,7 @@ open class PagingViewController: UIViewController {
         collectionView.selectItem(
           at: visibleItems.indexPath(for: item),
           animated: false,
-          scrollPosition: .centeredHorizontally
+          scrollPosition: options.menuScrollPosition
         )
       default:
         break
@@ -298,6 +299,10 @@ public extension PagingViewController {
     collectionView.register(nib, forCellWithReuseIdentifier: String(describing: item))
   }
   
+  func selectItem(_ item: PagingItem) {
+    selectItem(item, animated: false)
+  }
+  
   func selectItem(_ item: PagingItem, animated: Bool) {
     if collectionView.superview == nil || collectionView.window == nil {
       state = .selected(item: item)
@@ -312,7 +317,7 @@ public extension PagingViewController {
       collectionView.selectItem(
         at: visibleItems.indexPath(for: item),
         animated: false,
-        scrollPosition: .centeredHorizontally
+        scrollPosition: options.menuScrollPosition
       )
     case let .selected(currentItem) where !currentItem.isEqual(to: item):
       if animated {
@@ -335,7 +340,7 @@ public extension PagingViewController {
         collectionView.selectItem(
           at: visibleItems.indexPath(for: item),
           animated: animated,
-          scrollPosition: .centeredHorizontally
+          scrollPosition: options.menuScrollPosition
         )
       }
     default:
@@ -427,18 +432,18 @@ private extension PagingViewController {
   func configureMenuInteraction() {
     switch options.menuInteraction {
     case .scrolling:
-      pageViewController.scrollView.isScrollEnabled = true
+      collectionView.isScrollEnabled = true
     case .none:
-      pageViewController.scrollView.isScrollEnabled = false
+      collectionView.isScrollEnabled = false
     }
   }
   
   func configureContentInteraction() {
     switch options.contentInteraction {
     case .scrolling:
-      collectionView.isScrollEnabled = true
+      pageViewController.scrollView.isScrollEnabled = true
     case .none:
-      collectionView.isScrollEnabled = false
+      pageViewController.scrollView.isScrollEnabled = false
     }
   }
   
@@ -824,7 +829,7 @@ extension PagingViewController: PageViewControllerDelegate {
           collectionView.selectItem(
             at: visibleItems.indexPath(for: toItem),
             animated: options.menuTransitionBehaviour == .scrollAlongside,
-            scrollPosition: .centeredHorizontally
+            scrollPosition: options.menuScrollPosition
           )
         }
       } else {

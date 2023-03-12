@@ -33,14 +33,13 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
       return
     }
     
-    backgroundColor = options.indicatorColor
     frame.size.height = height
     
     switch options.menuPosition {
     case .top:
       frame.origin.y = options.menuHeight - height - insets.bottom + insets.top
     case .bottom:
-      frame.origin.y = insets.bottom
+      frame.origin.y = insets.top
     }
     
     switch width {
@@ -49,6 +48,8 @@ open class PagingIndicatorLayoutAttributes: UICollectionViewLayoutAttributes {
     case .flexible:
       break
     }
+    
+    backgroundColor = options.indicatorColor
     
     zIndex = zindex
   }

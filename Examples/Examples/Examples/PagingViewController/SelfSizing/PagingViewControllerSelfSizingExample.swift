@@ -1,5 +1,5 @@
 //
-//  PagingViewControllerSizeToFitExample.swift
+//  PagingViewControllerSelfSizingExample.swift
 //  Examples
 //
 //  Created by feng.zhang on 2023/3/11.
@@ -8,7 +8,7 @@
 import UIKit
 import SwiftElements
 
-class PagingViewControllerSizeToFitExample: BaseViewController {
+class PagingViewControllerSelfSizingExample: BaseViewController {
   
   private let movies = [
     "The Godfather",
@@ -29,9 +29,9 @@ class PagingViewControllerSizeToFitExample: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    lazy var pagingViewController = PagingViewController()
+    let pagingViewController = PagingViewController()
     
-    pagingViewController.itemSize = .selfSizing(estimatedWidth: 150, height: 40)
+//    pagingViewController.menuInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     
     pagingViewController.willMove(toParent: self)
     addChild(pagingViewController)
@@ -43,7 +43,7 @@ class PagingViewControllerSizeToFitExample: BaseViewController {
   }
 }
 
-extension PagingViewControllerSizeToFitExample: PagingViewControllerDataSource {
+extension PagingViewControllerSelfSizingExample: PagingViewControllerDataSource {
   func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
     return movies.count
   }
@@ -53,10 +53,7 @@ extension PagingViewControllerSizeToFitExample: PagingViewControllerDataSource {
   }
   
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-    let viewController = PagingContentViewController()
-    viewController.label.text = movies[index]
-    viewController.title = movies[index]
-    return viewController
+    return PagingContentViewController(title: movies[index])
   }
   
 }

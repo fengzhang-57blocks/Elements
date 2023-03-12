@@ -8,45 +8,31 @@
 import UIKit
 
 class PagingContentViewController: BaseViewController {
-  lazy var label: UILabel = {
-    let label = UILabel()
-    label.textColor = .black
-    label.translatesAutoresizingMaskIntoConstraints = false
-    return label
-  }()
-  
-  override var title: String? {
-    didSet {
-      label.text = title
-    }
+  convenience init(index: Int) {
+    self.init(title: "View \(index)", content: "\(index)")
   }
   
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  convenience init(title: String) {
+    self.init(title: title, content: title)
+  }
+  
+  init(title: String, content: String) {
+    super.init(nibName: nil, bundle: nil)
+    self.title = title
+    
+    let label = UILabel(frame: .zero)
+    label.font = UIFont.systemFont(ofSize: 50, weight: UIFont.Weight.thin)
+    label.textColor = UIColor(red: 95 / 255, green: 102 / 255, blue: 108 / 255, alpha: 1)
+    label.textAlignment = .center
+    label.text = content
+    label.sizeToFit()
+    
     view.addSubview(label)
-    NSLayoutConstraint.activate([
-      label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-      label.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-    ])
+    view.constrainToEdges(label)
+    view.backgroundColor = .white
   }
   
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-//    print("viewWillAppear ", self.title ?? "")
-  }
-  
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-//    print("viewDidAppear ", self.title ?? "")
-  }
-  
-  override func viewWillDisappear(_ animated: Bool) {
-    super.viewWillDisappear(animated)
-//    print("viewWillDisappear ", self.title ?? "")
-  }
-  
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(animated)
-//    print("viewDidDisappear ", self.title ?? "")
+  required init?(coder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
   }
 }

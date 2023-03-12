@@ -22,8 +22,12 @@
 		7EACD19C29A8A7AB007F3D7D /* PagingViewControllerExampleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD19929A8A7AB007F3D7D /* PagingViewControllerExampleViewController.swift */; };
 		7EACD19D29A8A7AB007F3D7D /* PagingContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD19A29A8A7AB007F3D7D /* PagingContentViewController.swift */; };
 		7EACD1A029A8A9D6007F3D7D /* UIView+constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EACD19F29A8A9D6007F3D7D /* UIView+constraints.swift */; };
-		B2B85F9829BCC2990096D58E /* PagingViewControllerSizeToFitExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B85F9729BCC2990096D58E /* PagingViewControllerSizeToFitExample.swift */; };
+		B2B85F9829BCC2990096D58E /* PagingViewControllerSelfSizingExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B85F9729BCC2990096D58E /* PagingViewControllerSelfSizingExample.swift */; };
 		B2B85F9A29BCC4070096D58E /* PagingViewControllerTitleViewExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2B85F9929BCC4070096D58E /* PagingViewControllerTitleViewExample.swift */; };
+		B2D734B929BDEF2100055EDF /* PagingViewControllerCalendarExample.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D734B829BDEF2100055EDF /* PagingViewControllerCalendarExample.swift */; };
+		B2D734BC29BDEFB200055EDF /* PagingCalendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D734BB29BDEFB200055EDF /* PagingCalendarCell.swift */; };
+		B2D734BE29BDEFD700055EDF /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D734BD29BDEFD700055EDF /* DateFormatters.swift */; };
+		B2D734C029BDF03E00055EDF /* UIColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D734BF29BDF03E00055EDF /* UIColorExtensions.swift */; };
 		D4CBB966080EC74F9A722869 /* Pods_Examples.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A62537A245795CC2C87B4EAF /* Pods_Examples.framework */; };
 /* End PBXBuildFile section */
 
@@ -66,8 +70,12 @@
 		7EACD19A29A8A7AB007F3D7D /* PagingContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PagingContentViewController.swift; sourceTree = "<group>"; };
 		7EACD19F29A8A9D6007F3D7D /* UIView+constraints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+constraints.swift"; sourceTree = "<group>"; };
 		A62537A245795CC2C87B4EAF /* Pods_Examples.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Examples.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B2B85F9729BCC2990096D58E /* PagingViewControllerSizeToFitExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerSizeToFitExample.swift; sourceTree = "<group>"; };
+		B2B85F9729BCC2990096D58E /* PagingViewControllerSelfSizingExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerSelfSizingExample.swift; sourceTree = "<group>"; };
 		B2B85F9929BCC4070096D58E /* PagingViewControllerTitleViewExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerTitleViewExample.swift; sourceTree = "<group>"; };
+		B2D734B829BDEF2100055EDF /* PagingViewControllerCalendarExample.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingViewControllerCalendarExample.swift; sourceTree = "<group>"; };
+		B2D734BB29BDEFB200055EDF /* PagingCalendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingCalendarCell.swift; sourceTree = "<group>"; };
+		B2D734BD29BDEFD700055EDF /* DateFormatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+		B2D734BF29BDF03E00055EDF /* UIColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtensions.swift; sourceTree = "<group>"; };
 		C4314860FED4A9A8A494CA67 /* Pods-Examples.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Examples.release.xcconfig"; path = "Target Support Files/Pods-Examples/Pods-Examples.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -192,9 +200,10 @@
 			isa = PBXGroup;
 			children = (
 				7EACD19929A8A7AB007F3D7D /* PagingViewControllerExampleViewController.swift */,
-				B2B85F9729BCC2990096D58E /* PagingViewControllerSizeToFitExample.swift */,
-				B2B85F9929BCC4070096D58E /* PagingViewControllerTitleViewExample.swift */,
 				7EACD19A29A8A7AB007F3D7D /* PagingContentViewController.swift */,
+				B2D734C129BDF22600055EDF /* SelfSizing */,
+				B2D734C229BDF7C700055EDF /* NavigationBar */,
+				B2D734BA29BDEF8F00055EDF /* Calendar */,
 			);
 			path = PagingViewController;
 			sourceTree = "<group>";
@@ -203,8 +212,35 @@
 			isa = PBXGroup;
 			children = (
 				7EACD19F29A8A9D6007F3D7D /* UIView+constraints.swift */,
+				B2D734BF29BDF03E00055EDF /* UIColorExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		B2D734BA29BDEF8F00055EDF /* Calendar */ = {
+			isa = PBXGroup;
+			children = (
+				B2D734B829BDEF2100055EDF /* PagingViewControllerCalendarExample.swift */,
+				B2D734BB29BDEFB200055EDF /* PagingCalendarCell.swift */,
+				B2D734BD29BDEFD700055EDF /* DateFormatters.swift */,
+			);
+			path = Calendar;
+			sourceTree = "<group>";
+		};
+		B2D734C129BDF22600055EDF /* SelfSizing */ = {
+			isa = PBXGroup;
+			children = (
+				B2B85F9729BCC2990096D58E /* PagingViewControllerSelfSizingExample.swift */,
+			);
+			path = SelfSizing;
+			sourceTree = "<group>";
+		};
+		B2D734C229BDF7C700055EDF /* NavigationBar */ = {
+			isa = PBXGroup;
+			children = (
+				B2B85F9929BCC4070096D58E /* PagingViewControllerTitleViewExample.swift */,
+			);
+			path = NavigationBar;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -387,12 +423,16 @@
 				7EACD19C29A8A7AB007F3D7D /* PagingViewControllerExampleViewController.swift in Sources */,
 				7EACD19429A8A791007F3D7D /* ExampleListViewController.swift in Sources */,
 				7EACD19329A8A791007F3D7D /* BaseViewController.swift in Sources */,
-				B2B85F9829BCC2990096D58E /* PagingViewControllerSizeToFitExample.swift in Sources */,
+				B2B85F9829BCC2990096D58E /* PagingViewControllerSelfSizingExample.swift in Sources */,
+				B2D734BE29BDEFD700055EDF /* DateFormatters.swift in Sources */,
+				B2D734BC29BDEFB200055EDF /* PagingCalendarCell.swift in Sources */,
 				7EACD15D29A8A0A2007F3D7D /* AppDelegate.swift in Sources */,
+				B2D734C029BDF03E00055EDF /* UIColorExtensions.swift in Sources */,
 				B2B85F9A29BCC4070096D58E /* PagingViewControllerTitleViewExample.swift in Sources */,
 				7EACD15F29A8A0A2007F3D7D /* SceneDelegate.swift in Sources */,
 				7EACD1A029A8A9D6007F3D7D /* UIView+constraints.swift in Sources */,
 				7EACD19B29A8A7AB007F3D7D /* PhotonActionSheetExampleViewController.swift in Sources */,
+				B2D734B929BDEF2100055EDF /* PagingViewControllerCalendarExample.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

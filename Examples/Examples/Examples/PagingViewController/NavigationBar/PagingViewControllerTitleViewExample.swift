@@ -1,5 +1,5 @@
 //
-//  PagingViewControllerTitleViewExample.swift
+//  PagingViewControllerNavigationBarExample.swift
 //  Examples
 //
 //  Created by feng.zhang on 2023/3/11.
@@ -44,17 +44,17 @@ class TitleViewPagingViewController: PagingViewController {
   }
 }
 
-class PagingViewControllerTitleViewExample: BaseViewController {
-  let pagingOptions = PagingOptions(
-    backgroundColor: .clear,
-    selectedBackgroundColor: .clear,
-    indicatorOptions: .hidden,
-    borderOptions: .hidden,
-    textColor: .white
-  )
+class PagingViewControllerNavigationBarExample: BaseViewController {
+//  let pagingOptions = PagingOptions(
+//    backgroundColor: .clear,
+//    selectedBackgroundColor: .clear,
+////    indicatorOptions: .hidden,
+////    borderOptions: .hidden,
+//    textColor: .white
+//  )
   
   lazy var pagingViewController: TitleViewPagingViewController = {
-    return TitleViewPagingViewController(options: pagingOptions)
+    return TitleViewPagingViewController()
   }()
   
   private let viewTitles = [
@@ -65,6 +65,8 @@ class PagingViewControllerTitleViewExample: BaseViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    pagingViewController.itemSize = .sizeToFit(minWidth: 100, height: 40)
     
     pagingViewController.willMove(toParent: self)
     addChild(pagingViewController)
@@ -86,7 +88,7 @@ class PagingViewControllerTitleViewExample: BaseViewController {
   }
 }
 
-extension PagingViewControllerTitleViewExample: PagingViewControllerDataSource {
+extension PagingViewControllerNavigationBarExample: PagingViewControllerDataSource {
   func numberOfViewControllers(in pagingViewController: PagingViewController) -> Int {
     return viewTitles.count
   }
@@ -96,9 +98,6 @@ extension PagingViewControllerTitleViewExample: PagingViewControllerDataSource {
   }
   
   func pagingViewController(_ pagingViewController: PagingViewController, viewControllerAt index: Int) -> UIViewController {
-    let contentViewController = PagingContentViewController()
-    contentViewController.title = viewTitles[index]
-    
-    return contentViewController
+    return PagingContentViewController(title: viewTitles[index])
   }
 }

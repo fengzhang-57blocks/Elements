@@ -8,7 +8,7 @@
 import UIKit
 
 open class PagingCellLayoutAttributes: UICollectionViewLayoutAttributes {
-	var progress: CGFloat = 0.0
+	open var progress: CGFloat = 0.0
 	
 	open override func copy(with zone: NSZone? = nil) -> Any {
 		let copy = super.copy(with: zone) as! PagingCellLayoutAttributes

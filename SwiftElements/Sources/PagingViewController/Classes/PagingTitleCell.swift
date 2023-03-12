@@ -81,15 +81,11 @@ open class PagingTitleCell: PagingCell {
     }
 	}
 	
-	// TODO: color transition
 	open override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
 		super.apply(layoutAttributes)
     
-    guard let attr = layoutAttributes as? PagingCellLayoutAttributes else {
-      return
-    }
-    
-    guard let options = options else {
+    guard let attr = layoutAttributes as? PagingCellLayoutAttributes,
+          let options = options else {
       return
     }
     

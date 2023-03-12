@@ -11,6 +11,7 @@ class PagingViewControllerExampleViewController: UITableViewController {
   private let examples = [
     "Self Sizing",
     "Navigation Bar Title View",
+    "Calendar"
   ]
   
   override func viewDidLoad() {
@@ -33,9 +34,11 @@ extension PagingViewControllerExampleViewController {
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     switch examples[indexPath.row] {
     case "Self Sizing":
-      navigationController?.pushViewController(PagingViewControllerSizeToFitExample(), animated: true)
+      navigationController?.pushViewController(PagingViewControllerSelfSizingExample(), animated: true)
     case "Navigation Bar Title View":
-      navigationController?.pushViewController(PagingViewControllerTitleViewExample(), animated: true)
+      navigationController?.pushViewController(PagingViewControllerNavigationBarExample(), animated: true)
+    case "Calendar":
+      navigationController?.pushViewController(PagingViewControllerCalendarExample(), animated: true)
     default:
       break
     }
